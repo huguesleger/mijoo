@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
+import 'package:mijoo/core_ui/ds_back_button.dart';
 import 'package:mijoo/main.dart' as app;
 
 void main() {
@@ -49,7 +50,7 @@ void main() {
     await tester.tap(find.text(t.auth.signOut));
     await tester.pumpAndSettle();
     expect(auth.currentUser, isNull);
-    await tester.tap(find.byType(BackButton));
+    await tester.tap(find.byType(DsBackButton));
     await tester.pumpAndSettle();
     await tester.tap(find.text(t.auth.signIn));
     await tester.pumpAndSettle();

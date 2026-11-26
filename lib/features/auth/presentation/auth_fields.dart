@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -32,7 +33,7 @@ class AuthFields extends StatelessWidget {
               DsTextField(
                 label: t.auth.name,
                 hint: t.auth.nameHint,
-                icon: Icons.person_outline_rounded,
+                icon: LucideIcons.user,
                 initialValue: draft.name,
                 autofillHints: const [AutofillHints.name],
                 onChanged: (name) => cubit.update(name: some(name)),
@@ -43,7 +44,7 @@ class AuthFields extends StatelessWidget {
           DsTextField(
             label: t.auth.email,
             hint: t.auth.emailHint,
-            icon: Icons.mail_outline_rounded,
+            icon: LucideIcons.mail,
             initialValue: draft.email,
             keyboardType: TextInputType.emailAddress,
             autofillHints: const [AutofillHints.email],

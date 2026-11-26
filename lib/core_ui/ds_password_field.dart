@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:fpdart/fpdart.dart' show None, Option;
 
 import 'ds_labeled_field.dart';
@@ -45,14 +46,10 @@ class _DsPasswordFieldState extends State<DsPasswordField> {
       decoration: InputDecoration(
         hintText: widget.hint,
         errorText: widget.error.toNullable(),
-        prefixIcon: const Icon(Icons.lock_outline_rounded),
+        prefixIcon: const Icon(LucideIcons.lockKeyhole),
         suffixIcon: IconButton(
           tooltip: _obscured ? widget.showLabel : widget.hideLabel,
-          icon: Icon(
-            _obscured
-                ? Icons.visibility_outlined
-                : Icons.visibility_off_outlined,
-          ),
+          icon: Icon(_obscured ? LucideIcons.eye : LucideIcons.eyeOff),
           onPressed: () => setState(() => _obscured = !_obscured),
         ),
       ),

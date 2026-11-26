@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import 'ds_tokens.dart';
 
@@ -25,7 +26,7 @@ class DsCheckChip extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            checked ? Icons.check_rounded : Icons.circle_outlined,
+            checked ? LucideIcons.check : LucideIcons.circle,
             size: 15,
             color: checked ? DsColors.success : DsColors.neutralChipIcon,
           ),

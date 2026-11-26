@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mijoo/core/firebase/firebase_connection.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
+import 'package:mijoo/core_ui/ds_back_button.dart';
 import 'package:mijoo/features/auth/data/firebase_auth_repository.dart';
 import 'package:mijoo/features/auth/data/firebase_auth_source.dart';
 import 'package:mijoo/features/auth/domain/auth_repository.dart';
@@ -37,7 +38,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(TextFormField), findsNWidgets(4));
 
-      await tester.tap(find.byType(BackButton));
+      await tester.tap(find.byType(DsBackButton));
       await tester.pumpAndSettle();
       await tester.tap(find.text(t.auth.signIn));
       await tester.pumpAndSettle();
