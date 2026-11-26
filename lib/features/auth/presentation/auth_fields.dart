@@ -8,6 +8,7 @@ import '../../../core_ui/ds_password_field.dart';
 import '../../../core_ui/ds_text_field.dart';
 import '../../../core_ui/ds_tokens.dart';
 import 'auth_cubit.dart';
+import 'auth_forgot_password_link.dart';
 import 'auth_mode.dart';
 import 'auth_password_rules.dart';
 
@@ -65,7 +66,7 @@ class AuthFields extends StatelessWidget {
             onChanged: (password) => cubit.update(password: some(password)),
           ),
           ...switch (cubit.mode) {
-            SignInMode() => const <Widget>[],
+            SignInMode() => const [AuthForgotPasswordLink()],
             RegisterMode() => [
               AuthPasswordRules(password: draft.password),
               gap,

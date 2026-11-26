@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/i18n/translations.g.dart';
 import '../../../core_ui/ds_loader.dart';
 import '../../../core_ui/ds_sheet_page.dart';
-import 'auth_account_content.dart';
+import '../../session/presentation/session_redirect.dart';
 import 'auth_cubit.dart';
 import 'auth_form.dart';
 import 'auth_header.dart';
@@ -20,24 +20,18 @@ class AuthScreen extends StatelessWidget {
     final cubit = context.read<AuthCubit>();
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) => DsSheetPage(
-        onBack: () => context.go('/'),
-        header: switch (state) {
-          Authenticated() || AuthSigningOut() || AuthSignOutFailed() =>
-            AuthHeader(lead: t.auth.account, highlight: '', subtitle: none()),
-          AuthEditing() ||
-          AuthFailed() ||
-          AuthSubmitting() => switch (cubit.mode) {
-            SignInMode() => AuthHeader(
-              lead: t.auth.signInLead,
-              highlight: t.auth.signInHighlight,
-              subtitle: some(t.auth.signInSubtitle),
-            ),
-            RegisterMode() => AuthHeader(
-              lead: t.auth.registerLead,
-              highlight: t.auth.registerHighlight,
-              subtitle: some(t.auth.registerSubtitle),
-            ),
-          },
+        onBack: () => context.go(welcomePath),
+        header: switch (cubit.mode) {
+          SignInMode() => AuthHeader(
+            lead: t.auth.signInLead,
+            highlight: t.auth.signInHighlight,
+            subtitle: some(t.auth.signInSubtitle),
+          ),
+          RegisterMode() => AuthHeader(
+            lead: t.auth.registerLead,
+            highlight: t.auth.registerHighlight,
+            subtitle: some(t.auth.registerSubtitle),
+          ),
         },
         child: switch (state) {
           AuthEditing(:final draft) => AuthForm(draft: draft, failure: none()),
@@ -45,13 +39,7 @@ class AuthScreen extends StatelessWidget {
             draft: draft,
             failure: some(failure),
           ),
-          AuthSubmitting() || AuthSigningOut() => const DsLoader(),
-          Authenticated(:final account) => AuthAccountContent(
-            account: account,
-            failure: none(),
-          ),
-          AuthSignOutFailed(:final account, :final failure) =>
-            AuthAccountContent(account: account, failure: some(failure)),
+          AuthSubmitting() || Authenticated() => const DsLoader(),
         },
       ),
     );

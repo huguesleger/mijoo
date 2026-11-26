@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -37,6 +38,27 @@ final class FirebaseAuthSource {
     await auth.signOut();
     return unit;
   });
+
+  TaskEither<AppFailure, Unit> sendPasswordReset(String email) =>
+      _perform((auth) async {
+        await auth.setLanguageCode('fr');
+        await auth.sendPasswordResetEmail(email: email);
+        return unit;
+      });
+
+  Stream<Option<User>> watchUser() => _connection.isConfigured
+      ? Stream.fromFuture(_auth)
+            .asyncExpand((auth) => auth.userChanges())
+            .map(Option.fromNullable)
+            .transform(
+              StreamTransformer.fromHandlers(
+                handleError: (error, stack, sink) {
+                  log('session', name: 'mijoo.auth', stackTrace: stack);
+                  sink.add(const None());
+                },
+              ),
+            )
+      : Stream.value(const None());
 
   Future<User> _createOrResume(
     FirebaseAuth auth,

@@ -50,6 +50,7 @@ abstract final class DsRadius {
   static const pill = BorderRadius.all(Radius.circular(99));
   static const field = BorderRadius.all(Radius.circular(18));
   static const sheet = BorderRadius.vertical(top: Radius.circular(36));
+  static const navigation = BorderRadius.all(Radius.circular(32));
 }
 
 abstract final class DsTextStyles {
@@ -86,6 +87,7 @@ abstract final class DsTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w500,
   );
+  static const navigation = TextStyle(fontSize: 12);
   static const chip = TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500);
   static const caption = TextStyle(
     color: DsColors.secondaryText,

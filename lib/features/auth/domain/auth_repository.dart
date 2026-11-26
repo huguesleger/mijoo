@@ -11,4 +11,6 @@ abstract interface class AuthRepository {
     String password,
   );
   TaskEither<AppFailure, Unit> signOut();
+  TaskEither<AppFailure, Unit> sendPasswordReset(String email);
+  Stream<Option<Account>> watchSession();
 }

@@ -41,8 +41,37 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
+	late final Translations$account$fr account = Translations$account$fr._(_root);
 	late final Translations$auth$fr auth = Translations$auth$fr._(_root);
+	late final Translations$shell$fr shell = Translations$shell$fr._(_root);
 	late final Translations$welcome$fr welcome = Translations$welcome$fr._(_root);
+}
+
+// Path: account
+class Translations$account$fr {
+	Translations$account$fr._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Mon '
+	String get titleLead => 'Mon ';
+
+	/// fr: 'compte'
+	String get titleHighlight => 'compte';
+
+	/// fr: 'Nom'
+	String get name => 'Nom';
+
+	/// fr: 'Adresse e-mail'
+	String get email => 'Adresse e-mail';
+
+	/// fr: 'Non renseigné'
+	String get noName => 'Non renseigné';
+
+	/// fr: 'Se déconnecter'
+	String get signOut => 'Se déconnecter';
 }
 
 // Path: auth
@@ -67,15 +96,6 @@ class Translations$auth$fr {
 
 	/// fr: 'Mot de passe'
 	String get password => 'Mot de passe';
-
-	/// fr: 'Mon compte'
-	String get account => 'Mon compte';
-
-	/// fr: 'Tu es connecté.'
-	String get signedIn => 'Tu es connecté.';
-
-	/// fr: 'Se déconnecter'
-	String get signOut => 'Se déconnecter';
 
 	/// fr: 'Firebase n’est pas configuré sur cette version de Mijoo.'
 	String get firebaseUnavailable => 'Firebase n’est pas configuré sur cette version de Mijoo.';
@@ -160,6 +180,72 @@ class Translations$auth$fr {
 
 	/// fr: 'Pas encore de compte ? '
 	String get noAccount => 'Pas encore de compte ? ';
+
+	/// fr: 'Mot de passe oublié ?'
+	String get forgotPassword => 'Mot de passe oublié ?';
+
+	/// fr: 'Mot de passe '
+	String get forgotLead => 'Mot de passe ';
+
+	/// fr: 'oublié ?'
+	String get forgotHighlight => 'oublié ?';
+
+	/// fr: 'Saisis ton adresse e-mail, on t’envoie un lien pour en choisir un nouveau.'
+	String get forgotSubtitle => 'Saisis ton adresse e-mail, on t’envoie un lien pour en choisir un nouveau.';
+
+	/// fr: 'Envoyer le lien'
+	String get sendResetLink => 'Envoyer le lien';
+
+	/// fr: 'Vérifie ta '
+	String get resetSentLead => 'Vérifie ta ';
+
+	/// fr: 'boîte mail'
+	String get resetSentHighlight => 'boîte mail';
+
+	/// fr: 'Le lien arrive dans quelques instants.'
+	String get resetSentSubtitle => 'Le lien arrive dans quelques instants.';
+
+	/// fr: 'Si un compte existe pour {email}, tu vas recevoir un lien pour choisir un nouveau mot de passe. Pense à regarder dans les courriers indésirables.'
+	String resetSentMessage({required Object email}) => 'Si un compte existe pour ${email}, tu vas recevoir un lien pour choisir un nouveau mot de passe. Pense à regarder dans les courriers indésirables.';
+
+	/// fr: 'Retour à la connexion'
+	String get backToSignIn => 'Retour à la connexion';
+
+	/// fr: 'Tu t’en souviens ? '
+	String get rememberPassword => 'Tu t’en souviens ? ';
+}
+
+// Path: shell
+class Translations$shell$fr {
+	Translations$shell$fr._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Accueil'
+	String get home => 'Accueil';
+
+	/// fr: 'Frigo'
+	String get fridge => 'Frigo';
+
+	/// fr: 'Repas'
+	String get meals => 'Repas';
+
+	/// fr: 'Courses'
+	String get shopping => 'Courses';
+
+	/// fr: 'Bonjour'
+	String get greeting => 'Bonjour';
+
+	/// fr: 'Bonjour {name}'
+	String greetingName({required Object name}) => 'Bonjour ${name}';
+
+	/// fr: 'Cette partie arrive bientôt.'
+	String get comingSoon => 'Cette partie arrive bientôt.';
+
+	/// fr: 'Mon compte'
+	String get account => 'Mon compte';
 }
 
 // Path: welcome
@@ -191,14 +277,17 @@ class Translations$welcome$fr {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'account.titleLead' => 'Mon ',
+			'account.titleHighlight' => 'compte',
+			'account.name' => 'Nom',
+			'account.email' => 'Adresse e-mail',
+			'account.noName' => 'Non renseigné',
+			'account.signOut' => 'Se déconnecter',
 			'auth.signIn' => 'Se connecter',
 			'auth.register' => 'Créer un compte',
 			'auth.name' => 'Nom',
 			'auth.email' => 'Adresse e-mail',
 			'auth.password' => 'Mot de passe',
-			'auth.account' => 'Mon compte',
-			'auth.signedIn' => 'Tu es connecté.',
-			'auth.signOut' => 'Se déconnecter',
 			'auth.firebaseUnavailable' => 'Firebase n’est pas configuré sur cette version de Mijoo.',
 			'auth.invalidCredentials' => 'Vérifie ton adresse e-mail et ton mot de passe.',
 			'auth.emailAlreadyUsed' => 'Un compte utilise déjà cette adresse e-mail.',
@@ -227,6 +316,25 @@ extension on Translations {
 			'auth.ruleSpecial' => 'Un caractère spécial',
 			'auth.haveAccount' => 'Déjà un compte ? ',
 			'auth.noAccount' => 'Pas encore de compte ? ',
+			'auth.forgotPassword' => 'Mot de passe oublié ?',
+			'auth.forgotLead' => 'Mot de passe ',
+			'auth.forgotHighlight' => 'oublié ?',
+			'auth.forgotSubtitle' => 'Saisis ton adresse e-mail, on t’envoie un lien pour en choisir un nouveau.',
+			'auth.sendResetLink' => 'Envoyer le lien',
+			'auth.resetSentLead' => 'Vérifie ta ',
+			'auth.resetSentHighlight' => 'boîte mail',
+			'auth.resetSentSubtitle' => 'Le lien arrive dans quelques instants.',
+			'auth.resetSentMessage' => ({required Object email}) => 'Si un compte existe pour ${email}, tu vas recevoir un lien pour choisir un nouveau mot de passe. Pense à regarder dans les courriers indésirables.',
+			'auth.backToSignIn' => 'Retour à la connexion',
+			'auth.rememberPassword' => 'Tu t’en souviens ? ',
+			'shell.home' => 'Accueil',
+			'shell.fridge' => 'Frigo',
+			'shell.meals' => 'Repas',
+			'shell.shopping' => 'Courses',
+			'shell.greeting' => 'Bonjour',
+			'shell.greetingName' => ({required Object name}) => 'Bonjour ${name}',
+			'shell.comingSoon' => 'Cette partie arrive bientôt.',
+			'shell.account' => 'Mon compte',
 			'welcome.appName' => 'Mijoo',
 			'welcome.titleLead' => 'Cuisine malin\navec ',
 			'welcome.titleHighlight' => 'ton frigo',

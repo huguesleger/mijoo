@@ -4,9 +4,6 @@
   "name": "Nom",
   "email": "Adresse e-mail",
   "password": "Mot de passe",
-  "account": "Mon compte",
-  "signedIn": "Tu es connecté.",
-  "signOut": "Se déconnecter",
   "firebaseUnavailable": "Firebase n’est pas configuré sur cette version de Mijoo.",
   "invalidCredentials": "Vérifie ton adresse e-mail et ton mot de passe.",
   "emailAlreadyUsed": "Un compte utilise déjà cette adresse e-mail.",
@@ -34,5 +31,16 @@
   "ruleUppercase": "Une majuscule",
   "ruleSpecial": "Un caractère spécial",
   "haveAccount": "Déjà un compte ? ",
-  "noAccount": "Pas encore de compte ? "
+  "noAccount": "Pas encore de compte ? ",
+  "forgotPassword": "Mot de passe oublié ?",
+  "forgotLead": "Mot de passe ",
+  "forgotHighlight": "oublié ?",
+  "forgotSubtitle": "Saisis ton adresse e-mail, on t’envoie un lien pour en choisir un nouveau.",
+  "sendResetLink": "Envoyer le lien",
+  "resetSentLead": "Vérifie ta ",
+  "resetSentHighlight": "boîte mail",
+  "resetSentSubtitle": "Le lien arrive dans quelques instants.",
+  "resetSentMessage": "Si un compte existe pour {email}, tu vas recevoir un lien pour choisir un nouveau mot de passe. Pense à regarder dans les courriers indésirables.",
+  "backToSignIn": "Retour à la connexion",
+  "rememberPassword": "Tu t’en souviens ? "
 }

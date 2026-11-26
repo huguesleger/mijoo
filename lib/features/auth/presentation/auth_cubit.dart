@@ -40,10 +40,7 @@ final class AuthCubit extends SafeCubit<AuthState> {
   }) {
     final draft = switch (state) {
       AuthEditing(:final draft) || AuthFailed(:final draft) => some(draft),
-      AuthSubmitting() ||
-      Authenticated() ||
-      AuthSigningOut() ||
-      AuthSignOutFailed() => none<AuthDraft>(),
+      AuthSubmitting() || Authenticated() => none<AuthDraft>(),
     };
     draft.match(() {}, (draft) {
       emit(
@@ -74,17 +71,6 @@ final class AuthCubit extends SafeCubit<AuthState> {
       operation.match<AuthState>(
         (failure) => AuthFailed(draft, failure),
         Authenticated.new,
-      ),
-    );
-  }
-
-  Future<void> signOut(Account account) {
-    if (state is AuthSigningOut) return Future.value();
-    emit(AuthSigningOut(account));
-    return _finish(
-      _repository.signOut().match<AuthState>(
-        (failure) => AuthSignOutFailed(account, failure),
-        (_) => const AuthEditing(_emptyDraft),
       ),
     );
   }

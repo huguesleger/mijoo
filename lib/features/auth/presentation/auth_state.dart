@@ -31,14 +31,3 @@ final class Authenticated extends AuthState {
   const Authenticated(this.account);
   final Account account;
 }
-
-final class AuthSigningOut extends AuthState {
-  const AuthSigningOut(this.account);
-  final Account account;
-}
-
-final class AuthSignOutFailed extends AuthState {
-  const AuthSignOutFailed(this.account, this.failure);
-  final Account account;
-  final AppFailure failure;
-}

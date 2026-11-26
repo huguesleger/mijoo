@@ -24,4 +24,12 @@ final class FirebaseAuthRepository implements AuthRepository {
 
   @override
   TaskEither<AppFailure, Unit> signOut() => _source.signOut();
+
+  @override
+  TaskEither<AppFailure, Unit> sendPasswordReset(String email) =>
+      _source.sendPasswordReset(email);
+
+  @override
+  Stream<Option<Account>> watchSession() =>
+      _source.watchUser().map((user) => user.map(firebaseUserToAccount));
 }

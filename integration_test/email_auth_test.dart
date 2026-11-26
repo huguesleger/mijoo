@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
-import 'package:mijoo/core_ui/ds_back_button.dart';
 import 'package:mijoo/main.dart' as app;
 
 void main() {
@@ -44,14 +43,14 @@ void main() {
       final user = auth.currentUser;
       if (user?.email == email) await user!.delete();
     });
-    expect(find.text(t.auth.signedIn), findsOneWidget);
-    expect(find.text(email), findsOneWidget);
+    expect(find.text(t.shell.home), findsOneWidget);
     final uid = auth.currentUser!.uid;
-    await tester.tap(find.text(t.auth.signOut));
+    await tester.tap(find.byTooltip(t.shell.account));
+    await tester.pumpAndSettle();
+    expect(find.text(email), findsOneWidget);
+    await tester.tap(find.text(t.account.signOut));
     await tester.pumpAndSettle();
     expect(auth.currentUser, isNull);
-    await tester.tap(find.byType(DsBackButton));
-    await tester.pumpAndSettle();
     await tester.tap(find.text(t.auth.signIn));
     await tester.pumpAndSettle();
     await tester.enterText(fields.first, email);
@@ -63,8 +62,7 @@ void main() {
       EnginePhase.sendSemanticsUpdate,
       const Duration(seconds: 90),
     );
-    expect(find.text(t.auth.signedIn), findsOneWidget);
-    expect(find.text(email), findsOneWidget);
+    expect(find.text(t.shell.home), findsOneWidget);
     expect(auth.currentUser!.uid, uid);
   });
 }

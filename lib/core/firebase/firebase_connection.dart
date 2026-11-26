@@ -26,7 +26,11 @@ class FirebaseConnection {
 
   Future<FirebaseAuth> connect() async {
     final app = _useEmulator
-        ? await Firebase.initializeApp(demoProjectId: 'demo-mijoo')
+        ? await Firebase.initializeApp(
+            options: DefaultFirebaseOptions.currentPlatform.copyWith(
+              projectId: 'demo-mijoo',
+            ),
+          )
         : await Firebase.initializeApp(
             options: _hasOverrides
                 ? const FirebaseOptions(
