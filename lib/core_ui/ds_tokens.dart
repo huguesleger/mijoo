@@ -54,16 +54,18 @@ abstract final class DsRadius {
 
 abstract final class DsTextStyles {
   static const display = TextStyle(
+    fontFamily: FontFamily.fredoka,
     color: DsColors.ink,
     fontSize: 34,
     height: 38 / 34,
-    fontWeight: FontWeight.w700,
-    letterSpacing: -0.8,
+    fontWeight: FontWeight.w500,
+    letterSpacing: -0.2,
   );
   static const title = TextStyle(
+    fontFamily: FontFamily.fredoka,
     color: DsColors.ink,
     fontSize: 32,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w500,
   );
   static const body = TextStyle(
     color: DsColors.secondaryText,
@@ -72,11 +74,12 @@ abstract final class DsTextStyles {
     letterSpacing: 0,
   );
   static const headline = TextStyle(
+    fontFamily: FontFamily.fredoka,
     color: DsColors.ink,
     fontSize: 32,
     height: 36 / 32,
-    fontWeight: FontWeight.w700,
-    letterSpacing: -0.8,
+    fontWeight: FontWeight.w500,
+    letterSpacing: -0.2,
   );
   static const fieldLabel = TextStyle(
     color: DsColors.ink,
@@ -91,7 +94,7 @@ abstract final class DsTextStyles {
     letterSpacing: 0,
   );
   static const button = TextStyle(
-    fontFamily: FontFamily.outfit,
+    fontFamily: FontFamily.comfortaa,
     fontSize: 17,
     fontWeight: FontWeight.w600,
   );

@@ -5,7 +5,7 @@ import 'ds_tokens.dart';
 
 ThemeData get mijooTheme => ThemeData(
   useMaterial3: true,
-  fontFamily: FontFamily.outfit,
+  fontFamily: FontFamily.comfortaa,
   scaffoldBackgroundColor: DsColors.background,
   textTheme: const TextTheme(
     bodyLarge: TextStyle(letterSpacing: 0),
