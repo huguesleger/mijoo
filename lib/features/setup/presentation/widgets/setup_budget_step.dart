@@ -19,7 +19,7 @@ class SetupBudgetStep extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        DsTextField(
+        MjTextField(
           label: t.setup.weeklyBudget,
           hint: t.setup.weeklyBudgetHint,
           icon: LucideIcons.wallet,
@@ -29,8 +29,8 @@ class SetupBudgetStep extends StatelessWidget {
           error: parseWeeklyBudgetCents(draft.budget).isNone() ? some(t.setup.budgetInvalid) : none(),
           onChanged: (budget) => cubit.update(budget: some(budget)),
         ),
-        const SizedBox(height: DsSpacing.large),
-        DsTextField(
+        const SizedBox(height: MjSpacing.large),
+        MjTextField(
           label: t.setup.postalCode,
           hint: t.setup.postalCodeHint,
           icon: LucideIcons.mapPin,
@@ -40,8 +40,8 @@ class SetupBudgetStep extends StatelessWidget {
           error: isValidPostalCode(draft.postalCode) ? none() : some(t.setup.postalCodeInvalid),
           onChanged: (postalCode) => cubit.update(postalCode: some(postalCode)),
         ),
-        const SizedBox(height: DsSpacing.fieldGap),
-        DsTextField(
+        const SizedBox(height: MjSpacing.fieldGap),
+        MjTextField(
           label: t.setup.city,
           hint: t.setup.cityHint,
           icon: LucideIcons.building2,
@@ -49,8 +49,8 @@ class SetupBudgetStep extends StatelessWidget {
           autofillHints: const [AutofillHints.addressCity],
           onChanged: (city) => cubit.update(city: some(city)),
         ),
-        const SizedBox(height: DsSpacing.small),
-        Text(t.setup.locationHelp, style: DsTextStyles.caption),
+        const SizedBox(height: MjSpacing.small),
+        Text(t.setup.locationHelp, style: MjTextStyles.caption),
       ],
     );
   }

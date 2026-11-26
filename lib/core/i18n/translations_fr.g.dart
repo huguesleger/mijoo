@@ -44,6 +44,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$account$fr account = Translations$account$fr.internal(_root);
 	late final Translations$auth$fr auth = Translations$auth$fr.internal(_root);
 	late final Translations$failures$fr failures = Translations$failures$fr.internal(_root);
+	late final Translations$fridge$fr fridge = Translations$fridge$fr.internal(_root);
 	late final Translations$household$fr household = Translations$household$fr.internal(_root);
 	late final Translations$setup$fr setup = Translations$setup$fr.internal(_root);
 	late final Translations$shell$fr shell = Translations$shell$fr.internal(_root);
@@ -225,6 +226,118 @@ class Translations$failures$fr {
 
 	/// fr: 'Une erreur est survenue. Réessaie dans un instant.'
 	String get unknown => 'Une erreur est survenue. Réessaie dans un instant.';
+}
+
+// Path: fridge
+class Translations$fridge$fr {
+	Translations$fridge$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Mon frigo'
+	String get title => 'Mon frigo';
+
+	/// fr: 'Ajouter un ingrédient'
+	String get add => 'Ajouter un ingrédient';
+
+	/// fr: 'Rechercher un ingrédient'
+	String get search => 'Rechercher un ingrédient';
+
+	/// fr: 'Ton frigo est vide'
+	String get emptyTitle => 'Ton frigo est vide';
+
+	/// fr: 'Ajoute ce que tu as sous la main pour recevoir des idées de repas.'
+	String get emptyMessage => 'Ajoute ce que tu as sous la main pour recevoir des idées de repas.';
+
+	/// fr: 'Aucun ingrédient trouvé'
+	String get noResultTitle => 'Aucun ingrédient trouvé';
+
+	/// fr: 'Vérifie l’orthographe ou ajoute cet ingrédient.'
+	String get noResultMessage => 'Vérifie l’orthographe ou ajoute cet ingrédient.';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+
+	/// fr: 'À consommer avant le {date}'
+	String bestBefore({required Object date}) => 'À consommer avant le ${date}';
+
+	/// fr: 'Ajouter un ingrédient'
+	String get addTitle => 'Ajouter un ingrédient';
+
+	/// fr: 'Modifier l’ingrédient'
+	String get editTitle => 'Modifier l’ingrédient';
+
+	/// fr: 'Nom'
+	String get name => 'Nom';
+
+	/// fr: 'Par exemple Tomates'
+	String get nameHint => 'Par exemple Tomates';
+
+	/// fr: 'Quantité'
+	String get quantity => 'Quantité';
+
+	/// fr: 'Par exemple 4'
+	String get quantityHint => 'Par exemple 4';
+
+	/// fr: 'Saisis une quantité supérieure à 0.'
+	String get quantityInvalid => 'Saisis une quantité supérieure à 0.';
+
+	/// fr: 'Unité'
+	String get unit => 'Unité';
+
+	/// fr: 'Rayon'
+	String get category => 'Rayon';
+
+	/// fr: 'Date de consommation'
+	String get date => 'Date de consommation';
+
+	/// fr: 'Facultative'
+	String get dateOptional => 'Facultative';
+
+	/// fr: 'Ajouter une date'
+	String get dateAdd => 'Ajouter une date';
+
+	/// fr: 'Retirer la date'
+	String get dateRemove => 'Retirer la date';
+
+	/// fr: 'Enregistrer'
+	String get save => 'Enregistrer';
+
+	/// fr: 'Ajouter'
+	String get create => 'Ajouter';
+
+	/// fr: 'Supprimer l’ingrédient'
+	String get delete => 'Supprimer l’ingrédient';
+
+	/// fr: 'Ton frigo n’est pas accessible pour le moment. Réessaie dans un instant.'
+	String get unavailable => 'Ton frigo n’est pas accessible pour le moment. Réessaie dans un instant.';
+
+	/// fr: 'Tu n’as pas accès à ce frigo.'
+	String get accessDenied => 'Tu n’as pas accès à ce frigo.';
+
+	/// fr: 'La connexion a échoué. Réessaie dans un instant.'
+	String get networkFailure => 'La connexion a échoué. Réessaie dans un instant.';
+
+	late final Translations$fridge$quantities$fr quantities = Translations$fridge$quantities$fr.internal(_root);
+	Map<String, String> get units => {
+		'piece': 'Pièce',
+		'gram': 'g',
+		'kilogram': 'kg',
+		'milliliter': 'ml',
+		'liter': 'L',
+		'pack': 'Paquet',
+	};
+	Map<String, String> get categories => {
+		'fruitsVegetables': 'Fruits et légumes',
+		'meatFish': 'Viandes et poissons',
+		'dairy': 'Produits laitiers',
+		'grocery': 'Épicerie',
+		'frozen': 'Surgelés',
+		'drinks': 'Boissons',
+		'other': 'Autres',
+	};
 }
 
 // Path: household
@@ -449,6 +562,39 @@ class Translations$welcome$fr {
 	String get subtitle => 'Mijoo te propose des repas avec ton frigo, pour toute la famille et dans ton budget.';
 }
 
+// Path: fridge.quantities
+class Translations$fridge$quantities$fr {
+	Translations$fridge$quantities$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: '{count} pièce'
+	String pieceSingle({required Object count}) => '${count} pièce';
+
+	/// fr: '{count} pièces'
+	String pieceSeveral({required Object count}) => '${count} pièces';
+
+	/// fr: '{count} g'
+	String gram({required Object count}) => '${count} g';
+
+	/// fr: '{count} kg'
+	String kilogram({required Object count}) => '${count} kg';
+
+	/// fr: '{count} ml'
+	String milliliter({required Object count}) => '${count} ml';
+
+	/// fr: '{count} L'
+	String liter({required Object count}) => '${count} L';
+
+	/// fr: '{count} paquet'
+	String packSingle({required Object count}) => '${count} paquet';
+
+	/// fr: '{count} paquets'
+	String packSeveral({required Object count}) => '${count} paquets';
+}
+
 /// The flat map containing all translations for locale <fr>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -507,6 +653,55 @@ extension on Translations {
 			'auth.backToSignIn' => 'Retour à la connexion',
 			'auth.rememberPassword' => 'Tu t’en souviens ? ',
 			'failures.unknown' => 'Une erreur est survenue. Réessaie dans un instant.',
+			'fridge.title' => 'Mon frigo',
+			'fridge.add' => 'Ajouter un ingrédient',
+			'fridge.search' => 'Rechercher un ingrédient',
+			'fridge.emptyTitle' => 'Ton frigo est vide',
+			'fridge.emptyMessage' => 'Ajoute ce que tu as sous la main pour recevoir des idées de repas.',
+			'fridge.noResultTitle' => 'Aucun ingrédient trouvé',
+			'fridge.noResultMessage' => 'Vérifie l’orthographe ou ajoute cet ingrédient.',
+			'fridge.retry' => 'Réessayer',
+			'fridge.bestBefore' => ({required Object date}) => 'À consommer avant le ${date}',
+			'fridge.addTitle' => 'Ajouter un ingrédient',
+			'fridge.editTitle' => 'Modifier l’ingrédient',
+			'fridge.name' => 'Nom',
+			'fridge.nameHint' => 'Par exemple Tomates',
+			'fridge.quantity' => 'Quantité',
+			'fridge.quantityHint' => 'Par exemple 4',
+			'fridge.quantityInvalid' => 'Saisis une quantité supérieure à 0.',
+			'fridge.unit' => 'Unité',
+			'fridge.category' => 'Rayon',
+			'fridge.date' => 'Date de consommation',
+			'fridge.dateOptional' => 'Facultative',
+			'fridge.dateAdd' => 'Ajouter une date',
+			'fridge.dateRemove' => 'Retirer la date',
+			'fridge.save' => 'Enregistrer',
+			'fridge.create' => 'Ajouter',
+			'fridge.delete' => 'Supprimer l’ingrédient',
+			'fridge.unavailable' => 'Ton frigo n’est pas accessible pour le moment. Réessaie dans un instant.',
+			'fridge.accessDenied' => 'Tu n’as pas accès à ce frigo.',
+			'fridge.networkFailure' => 'La connexion a échoué. Réessaie dans un instant.',
+			'fridge.quantities.pieceSingle' => ({required Object count}) => '${count} pièce',
+			'fridge.quantities.pieceSeveral' => ({required Object count}) => '${count} pièces',
+			'fridge.quantities.gram' => ({required Object count}) => '${count} g',
+			'fridge.quantities.kilogram' => ({required Object count}) => '${count} kg',
+			'fridge.quantities.milliliter' => ({required Object count}) => '${count} ml',
+			'fridge.quantities.liter' => ({required Object count}) => '${count} L',
+			'fridge.quantities.packSingle' => ({required Object count}) => '${count} paquet',
+			'fridge.quantities.packSeveral' => ({required Object count}) => '${count} paquets',
+			'fridge.units.piece' => 'Pièce',
+			'fridge.units.gram' => 'g',
+			'fridge.units.kilogram' => 'kg',
+			'fridge.units.milliliter' => 'ml',
+			'fridge.units.liter' => 'L',
+			'fridge.units.pack' => 'Paquet',
+			'fridge.categories.fruitsVegetables' => 'Fruits et légumes',
+			'fridge.categories.meatFish' => 'Viandes et poissons',
+			'fridge.categories.dairy' => 'Produits laitiers',
+			'fridge.categories.grocery' => 'Épicerie',
+			'fridge.categories.frozen' => 'Surgelés',
+			'fridge.categories.drinks' => 'Boissons',
+			'fridge.categories.other' => 'Autres',
 			'household.unavailable' => 'Ton foyer n’est pas accessible pour le moment. Réessaie dans un instant.',
 			'household.accessDenied' => 'Tu n’as pas accès à ce foyer.',
 			'household.networkFailure' => 'La connexion a échoué. Réessaie dans un instant.',

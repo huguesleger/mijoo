@@ -21,26 +21,26 @@ class SetupScreen extends StatelessWidget {
         SetupFailed() => some(SetupStep.budget),
         SetupSaving() || SetupDone() => none<SetupStep>(),
       };
-      return DsSheetPage(
+      return MjSheetPage(
         onBack: step.filter((step) => step != SetupStep.household).map((_) => cubit.back),
         header: step.match(
-          () => DsHeader(
+          () => MjHeader(
             lead: t.setup.doneLead,
             highlight: t.setup.doneHighlight,
             subtitle: some(t.setup.doneSubtitle),
           ),
           (step) => switch (step) {
-            SetupStep.household => DsHeader(
+            SetupStep.household => MjHeader(
               lead: t.setup.householdLead,
               highlight: t.setup.householdHighlight,
               subtitle: some(t.setup.householdSubtitle),
             ),
-            SetupStep.preferences => DsHeader(
+            SetupStep.preferences => MjHeader(
               lead: t.setup.preferencesLead,
               highlight: t.setup.preferencesHighlight,
               subtitle: some(t.setup.preferencesSubtitle),
             ),
-            SetupStep.budget => DsHeader(
+            SetupStep.budget => MjHeader(
               lead: t.setup.budgetLead,
               highlight: t.setup.budgetHighlight,
               subtitle: some(t.setup.budgetSubtitle),
@@ -58,7 +58,7 @@ class SetupScreen extends StatelessWidget {
             step: SetupStep.budget,
             failure: some(failure),
           ),
-          SetupSaving() => const DsLoader(),
+          SetupSaving() => const MjLoader(),
           SetupDone() => const SetupDoneContent(),
         },
       );

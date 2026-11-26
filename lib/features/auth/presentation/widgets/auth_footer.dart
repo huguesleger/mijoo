@@ -16,7 +16,7 @@ class AuthFooter extends StatelessWidget {
       SignInMode() => (t.auth.noAccount, t.auth.register, () => const RegisterPageRoute().pushReplacement(context)),
       RegisterMode() => (t.auth.haveAccount, t.auth.signIn, () => const SignInPageRoute().pushReplacement(context)),
     };
-    return DsLinkPrompt(
+    return MjLinkPrompt(
       prompt: prompt,
       action: action,
       onPressed: open,

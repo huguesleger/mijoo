@@ -19,7 +19,7 @@ class SetupHouseholdStep extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        DsCounter(
+        MjCounter(
           label: t.setup.adults,
           value: draft.adults,
           minimum: 1,
@@ -28,8 +28,8 @@ class SetupHouseholdStep extends StatelessWidget {
           increaseLabel: t.setup.increase,
           onChanged: (adults) => cubit.update(adults: some(adults)),
         ),
-        const SizedBox(height: DsSpacing.fieldGap),
-        DsCounter(
+        const SizedBox(height: MjSpacing.fieldGap),
+        MjCounter(
           label: t.setup.children,
           value: draft.children,
           minimum: 0,
@@ -38,15 +38,15 @@ class SetupHouseholdStep extends StatelessWidget {
           increaseLabel: t.setup.increase,
           onChanged: (children) => cubit.update(children: some(children)),
         ),
-        const SizedBox(height: DsSpacing.large),
-        Text(t.setup.prepTime, style: DsTextStyles.sectionTitle),
-        const SizedBox(height: DsSpacing.small),
+        const SizedBox(height: MjSpacing.large),
+        Text(t.setup.prepTime, style: MjTextStyles.sectionTitle),
+        const SizedBox(height: MjSpacing.small),
         Wrap(
-          spacing: DsSpacing.small,
-          runSpacing: DsSpacing.small,
+          spacing: MjSpacing.small,
+          runSpacing: MjSpacing.small,
           children: [
             for (final minutes in _prepTimes)
-              DsChoiceChip(
+              MjChoiceChip(
                 label: t.setup.minutes(count: minutes),
                 selected: draft.maxPrepMinutes == minutes,
                 onTap: () => cubit.update(maxPrepMinutes: some(minutes)),

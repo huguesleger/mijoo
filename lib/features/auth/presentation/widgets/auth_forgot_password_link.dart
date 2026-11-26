@@ -12,8 +12,8 @@ class AuthForgotPasswordLink extends StatelessWidget {
     alignment: Alignment.centerRight,
     child: TextButton(
       style: TextButton.styleFrom(
-        minimumSize: const Size(0, DsSpacing.tapTarget),
-        textStyle: DsTextStyles.button.copyWith(fontSize: 15),
+        minimumSize: const Size(0, MjSpacing.tapTarget),
+        textStyle: MjTextStyles.button.copyWith(fontSize: 15),
       ),
       onPressed: () => const ForgotPasswordPageRoute().push<void>(context),
       child: Text(t.auth.forgotPassword),

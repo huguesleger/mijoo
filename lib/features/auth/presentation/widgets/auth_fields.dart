@@ -19,7 +19,7 @@ class AuthFields extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<AuthCubit>();
     final mismatch = draft.confirmation.isNotEmpty && !draft.password.startsWith(draft.confirmation);
-    const gap = SizedBox(height: DsSpacing.fieldGap);
+    const gap = SizedBox(height: MjSpacing.fieldGap);
     return AutofillGroup(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -27,7 +27,7 @@ class AuthFields extends StatelessWidget {
           ...switch (cubit.mode) {
             SignInMode() => const <Widget>[],
             RegisterMode() => [
-              DsTextField(
+              MjTextField(
                 label: t.auth.name,
                 hint: t.auth.nameHint,
                 icon: LucideIcons.user,
@@ -38,7 +38,7 @@ class AuthFields extends StatelessWidget {
               gap,
             ],
           },
-          DsTextField(
+          MjTextField(
             label: t.auth.email,
             hint: t.auth.emailHint,
             icon: LucideIcons.mail,
@@ -49,7 +49,7 @@ class AuthFields extends StatelessWidget {
             onChanged: (email) => cubit.update(email: some(email)),
           ),
           gap,
-          DsPasswordField(
+          MjPasswordField(
             label: t.auth.password,
             hint: t.auth.passwordHint,
             showLabel: t.auth.showPassword,
@@ -66,7 +66,7 @@ class AuthFields extends StatelessWidget {
             RegisterMode() => [
               AuthPasswordRules(password: draft.password),
               gap,
-              DsPasswordField(
+              MjPasswordField(
                 label: t.auth.confirmPassword,
                 hint: t.auth.confirmPasswordHint,
                 showLabel: t.auth.showPassword,

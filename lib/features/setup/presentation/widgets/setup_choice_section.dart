@@ -24,15 +24,15 @@ class SetupChoiceSection<T extends Enum> extends StatelessWidget {
     children: [
       Semantics(
         header: true,
-        child: Text(title, style: DsTextStyles.sectionTitle),
+        child: Text(title, style: MjTextStyles.sectionTitle),
       ),
-      const SizedBox(height: DsSpacing.small),
+      const SizedBox(height: MjSpacing.small),
       Wrap(
-        spacing: DsSpacing.small,
-        runSpacing: DsSpacing.small,
+        spacing: MjSpacing.small,
+        runSpacing: MjSpacing.small,
         children: [
           for (final value in values)
-            DsChoiceChip(
+            MjChoiceChip(
               label: labels[value.name] ?? value.name,
               selected: selected.contains(value),
               onTap: () => onChanged(

@@ -6,15 +6,15 @@ class LaunchScreen extends StatelessWidget {
   const LaunchScreen({super.key});
 
   @override
-  Widget build(BuildContext context) => DsHeroPage(
+  Widget build(BuildContext context) => MjHeroPage(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ExcludeSemantics(
-          child: Assets.logo.mijooLogo.svg(width: DsSpacing.logoWidth),
+          child: Assets.logo.mijooLogo.svg(width: MjSpacing.logoWidth),
         ),
-        const SizedBox(height: DsSpacing.extraLarge),
-        const DsLoader(),
+        const SizedBox(height: MjSpacing.extraLarge),
+        const MjLoader(),
       ],
     ),
   );

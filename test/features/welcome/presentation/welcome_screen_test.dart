@@ -31,7 +31,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(TextFormField), findsNWidgets(4));
 
-      await tester.tap(find.byType(DsBackButton));
+      await tester.tap(find.byType(MjBackButton));
       await tester.pumpAndSettle();
       await tester.tap(find.text(t.auth.signIn));
       await tester.pumpAndSettle();

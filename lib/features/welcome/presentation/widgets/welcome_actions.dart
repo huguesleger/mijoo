@@ -15,7 +15,7 @@ class WelcomeActions extends StatelessWidget {
         onPressed: () => const RegisterPageRoute().push<void>(context),
         child: Text(t.auth.register),
       ),
-      const SizedBox(height: DsSpacing.small),
+      const SizedBox(height: MjSpacing.small),
       TextButton(
         onPressed: () => const SignInPageRoute().push<void>(context),
         child: Text(t.auth.signIn),

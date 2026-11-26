@@ -13,11 +13,11 @@ class WelcomeTitle extends StatelessWidget {
       children: [
         TextSpan(
           text: t.welcome.titleHighlight,
-          style: const TextStyle(color: DsColors.primary),
+          style: const TextStyle(color: MjColors.primary),
         ),
       ],
     ),
     textAlign: TextAlign.center,
-    style: DsTextStyles.display,
+    style: MjTextStyles.display,
   );
 }

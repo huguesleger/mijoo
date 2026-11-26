@@ -16,15 +16,15 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<AuthCubit>();
     return BlocBuilder<AuthCubit, AuthState>(
-      builder: (context, state) => DsSheetPage(
+      builder: (context, state) => MjSheetPage(
         onBack: some(() => const WelcomePageRoute().go(context)),
         header: switch (cubit.mode) {
-          SignInMode() => DsHeader(
+          SignInMode() => MjHeader(
             lead: t.auth.signInLead,
             highlight: t.auth.signInHighlight,
             subtitle: some(t.auth.signInSubtitle),
           ),
-          RegisterMode() => DsHeader(
+          RegisterMode() => MjHeader(
             lead: t.auth.registerLead,
             highlight: t.auth.registerHighlight,
             subtitle: some(t.auth.registerSubtitle),
@@ -36,7 +36,7 @@ class AuthScreen extends StatelessWidget {
             draft: draft,
             failure: some(failure),
           ),
-          AuthSubmitting() || Authenticated() => const DsLoader(),
+          AuthSubmitting() || Authenticated() => const MjLoader(),
         },
       ),
     );

@@ -17,7 +17,7 @@ final class AuthCubit extends SafeCubit<AuthState> {
     AuthRepository? repository,
     Duration? minimalLoading,
   }) : _repository = repository ?? getIt.get<AuthRepository>(),
-       _minimalLoading = minimalLoading ?? DsLoader.minDuration,
+       _minimalLoading = minimalLoading ?? MjLoader.minDuration,
        super(const AuthEditing(_emptyDraft));
 
   static const _emptyDraft = (

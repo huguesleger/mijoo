@@ -15,23 +15,23 @@ class WelcomeContent extends StatelessWidget {
     children: [
       Center(
         child: Assets.logo.mijooLogo.svg(
-          width: DsSpacing.logoWidth,
+          width: MjSpacing.logoWidth,
           semanticsLabel: t.welcome.appName,
         ),
       ),
       const Spacer(),
-      const SizedBox(height: DsSpacing.extraLarge),
+      const SizedBox(height: MjSpacing.extraLarge),
       const WelcomeHeroImage(),
-      const SizedBox(height: DsSpacing.extraLarge),
+      const SizedBox(height: MjSpacing.extraLarge),
       const Spacer(),
       const WelcomeTitle(),
-      const SizedBox(height: DsSpacing.medium),
+      const SizedBox(height: MjSpacing.medium),
       Text(
         t.welcome.subtitle,
         textAlign: TextAlign.center,
-        style: DsTextStyles.body,
+        style: MjTextStyles.body,
       ),
-      const SizedBox(height: DsSpacing.extraLarge),
+      const SizedBox(height: MjSpacing.extraLarge),
       const WelcomeActions(),
     ],
   );

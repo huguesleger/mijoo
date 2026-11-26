@@ -11,13 +11,13 @@ class AuthPasswordRules extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(top: DsSpacing.small),
+    padding: const EdgeInsets.only(top: MjSpacing.small),
     child: Wrap(
       spacing: 6,
       runSpacing: 6,
       children: [
         for (final rule in PasswordRule.values)
-          DsCheckChip(
+          MjCheckChip(
             label: switch (rule) {
               PasswordRule.minLength => t.auth.ruleMinLength,
               PasswordRule.digit => t.auth.ruleDigit,

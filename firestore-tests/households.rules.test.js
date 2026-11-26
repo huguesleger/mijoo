@@ -27,6 +27,17 @@ const profile = {
   location: { postalCode: '69001', city: 'Lyon' },
 };
 
+const stockItem = (overrides = {}) => ({
+  name: 'Tomates',
+  quantity: 4,
+  unit: 'piece',
+  category: 'fruitsVegetables',
+  bestBefore: null,
+  createdAt: serverTimestamp(),
+  updatedAt: serverTimestamp(),
+  ...overrides,
+});
+
 let env;
 
 before(async () => {
@@ -117,12 +128,20 @@ describe('isolation entre foyers', () => {
     await assertFails(getDoc(doc(db('alex'), 'users', 'camille')));
   });
 
-  test('les sous-collections restent réservées aux membres', async () => {
+  test('le stock reste réservé aux membres', async () => {
     const householdId = await createHousehold('camille');
     const item = (uid) => doc(db(uid), 'households', householdId, 'stock', 'tomates');
-    await assertSucceeds(setDoc(item('camille'), { name: 'Tomates' }));
+    await assertSucceeds(setDoc(item('camille'), stockItem()));
     await assertFails(getDoc(item('alex')));
-    await assertFails(setDoc(item('alex'), { name: 'Tomates' }));
+    await assertFails(setDoc(item('alex'), stockItem()));
+    await assertFails(deleteDoc(item('alex')));
+  });
+
+  test('les autres sous-collections restent fermées', async () => {
+    const householdId = await createHousehold('camille');
+    await assertFails(
+      setDoc(doc(db('camille'), 'households', householdId, 'divers', 'x'), { name: 'x' }),
+    );
   });
 });
 
@@ -171,5 +190,32 @@ describe('profil du foyer', () => {
     const householdId = await createHousehold('camille');
     await assertFails(deleteDoc(doc(db('camille'), 'households', householdId)));
     await assertFails(deleteDoc(doc(db('camille'), 'users', 'camille')));
+  });
+});
+
+describe('stock du frigo', () => {
+  test('un membre ajoute, modifie et supprime un ingrédient', async () => {
+    const householdId = await createHousehold('camille');
+    const ref = doc(db('camille'), 'households', householdId, 'stock', 'lait');
+    await assertSucceeds(setDoc(ref, stockItem({ name: 'Lait', unit: 'liter', category: 'dairy' })));
+    await assertSucceeds(updateDoc(ref, { quantity: 1.5, updatedAt: serverTimestamp() }));
+    await assertSucceeds(deleteDoc(ref));
+  });
+
+  test('un ingrédient incohérent est refusé', async () => {
+    const householdId = await createHousehold('camille');
+    const ref = doc(db('camille'), 'households', householdId, 'stock', 'x');
+    await assertFails(setDoc(ref, stockItem({ name: '' })));
+    await assertFails(setDoc(ref, stockItem({ quantity: 0 })));
+    await assertFails(setDoc(ref, stockItem({ unit: 'tonne' })));
+    await assertFails(setDoc(ref, stockItem({ category: 'jardin' })));
+    await assertFails(setDoc(ref, stockItem({ price: 3 })));
+  });
+
+  test('la date de création ne change pas', async () => {
+    const householdId = await createHousehold('camille');
+    const ref = doc(db('camille'), 'households', householdId, 'stock', 'oeufs');
+    await assertSucceeds(setDoc(ref, stockItem({ name: 'Œufs' })));
+    await assertFails(updateDoc(ref, { createdAt: new Date(0), updatedAt: serverTimestamp() }));
   });
 });

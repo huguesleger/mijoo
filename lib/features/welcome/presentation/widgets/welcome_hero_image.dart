@@ -12,14 +12,14 @@ class WelcomeHeroImage extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: DsColors.lavenderStrong.withValues(alpha: 0.28),
+            color: MjColors.lavenderStrong.withValues(alpha: 0.28),
             blurRadius: 36,
             offset: const Offset(0, 24),
           ),
         ],
       ),
       child: Assets.images.bolBleu.image(
-        width: DsSpacing.heroImageWidth,
+        width: MjSpacing.heroImageWidth,
         excludeFromSemantics: true,
       ),
     ),

@@ -1,0 +1,1 @@
+enum MjMessagePlacement { card, tab }

@@ -30,7 +30,7 @@ class SetupEditingContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        DsStepProgress(
+        MjStepProgress(
           current: step.index + 1,
           total: SetupStep.values.length,
           label: t.setup.step(
@@ -38,7 +38,7 @@ class SetupEditingContent extends StatelessWidget {
             total: SetupStep.values.length,
           ),
         ),
-        const SizedBox(height: DsSpacing.large),
+        const SizedBox(height: MjSpacing.large),
         switch (step) {
           SetupStep.household => SetupHouseholdStep(draft: draft),
           SetupStep.preferences => SetupPreferencesStep(draft: draft),
@@ -47,12 +47,12 @@ class SetupEditingContent extends StatelessWidget {
         ...failure.match(
           () => const <Widget>[],
           (failure) => [
-            const SizedBox(height: DsSpacing.medium),
+            const SizedBox(height: MjSpacing.medium),
             FailureView(failure: failure),
           ],
         ),
         const Spacer(),
-        const SizedBox(height: DsSpacing.large),
+        const SizedBox(height: MjSpacing.large),
         FilledButton(
           onPressed: cubit.canContinue(draft, step) ? cubit.next : null,
           child: Text(switch (step) {

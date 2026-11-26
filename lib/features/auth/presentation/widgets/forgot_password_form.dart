@@ -26,7 +26,7 @@ class ForgotPasswordForm extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        DsTextField(
+        MjTextField(
           label: t.auth.email,
           hint: t.auth.emailHint,
           icon: LucideIcons.mail,
@@ -39,18 +39,18 @@ class ForgotPasswordForm extends StatelessWidget {
         ...failure.match(
           () => const <Widget>[],
           (failure) => [
-            const SizedBox(height: DsSpacing.medium),
+            const SizedBox(height: MjSpacing.medium),
             FailureView(failure: failure),
           ],
         ),
         const Spacer(),
-        const SizedBox(height: DsSpacing.large),
+        const SizedBox(height: MjSpacing.large),
         FilledButton(
           onPressed: cubit.canSubmit(email) ? () => cubit.submit(email) : null,
           child: Text(t.auth.sendResetLink),
         ),
-        const SizedBox(height: DsSpacing.small),
-        DsLinkPrompt(
+        const SizedBox(height: MjSpacing.small),
+        MjLinkPrompt(
           prompt: t.auth.rememberPassword,
           action: t.auth.signIn,
           onPressed: () => const SignInPageRoute().go(context),

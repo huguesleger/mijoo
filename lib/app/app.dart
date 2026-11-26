@@ -31,7 +31,7 @@ class _AppState extends State<App> {
     child: MaterialApp.router(
       title: t.welcome.appName,
       debugShowCheckedModeBanner: false,
-      theme: DsTheme.light(),
+      theme: MjTheme.light(),
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

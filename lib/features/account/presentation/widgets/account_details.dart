@@ -11,20 +11,20 @@ class AccountDetails extends StatelessWidget {
   final Account account;
 
   @override
-  Widget build(BuildContext context) => DsCard(
+  Widget build(BuildContext context) => MjCard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(t.account.name, style: DsTextStyles.fieldLabel),
-        const SizedBox(height: DsSpacing.extraSmall),
+        Text(t.account.name, style: MjTextStyles.fieldLabel),
+        const SizedBox(height: MjSpacing.extraSmall),
         Text(
           account.name.getOrElse(() => t.account.noName),
-          style: DsTextStyles.body,
+          style: MjTextStyles.body,
         ),
-        const SizedBox(height: DsSpacing.medium),
-        Text(t.account.email, style: DsTextStyles.fieldLabel),
-        const SizedBox(height: DsSpacing.extraSmall),
-        Text(account.email, style: DsTextStyles.body),
+        const SizedBox(height: MjSpacing.medium),
+        Text(t.account.email, style: MjTextStyles.fieldLabel),
+        const SizedBox(height: MjSpacing.extraSmall),
+        Text(account.email, style: MjTextStyles.body),
       ],
     ),
   );

@@ -12,6 +12,6 @@ class FailureView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Semantics(
     liveRegion: true,
-    child: DsMessageView(message: failureMessage(failure)),
+    child: MjMessageView(message: failureMessage(failure)),
   );
 }

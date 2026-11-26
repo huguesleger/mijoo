@@ -60,6 +60,24 @@ service cloud.firestore {
       );
     }
 
+    function isStockItem(item) {
+      return item.keys().hasOnly([
+          'name', 'quantity', 'unit', 'category', 'bestBefore', 'createdAt', 'updatedAt'
+        ])
+        && item.name is string
+        && item.name.size() >= 1
+        && item.name.size() <= 80
+        && item.quantity is number
+        && item.quantity > 0
+        && item.quantity <= 100000
+        && item.unit in ['piece', 'gram', 'kilogram', 'milliliter', 'liter', 'pack']
+        && item.category in [
+          'fruitsVegetables', 'meatFish', 'dairy', 'grocery', 'frozen', 'drinks', 'other'
+        ]
+        && (item.bestBefore == null || item.bestBefore is timestamp)
+        && item.updatedAt == request.time;
+    }
+
     match /users/{userId} {
       allow read: if signedIn() && request.auth.uid == userId;
       allow create: if signedIn()
@@ -86,8 +104,14 @@ service cloud.firestore {
         && isProfile(request.resource.data.profile);
       allow delete: if false;
 
-      match /{subcollection}/{document=**} {
-        allow read, write: if isMember(householdId);
+      match /stock/{itemId} {
+        allow read, delete: if isMember(householdId);
+        allow create: if isMember(householdId)
+          && isStockItem(request.resource.data)
+          && request.resource.data.createdAt == request.time;
+        allow update: if isMember(householdId)
+          && isStockItem(request.resource.data)
+          && request.resource.data.createdAt == resource.data.createdAt;
       }
     }
   }

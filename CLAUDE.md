@@ -5,7 +5,7 @@ Des idées de repas avec ce que la famille a déjà dans son frigo, une liste de
 Une seule app Flutter (iOS, Android), à la racine du dépôt (paquet `mijoo`) :
 
 - `lib/core/` : fondations de l'app. `core.dart` réexporte `SafeCubit`, `AppFailure`, `UnknownFailure` et `withMinimalDelay` ; on y trouve aussi `router/`, `firebase/`, `i18n/` et `presentation/`.
-- `lib/core_ui/` : design system (`Ds*`, `DsTheme`, jetons dans `foundation/`), importé d'un seul coup avec `package:mijoo/core_ui/core_ui.dart`. Il n'importe jamais rien du reste de l'app : `test/core_ui/core_ui_boundaries_test.dart` le vérifie.
+- `lib/core_ui/` : design system (`Mj*`, `MjTheme`, jetons dans `foundation/`), importé d'un seul coup avec `package:mijoo/core_ui/core_ui.dart`. Il n'importe jamais rien du reste de l'app : `test/core_ui/core_ui_boundaries_test.dart` le vérifie.
 - `assets/` : logo, image du bol, polices Fredoka (titres) et Comfortaa (textes).
 - `firestore.rules` et `firestore-tests/` : règles de sécurité Firestore et leurs tests sur l'émulateur
 

@@ -14,33 +14,33 @@ class ForgotPasswordSentContent extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      const SizedBox(height: DsSpacing.large),
+      const SizedBox(height: MjSpacing.large),
       Center(
         child: Container(
           width: 88,
           height: 88,
           decoration: const BoxDecoration(
-            color: DsColors.lavender,
+            color: MjColors.lavender,
             shape: BoxShape.circle,
           ),
           child: const Icon(
             LucideIcons.mailCheck,
             size: 40,
-            color: DsColors.ink,
+            color: MjColors.ink,
           ),
         ),
       ),
-      const SizedBox(height: DsSpacing.large),
+      const SizedBox(height: MjSpacing.large),
       Semantics(
         liveRegion: true,
         child: Text(
           t.auth.resetSentMessage(email: email),
           textAlign: TextAlign.center,
-          style: DsTextStyles.body,
+          style: MjTextStyles.body,
         ),
       ),
       const Spacer(),
-      const SizedBox(height: DsSpacing.large),
+      const SizedBox(height: MjSpacing.large),
       FilledButton(
         onPressed: () => const SignInPageRoute().go(context),
         child: Text(t.auth.backToSignIn),

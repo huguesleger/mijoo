@@ -14,15 +14,15 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
-    builder: (context, state) => DsSheetPage(
+    builder: (context, state) => MjSheetPage(
       onBack: some(() => const SignInPageRoute().go(context)),
       header: switch (state) {
-        ForgotPasswordSent() => DsHeader(
+        ForgotPasswordSent() => MjHeader(
           lead: t.auth.resetSentLead,
           highlight: t.auth.resetSentHighlight,
           subtitle: some(t.auth.resetSentSubtitle),
         ),
-        ForgotPasswordEditing() || ForgotPasswordSending() || ForgotPasswordFailed() => DsHeader(
+        ForgotPasswordEditing() || ForgotPasswordSending() || ForgotPasswordFailed() => MjHeader(
           lead: t.auth.forgotLead,
           highlight: t.auth.forgotHighlight,
           subtitle: some(t.auth.forgotSubtitle),
@@ -34,7 +34,7 @@ class ForgotPasswordScreen extends StatelessWidget {
           failure: none(),
         ),
         ForgotPasswordFailed(:final email, :final failure) => ForgotPasswordForm(email: email, failure: some(failure)),
-        ForgotPasswordSending() => const DsLoader(),
+        ForgotPasswordSending() => const MjLoader(),
         ForgotPasswordSent(:final email) => ForgotPasswordSentContent(
           email: email,
         ),

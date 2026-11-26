@@ -18,20 +18,26 @@
   - In new code, one public widget per file, the file named after the class in snake_case. No private widget and no `Widget _buildX()` method: extract a public widget instead (only the `_XxxState` of a `StatefulWidget` stays private)
   - Prefer `StatelessWidget`
   - Use BlocBuilder to build the screen based on the state of the cubit, with an exhaustive switch expression on the state. No `if (state is X)` followed by a cast
-  - A model (entity, state, route extra, sealed configuration type) only carries data and derives data from it (`List<PhotoMonth> get months`). It never takes a UI decision: no getter that says which step to show or hide, where to navigate, or which wording to display (`showsQualityTiles`, `returnsToHome`). The widget takes that decision from the data: an exhaustive switch on the case, or a read of the `Option` (`isNone()` shows the step)
+  - A model (entity, state, route extra, sealed configuration type) only carries data and derives data from it (`int get people` on `HouseholdProfile`). It never takes a UI decision: no getter that says which step to show or hide, where to navigate, or which wording to display (`showsBudgetStep`, `goesToHome`). The widget takes that decision from the data: an exhaustive switch on the case, or a read of the `Option` (`isNone()` shows the step)
   - A UI decision with more than two outcomes (several possible returns after a success) is an exhaustive switch on a sealed type or an enum, never a `bool`
   - Never put a view model in the screen facts (`XxxFacts`, the raw data the presentation rules read), nor a fact in a view model, even when their fields are identical: the facts get their own type, and a pure rule function converts them into view models
 
 ## Design system and screen states
-  - Build the UI with the `core_ui` components (`Ds*`) and tokens (`DsColors`, `DsSpacing`, `DsRadius`, `DsTextStyles`), never with raw colors, sizes or text styles. A reusable component belongs in `lib/core_ui/`, which never imports anything from the rest of the app (checked by `test/core_ui/core_ui_boundaries_test.dart`)
+  - Build the UI with the components of `lib/core_ui/` (prefixed `Mj`, short for Mijoo) and its tokens (`MjColors`, `MjSpacing`, `MjRadius`, `MjTextStyles`, `MjTheme`), never with raw colors, sizes or text styles. Titles use Fredoka (`MjTextStyles.headline`, `MjTextStyles.display`), the other texts use Comfortaa through the theme. A reusable component belongs in `lib/core_ui/`, which never imports anything from the rest of the app (checked by `test/core_ui/core_ui_boundaries_test.dart`)
+  - Every class of the design system starts with `Mj` and lives in a file starting with `mj_` (`MjCard` in `mj_card.dart`). The classes of the features never use this prefix
+  - Pages:
+    - `MjHeroPage` for the welcome screen on the pink and lilac gradient
+    - `MjSheetPage` for the screens with a gradient header and a white sheet (sign in, register, forgot password, household setup), its title is a `MjHeader`
+    - `MjPage` for the plain screens and the tabs; a tab starts with a `MjTabHeader` whose actions are `MjRoundIconButton`s
+  - Forms use `MjTextField`, `MjPasswordField`, `MjSearchField`, `MjCounter`, `MjChoiceChip` and `MjCheckChip`. The main action is a `FilledButton` (ink pill of the theme), a secondary link is a `MjLinkPrompt` or a `TextButton`
   - Loading:
-    - A content screen (a list, a dashboard) shows its real loaded view filled with a bone mock inside `DsSkeletonizer`. The bone mock is a top-level value in `<feature>_bone_mock.dart`, in the presentation layer, never in the state
-    - Any other wait shows `DsLoader`
-    - So that the loader does not flash, the cubit wraps the loading in `withMinimalDelay(DsLoader.minDuration)` (or `DsSkeletonizer.minDuration`), only when the loader is on screen: a silent reload of data already shown never waits. The duration is injected (`Duration? minimalLoading`) and the tests pass `Duration.zero`
-  - Empty states, successes and messages use `DsMessageView` (`placement: DsMessagePlacement.tab` inside a tab)
+    - A list read from Firestore shows its real view filled with a bone mock inside `MjSkeletonizer`. The bone mock is a top-level value in `<feature>_bone_mock.dart`, in the presentation layer, never in the state
+    - Any other wait (sending a form, signing out) shows `MjLoader`
+    - So that the skeleton or the loader does not flash, the cubit waits `MjSkeletonizer.minDuration` before showing the first data of a stream, and wraps a `TaskEither` shown with a loader in `withMinimalDelay(MjLoader.minDuration)`. A silent write while the data stays on screen never waits. The duration is injected (`Duration? minimalLoading`) and the tests pass `Duration.zero`
+  - Empty states and messages use `MjMessageView`: the default `MjMessagePlacement.card` inside a form or a list, `MjMessagePlacement.tab` for the empty state of a whole tab, with an optional title, icon and `MjMessageAction`
   - A failure state carries its `AppFailure` (`XxxFailed(this.failure)`) and the screen shows it with `FailureView`. The wording of each failure lives in `failureMessage` (`lib/core/presentation/failure_message.dart`): a new failure that can reach a screen gets its message there
-  - A modal bottom sheet is opened with `DsBottomSheet.show` and its content is a `DsBottomSheet`
-  - A screen that the user may want to reload is wrapped in `DsRefresh`; a state that does not scroll (empty, error) goes inside a `DsRefreshFillView`
+  - A modal bottom sheet is opened with `MjBottomSheet.show` and its content is a `MjBottomSheet`. The sheet only returns its result (a sealed type, such as `FridgeSheetSaved` / `FridgeSheetDeleted`): the cubit of the screen performs the action
+  - Data read from Firestore is followed in real time through a stream: no pull to refresh
 
 ## State
   - Model the state as a sum type: an `@immutable sealed class` with variants (`final class` in new code) (`Initial`, `Loading`, `Loaded`, `Error`...), never a class with nullable fields and status flags
@@ -46,7 +52,7 @@
 ## Functional Programming
   - Use fpdart for functional programming
   - Use `Option<T>` instead of nullable types in the domain and as soon as a value enters a `map` / `flatMap` / `match` chain. A nullable is only acceptable for a value consumed immediately for display (`Text(maybe ?? '')`)
-  - A sealed type whose variants only say whether a value is present (`NoX` / `X(value)`) is an `Option<T>`: do not write it. Two values that play the same role side by side (the selected month on the home and the selected year in the memories) get the same type and the same naming
+  - A sealed type whose variants only say whether a value is present (`NoX` / `X(value)`) is an `Option<T>`: do not write it. Two values that play the same role side by side (the household of the session and the household given to the setup) get the same type and the same naming
   - Use `TaskEither<AppFailure, T>` for every I/O operation which may fail
   - `AppFailure` is an `abstract class` extending `Equatable`, never sealed: each package defines its own failures
   - Always compose operations in multiple simple ways (`map`, `flatMap`, Do notation beyond two steps)
@@ -81,7 +87,7 @@
 ## Imports
   - Always use the full package path for every `import`, `export`, `part` and `part of` (`import 'package:mijoo/core_ui/core_ui.dart';`, `import 'package:mijoo/features/auth/domain/auth_repository.dart';`), never a relative path such as `'../../../core_ui/ds_tokens.dart'` or `'auth_state.dart'`. The `always_use_package_imports` lint enforces it for imports
   - Only the paths a generator requires stay as it writes them: the generated files themselves, and `part 'routes.g.dart';` that `go_router_builder` needs in `routes.dart`
-  - A file under `test/` has no package path: the shared test helpers live in `test/helpers/` and the tests import them with a relative path (`import '../../../helpers/pump_app.dart';`), as in dis_saucisse
+  - A file under `test/` has no package path: the shared test helpers live in `test/helpers/` and the tests import them with a relative path (`import '../../../helpers/pump_app.dart';`)
 
 ## Code style
   - Never use a default case in a switch on a sealed class: it hides the compile error when a variant is added

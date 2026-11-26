@@ -12,7 +12,7 @@ Future<void> pumpApp(WidgetTester tester, {required String location}) async {
   await tester.pumpWidget(
     TranslationProvider(
       child: MaterialApp.router(
-        theme: DsTheme.light(),
+        theme: MjTheme.light(),
         locale: AppLocale.fr.flutterLocale,
         supportedLocales: AppLocaleUtils.supportedLocales,
         localizationsDelegates: GlobalMaterialLocalizations.delegates,

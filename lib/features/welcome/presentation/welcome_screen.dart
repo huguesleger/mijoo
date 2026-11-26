@@ -9,7 +9,7 @@ class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) => DsHeroPage(
+  Widget build(BuildContext context) => MjHeroPage(
     child: BlocBuilder<WelcomeCubit, WelcomeState>(
       builder: (_, state) => switch (state) {
         WelcomeReady() => const WelcomeContent(),

@@ -26,7 +26,7 @@ class SetupPreferencesStep extends StatelessWidget {
           selected: draft.likes,
           onChanged: (likes) => cubit.update(likes: some(likes)),
         ),
-        const SizedBox(height: DsSpacing.large),
+        const SizedBox(height: MjSpacing.large),
         SetupChoiceSection(
           title: t.setup.exclusionsTitle,
           values: FoodExclusion.values,
@@ -34,7 +34,7 @@ class SetupPreferencesStep extends StatelessWidget {
           selected: draft.exclusions,
           onChanged: (exclusions) => cubit.update(exclusions: some(exclusions)),
         ),
-        const SizedBox(height: DsSpacing.large),
+        const SizedBox(height: MjSpacing.large),
         SetupChoiceSection(
           title: t.setup.allergiesTitle,
           values: Allergen.values,

@@ -1,6 +1,7 @@
 import 'package:mijoo/core/core.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
 import 'package:mijoo/features/auth/domain/auth_failure.dart';
+import 'package:mijoo/features/fridge/domain/fridge_failure.dart';
 import 'package:mijoo/features/household/domain/household_failure.dart';
 
 String failureMessage(AppFailure failure) => switch (failure) {
@@ -13,5 +14,8 @@ String failureMessage(AppFailure failure) => switch (failure) {
   HouseholdUnavailable() => t.household.unavailable,
   HouseholdAccessDenied() => t.household.accessDenied,
   HouseholdNetworkFailure() => t.household.networkFailure,
+  FridgeUnavailable() => t.fridge.unavailable,
+  FridgeAccessDenied() => t.fridge.accessDenied,
+  FridgeNetworkFailure() => t.fridge.networkFailure,
   _ => t.failures.unknown,
 };

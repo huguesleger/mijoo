@@ -14,7 +14,7 @@ class MainShell extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     extendBody: true,
     body: navigationShell,
-    bottomNavigationBar: DsNavigationBar(
+    bottomNavigationBar: MjNavigationBar(
       selectedIndex: navigationShell.currentIndex,
       onSelected: (index) => navigationShell.goBranch(
         index,

@@ -27,12 +27,12 @@ class AuthForm extends StatelessWidget {
         ...failure.match(
           () => const <Widget>[],
           (failure) => [
-            const SizedBox(height: DsSpacing.medium),
+            const SizedBox(height: MjSpacing.medium),
             FailureView(failure: failure),
           ],
         ),
         const Spacer(),
-        const SizedBox(height: DsSpacing.large),
+        const SizedBox(height: MjSpacing.large),
         FilledButton(
           onPressed: cubit.canSubmit(draft) ? () => cubit.submit(draft) : null,
           child: Text(switch (cubit.mode) {
@@ -40,7 +40,7 @@ class AuthForm extends StatelessWidget {
             RegisterMode() => t.auth.registerSubmit,
           }),
         ),
-        const SizedBox(height: DsSpacing.small),
+        const SizedBox(height: MjSpacing.small),
         const AuthFooter(),
       ],
     );
