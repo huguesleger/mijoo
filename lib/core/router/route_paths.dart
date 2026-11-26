@@ -1,0 +1,11 @@
+const String launchPath = '/launch';
+const String welcomePath = '/';
+const String signInPath = '/sign-in';
+const String registerPath = '/register';
+const String forgotPasswordPath = '/forgot-password';
+const String setupPath = '/setup';
+const String accountPath = '/account';
+const String homePath = '/home';
+const String fridgePath = '/fridge';
+const String mealsPath = '/meals';
+const String shoppingPath = '/shopping';

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../core/i18n/translations.g.dart';
-import '../../../core_ui/ds_loader.dart';
-import '../../../core_ui/ds_sheet_page.dart';
-import '../../session/presentation/session_redirect.dart';
-import 'auth_cubit.dart';
-import 'auth_form.dart';
-import 'auth_header.dart';
-import 'auth_mode.dart';
+import 'package:mijoo/core/i18n/translations.g.dart';
+import 'package:mijoo/core_ui/core_ui.dart';
+import 'package:mijoo/core/router/routes.dart';
+import 'package:mijoo/features/auth/presentation/bloc/auth_cubit.dart';
+import 'package:mijoo/features/auth/presentation/widgets/auth_form.dart';
+import 'package:mijoo/features/auth/presentation/bloc/auth_mode.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -20,14 +17,14 @@ class AuthScreen extends StatelessWidget {
     final cubit = context.read<AuthCubit>();
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) => DsSheetPage(
-        onBack: () => context.go(welcomePath),
+        onBack: some(() => const WelcomePageRoute().go(context)),
         header: switch (cubit.mode) {
-          SignInMode() => AuthHeader(
+          SignInMode() => DsHeader(
             lead: t.auth.signInLead,
             highlight: t.auth.signInHighlight,
             subtitle: some(t.auth.signInSubtitle),
           ),
-          RegisterMode() => AuthHeader(
+          RegisterMode() => DsHeader(
             lead: t.auth.registerLead,
             highlight: t.auth.registerHighlight,
             subtitle: some(t.auth.registerSubtitle),

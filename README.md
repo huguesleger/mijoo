@@ -19,25 +19,33 @@ Le développement Flutter iOS et Android a commencé. Le premier parcours couvre
 
 Le projet utilise Flutter 3.41.4 via FVM. La cible iOS minimale est iOS 15.
 
+L’app est à la racine du dépôt. Le design system est dans `lib/core_ui/` et les fondations partagées dans `lib/core/`.
+
 ```sh
 fvm flutter pub get
 fvm flutter run
 ```
 
-Sur iOS et Android, Mijoo utilise le projet Firebase `mijoo-famille` par défaut. Pour essayer la création de compte et la connexion avec l’émulateur local, lancer dans deux terminaux :
+Sur iOS et Android, Mijoo utilise le projet Firebase `mijoo-famille` par défaut. Pour travailler avec les émulateurs locaux d’Authentication et de Firestore, lancer dans deux terminaux :
 
 ```sh
-firebase emulators:start --only auth --project demo-mijoo
+firebase emulators:start --only auth,firestore --project demo-mijoo
 fvm flutter run --dart-define=FIREBASE_EMULATOR=true
 ```
 
 L’adresse locale est présélectionnée pour le simulateur iOS et l’émulateur Android standard. Pour un autre environnement, fournir `FIREBASE_EMULATOR_HOST`.
 
 ```sh
-fvm flutter analyze --no-pub lib test
-fvm flutter test --no-pub
+fvm flutter analyze
+fvm flutter test
 fvm dart run slang
 fvm dart run build_runner build
+```
+
+Les règles de sécurité Firestore sont dans `firestore.rules`. Leurs tests tournent sur l’émulateur Firestore :
+
+```sh
+cd firestore-tests && npm install && npm run test:emulator
 ```
 
 ## Documentation
@@ -49,4 +57,5 @@ fvm dart run build_runner build
 | [Architecture](docs/ARCHITECTURE.md) | Proposition technique et décisions ouvertes |
 | [Design](docs/DESIGN.md) | Parcours à explorer et méthode d’analyse des captures |
 | [Références visuelles](design/references/) | Dossier destiné aux captures |
-| [AGENTS.md](AGENTS.md) | Consignes de contribution |
+| [CLAUDE.md](CLAUDE.md) | Consignes de contribution |
+| [coding_rules.md](coding_rules.md) | Règles de code |

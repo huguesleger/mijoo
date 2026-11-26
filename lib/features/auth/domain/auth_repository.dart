@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 
-import '../../../core/domain/app_failure.dart';
-import 'account.dart';
+import 'package:mijoo/core/core.dart';
+import 'package:mijoo/features/auth/domain/entities/account.dart';
 
 abstract interface class AuthRepository {
   TaskEither<AppFailure, Account> signIn(String email, String password);

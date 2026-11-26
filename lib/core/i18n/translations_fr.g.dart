@@ -41,15 +41,18 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
-	late final Translations$account$fr account = Translations$account$fr._(_root);
-	late final Translations$auth$fr auth = Translations$auth$fr._(_root);
-	late final Translations$shell$fr shell = Translations$shell$fr._(_root);
-	late final Translations$welcome$fr welcome = Translations$welcome$fr._(_root);
+	late final Translations$account$fr account = Translations$account$fr.internal(_root);
+	late final Translations$auth$fr auth = Translations$auth$fr.internal(_root);
+	late final Translations$failures$fr failures = Translations$failures$fr.internal(_root);
+	late final Translations$household$fr household = Translations$household$fr.internal(_root);
+	late final Translations$setup$fr setup = Translations$setup$fr.internal(_root);
+	late final Translations$shell$fr shell = Translations$shell$fr.internal(_root);
+	late final Translations$welcome$fr welcome = Translations$welcome$fr.internal(_root);
 }
 
 // Path: account
 class Translations$account$fr {
-	Translations$account$fr._(this._root);
+	Translations$account$fr.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -76,7 +79,7 @@ class Translations$account$fr {
 
 // Path: auth
 class Translations$auth$fr {
-	Translations$auth$fr._(this._root);
+	Translations$auth$fr.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -114,9 +117,6 @@ class Translations$auth$fr {
 
 	/// fr: 'La connexion a échoué. Réessaie dans un instant.'
 	String get networkFailure => 'La connexion a échoué. Réessaie dans un instant.';
-
-	/// fr: 'Une erreur est survenue. Réessaie dans un instant.'
-	String get unknownFailure => 'Une erreur est survenue. Réessaie dans un instant.';
 
 	/// fr: 'Crée ton '
 	String get registerLead => 'Crée ton ';
@@ -215,9 +215,189 @@ class Translations$auth$fr {
 	String get rememberPassword => 'Tu t’en souviens ? ';
 }
 
+// Path: failures
+class Translations$failures$fr {
+	Translations$failures$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Une erreur est survenue. Réessaie dans un instant.'
+	String get unknown => 'Une erreur est survenue. Réessaie dans un instant.';
+}
+
+// Path: household
+class Translations$household$fr {
+	Translations$household$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Ton foyer n’est pas accessible pour le moment. Réessaie dans un instant.'
+	String get unavailable => 'Ton foyer n’est pas accessible pour le moment. Réessaie dans un instant.';
+
+	/// fr: 'Tu n’as pas accès à ce foyer.'
+	String get accessDenied => 'Tu n’as pas accès à ce foyer.';
+
+	/// fr: 'La connexion a échoué. Réessaie dans un instant.'
+	String get networkFailure => 'La connexion a échoué. Réessaie dans un instant.';
+}
+
+// Path: setup
+class Translations$setup$fr {
+	Translations$setup$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Étape {current} sur {total}'
+	String step({required Object current, required Object total}) => 'Étape ${current} sur ${total}';
+
+	/// fr: 'Ton '
+	String get householdLead => 'Ton ';
+
+	/// fr: 'foyer'
+	String get householdHighlight => 'foyer';
+
+	/// fr: 'Pour adapter les portions de chaque repas.'
+	String get householdSubtitle => 'Pour adapter les portions de chaque repas.';
+
+	/// fr: 'Adultes'
+	String get adults => 'Adultes';
+
+	/// fr: 'Enfants'
+	String get children => 'Enfants';
+
+	/// fr: 'Retirer un'
+	String get decrease => 'Retirer un';
+
+	/// fr: 'Ajouter un'
+	String get increase => 'Ajouter un';
+
+	/// fr: 'Temps de préparation maximum'
+	String get prepTime => 'Temps de préparation maximum';
+
+	/// fr: '{count} min'
+	String minutes({required Object count}) => '${count} min';
+
+	/// fr: 'Tes '
+	String get preferencesLead => 'Tes ';
+
+	/// fr: 'goûts'
+	String get preferencesHighlight => 'goûts';
+
+	/// fr: 'Mijoo écarte toujours les exclusions et les allergies.'
+	String get preferencesSubtitle => 'Mijoo écarte toujours les exclusions et les allergies.';
+
+	/// fr: 'Ce que vous aimez'
+	String get likesTitle => 'Ce que vous aimez';
+
+	/// fr: 'À éviter'
+	String get exclusionsTitle => 'À éviter';
+
+	/// fr: 'Allergies'
+	String get allergiesTitle => 'Allergies';
+
+	Map<String, String> get likes => {
+		'pasta': 'Pâtes',
+		'rice': 'Riz',
+		'vegetables': 'Légumes',
+		'salads': 'Salades',
+		'soups': 'Soupes',
+		'stews': 'Plats mijotés',
+		'fish': 'Poisson',
+		'meat': 'Viande',
+		'vegetarian': 'Végétarien',
+		'worldCuisine': 'Cuisines du monde',
+	};
+	Map<String, String> get exclusions => {
+		'pork': 'Porc',
+		'beef': 'Bœuf',
+		'meat': 'Toute viande',
+		'fish': 'Poisson',
+		'seafood': 'Fruits de mer',
+		'alcohol': 'Alcool',
+		'spicy': 'Épicé',
+	};
+	Map<String, String> get allergens => {
+		'gluten': 'Gluten',
+		'lactose': 'Lactose',
+		'eggs': 'Œufs',
+		'peanuts': 'Arachides',
+		'treeNuts': 'Fruits à coque',
+		'soy': 'Soja',
+		'sesame': 'Sésame',
+		'crustaceans': 'Crustacés',
+		'fish': 'Poisson',
+	};
+
+	/// fr: 'Ton '
+	String get budgetLead => 'Ton ';
+
+	/// fr: 'budget'
+	String get budgetHighlight => 'budget';
+
+	/// fr: 'Facultatif, tu pourras le changer plus tard.'
+	String get budgetSubtitle => 'Facultatif, tu pourras le changer plus tard.';
+
+	/// fr: 'Budget courses par semaine'
+	String get weeklyBudget => 'Budget courses par semaine';
+
+	/// fr: 'Par exemple 120'
+	String get weeklyBudgetHint => 'Par exemple 120';
+
+	/// fr: '€'
+	String get euro => '€';
+
+	/// fr: 'Saisis un montant en euros, par exemple 120 ou 85,50.'
+	String get budgetInvalid => 'Saisis un montant en euros, par exemple 120 ou 85,50.';
+
+	/// fr: 'Code postal'
+	String get postalCode => 'Code postal';
+
+	/// fr: '69001'
+	String get postalCodeHint => '69001';
+
+	/// fr: 'Saisis un code postal à 5 chiffres.'
+	String get postalCodeInvalid => 'Saisis un code postal à 5 chiffres.';
+
+	/// fr: 'Commune'
+	String get city => 'Commune';
+
+	/// fr: 'Lyon'
+	String get cityHint => 'Lyon';
+
+	/// fr: 'Ta commune sert seulement à trouver les magasins proches.'
+	String get locationHelp => 'Ta commune sert seulement à trouver les magasins proches.';
+
+	/// fr: 'Continuer'
+	String get kContinue => 'Continuer';
+
+	/// fr: 'Terminer'
+	String get finish => 'Terminer';
+
+	/// fr: 'Tout est '
+	String get doneLead => 'Tout est ';
+
+	/// fr: 'prêt'
+	String get doneHighlight => 'prêt';
+
+	/// fr: 'Ton foyer est configuré.'
+	String get doneSubtitle => 'Ton foyer est configuré.';
+
+	/// fr: 'Ajoute ce qu’il y a dans ton frigo pour recevoir tes premières idées de repas.'
+	String get doneMessage => 'Ajoute ce qu’il y a dans ton frigo pour recevoir tes premières idées de repas.';
+
+	/// fr: 'Découvrir Mijoo'
+	String get start => 'Découvrir Mijoo';
+}
+
 // Path: shell
 class Translations$shell$fr {
-	Translations$shell$fr._(this._root);
+	Translations$shell$fr.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -250,7 +430,7 @@ class Translations$shell$fr {
 
 // Path: welcome
 class Translations$welcome$fr {
-	Translations$welcome$fr._(this._root);
+	Translations$welcome$fr.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -294,7 +474,6 @@ extension on Translations {
 			'auth.weakPassword' => 'Choisis un mot de passe plus long.',
 			'auth.invalidEmail' => 'Saisis une adresse e-mail valide.',
 			'auth.networkFailure' => 'La connexion a échoué. Réessaie dans un instant.',
-			'auth.unknownFailure' => 'Une erreur est survenue. Réessaie dans un instant.',
 			'auth.registerLead' => 'Crée ton ',
 			'auth.registerHighlight' => 'compte',
 			'auth.registerSubtitle' => 'Quelques secondes et on passe à table.',
@@ -327,6 +506,72 @@ extension on Translations {
 			'auth.resetSentMessage' => ({required Object email}) => 'Si un compte existe pour ${email}, tu vas recevoir un lien pour choisir un nouveau mot de passe. Pense à regarder dans les courriers indésirables.',
 			'auth.backToSignIn' => 'Retour à la connexion',
 			'auth.rememberPassword' => 'Tu t’en souviens ? ',
+			'failures.unknown' => 'Une erreur est survenue. Réessaie dans un instant.',
+			'household.unavailable' => 'Ton foyer n’est pas accessible pour le moment. Réessaie dans un instant.',
+			'household.accessDenied' => 'Tu n’as pas accès à ce foyer.',
+			'household.networkFailure' => 'La connexion a échoué. Réessaie dans un instant.',
+			'setup.step' => ({required Object current, required Object total}) => 'Étape ${current} sur ${total}',
+			'setup.householdLead' => 'Ton ',
+			'setup.householdHighlight' => 'foyer',
+			'setup.householdSubtitle' => 'Pour adapter les portions de chaque repas.',
+			'setup.adults' => 'Adultes',
+			'setup.children' => 'Enfants',
+			'setup.decrease' => 'Retirer un',
+			'setup.increase' => 'Ajouter un',
+			'setup.prepTime' => 'Temps de préparation maximum',
+			'setup.minutes' => ({required Object count}) => '${count} min',
+			'setup.preferencesLead' => 'Tes ',
+			'setup.preferencesHighlight' => 'goûts',
+			'setup.preferencesSubtitle' => 'Mijoo écarte toujours les exclusions et les allergies.',
+			'setup.likesTitle' => 'Ce que vous aimez',
+			'setup.exclusionsTitle' => 'À éviter',
+			'setup.allergiesTitle' => 'Allergies',
+			'setup.likes.pasta' => 'Pâtes',
+			'setup.likes.rice' => 'Riz',
+			'setup.likes.vegetables' => 'Légumes',
+			'setup.likes.salads' => 'Salades',
+			'setup.likes.soups' => 'Soupes',
+			'setup.likes.stews' => 'Plats mijotés',
+			'setup.likes.fish' => 'Poisson',
+			'setup.likes.meat' => 'Viande',
+			'setup.likes.vegetarian' => 'Végétarien',
+			'setup.likes.worldCuisine' => 'Cuisines du monde',
+			'setup.exclusions.pork' => 'Porc',
+			'setup.exclusions.beef' => 'Bœuf',
+			'setup.exclusions.meat' => 'Toute viande',
+			'setup.exclusions.fish' => 'Poisson',
+			'setup.exclusions.seafood' => 'Fruits de mer',
+			'setup.exclusions.alcohol' => 'Alcool',
+			'setup.exclusions.spicy' => 'Épicé',
+			'setup.allergens.gluten' => 'Gluten',
+			'setup.allergens.lactose' => 'Lactose',
+			'setup.allergens.eggs' => 'Œufs',
+			'setup.allergens.peanuts' => 'Arachides',
+			'setup.allergens.treeNuts' => 'Fruits à coque',
+			'setup.allergens.soy' => 'Soja',
+			'setup.allergens.sesame' => 'Sésame',
+			'setup.allergens.crustaceans' => 'Crustacés',
+			'setup.allergens.fish' => 'Poisson',
+			'setup.budgetLead' => 'Ton ',
+			'setup.budgetHighlight' => 'budget',
+			'setup.budgetSubtitle' => 'Facultatif, tu pourras le changer plus tard.',
+			'setup.weeklyBudget' => 'Budget courses par semaine',
+			'setup.weeklyBudgetHint' => 'Par exemple 120',
+			'setup.euro' => '€',
+			'setup.budgetInvalid' => 'Saisis un montant en euros, par exemple 120 ou 85,50.',
+			'setup.postalCode' => 'Code postal',
+			'setup.postalCodeHint' => '69001',
+			'setup.postalCodeInvalid' => 'Saisis un code postal à 5 chiffres.',
+			'setup.city' => 'Commune',
+			'setup.cityHint' => 'Lyon',
+			'setup.locationHelp' => 'Ta commune sert seulement à trouver les magasins proches.',
+			'setup.kContinue' => 'Continuer',
+			'setup.finish' => 'Terminer',
+			'setup.doneLead' => 'Tout est ',
+			'setup.doneHighlight' => 'prêt',
+			'setup.doneSubtitle' => 'Ton foyer est configuré.',
+			'setup.doneMessage' => 'Ajoute ce qu’il y a dans ton frigo pour recevoir tes premières idées de repas.',
+			'setup.start' => 'Découvrir Mijoo',
 			'shell.home' => 'Accueil',
 			'shell.fridge' => 'Frigo',
 			'shell.meals' => 'Repas',

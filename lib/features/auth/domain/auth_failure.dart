@@ -1,4 +1,4 @@
-import '../../../core/domain/app_failure.dart';
+import 'package:mijoo/core/core.dart';
 
 final class FirebaseUnavailable extends AppFailure {
   const FirebaseUnavailable();
@@ -22,8 +22,4 @@ final class InvalidEmail extends AppFailure {
 
 final class AuthNetworkFailure extends AppFailure {
   const AuthNetworkFailure();
-}
-
-final class UnknownFailure extends AppFailure {
-  const UnknownFailure();
 }

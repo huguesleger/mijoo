@@ -1,9 +1,9 @@
-import 'package:go_router/go_router.dart';
+part of 'package:mijoo/core/router/routes.dart';
 
-import 'launch_screen.dart';
-import 'session_redirect.dart';
+@TypedGoRoute<LaunchPageRoute>(path: launchPath, name: 'launch')
+class LaunchPageRoute extends GoRouteData with $LaunchPageRoute {
+  const LaunchPageRoute();
 
-final launchPageRoute = GoRoute(
-  path: launchPath,
-  builder: (_, _) => const LaunchScreen(),
-);
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const LaunchScreen();
+}

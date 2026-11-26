@@ -1,0 +1,5 @@
+{
+  "unavailable": "Ton foyer n’est pas accessible pour le moment. Réessaie dans un instant.",
+  "accessDenied": "Tu n’as pas accès à ce foyer.",
+  "networkFailure": "La connexion a échoué. Réessaie dans un instant."
+}

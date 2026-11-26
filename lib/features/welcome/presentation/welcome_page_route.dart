@@ -1,12 +1,10 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+part of 'package:mijoo/core/router/routes.dart';
 
-import '../../session/presentation/session_redirect.dart';
-import 'welcome_cubit.dart';
-import 'welcome_screen.dart';
+@TypedGoRoute<WelcomePageRoute>(path: welcomePath, name: 'welcome')
+class WelcomePageRoute extends GoRouteData with $WelcomePageRoute {
+  const WelcomePageRoute();
 
-final welcomePageRoute = GoRoute(
-  path: welcomePath,
-  builder: (_, _) =>
-      BlocProvider(create: (_) => WelcomeCubit(), child: const WelcomeScreen()),
-);
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      BlocProvider<WelcomeCubit>(create: (_) => WelcomeCubit(), child: const WelcomeScreen());
+}

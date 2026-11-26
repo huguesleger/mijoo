@@ -1,10 +1,10 @@
 /// Generated file. Do not edit.
 ///
-/// Source: lib/features
+/// Source: lib
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 62
+/// Strings: 127
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import

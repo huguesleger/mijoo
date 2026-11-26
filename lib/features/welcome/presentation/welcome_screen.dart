@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core_ui/ds_hero_page.dart';
-import 'welcome_content.dart';
-import 'welcome_cubit.dart';
+import 'package:mijoo/core_ui/core_ui.dart';
+import 'package:mijoo/features/welcome/presentation/widgets/welcome_content.dart';
+import 'package:mijoo/features/welcome/presentation/bloc/welcome_cubit.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

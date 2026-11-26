@@ -19,8 +19,7 @@ void main() {
       (_) => random.nextInt(256).toRadixString(16).padLeft(2, '0'),
     ).join();
     final email = 'mijoo-test-$suffix@example.com';
-    final password =
-        'Mj!9${List.generate(20, (_) => random.nextInt(36).toRadixString(36)).join()}';
+    final password = 'Mj!9${List.generate(20, (_) => random.nextInt(36).toRadixString(36)).join()}';
     app.main();
     await tester.pumpAndSettle();
     tester.testTextInput.register();

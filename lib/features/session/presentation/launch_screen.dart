@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core_ui/assets/assets.gen.dart';
-import '../../../core_ui/ds_hero_page.dart';
-import '../../../core_ui/ds_loader.dart';
-import '../../../core_ui/ds_tokens.dart';
+import 'package:mijoo/core_ui/core_ui.dart';
 
 class LaunchScreen extends StatelessWidget {
   const LaunchScreen({super.key});

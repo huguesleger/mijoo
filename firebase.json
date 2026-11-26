@@ -1,1 +1,46 @@
-{"emulators":{"auth":{"port":9099}},"auth":{"providers":{"emailPassword":true}},"flutter":{"platforms":{"android":{"default":{"projectId":"mijoo-famille","appId":"1:718397273138:android:a1ab43085ff6a0d6e4382b","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"mijoo-famille","appId":"1:718397273138:ios:e722e9a45aaeade7e4382b","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/core/firebase/firebase_options.dart":{"projectId":"mijoo-famille","configurations":{"android":"1:718397273138:android:a1ab43085ff6a0d6e4382b","ios":"1:718397273138:ios:e722e9a45aaeade7e4382b"}}}}}}
+{
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "firestore": {
+      "port": 8080
+    }
+  },
+  "auth": {
+    "providers": {
+      "emailPassword": true
+    }
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "mijoo-famille",
+          "appId": "1:718397273138:android:a1ab43085ff6a0d6e4382b",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "mijoo-famille",
+          "appId": "1:718397273138:ios:e722e9a45aaeade7e4382b",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/core/firebase/firebase_options.dart": {
+          "projectId": "mijoo-famille",
+          "configurations": {
+            "android": "1:718397273138:android:a1ab43085ff6a0d6e4382b",
+            "ios": "1:718397273138:ios:e722e9a45aaeade7e4382b"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  }
+}

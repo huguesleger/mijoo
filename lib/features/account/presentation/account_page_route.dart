@@ -1,22 +1,15 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+part of 'package:mijoo/core/router/routes.dart';
 
-import '../../session/presentation/launch_screen.dart';
-import '../../session/presentation/session_cubit.dart';
-import 'account_cubit.dart';
-import 'account_screen.dart';
+@TypedGoRoute<AccountPageRoute>(path: accountPath, name: 'account')
+class AccountPageRoute extends GoRouteData with $AccountPageRoute {
+  const AccountPageRoute();
 
-const accountPath = '/account';
-const accountRouteName = 'account';
-
-final accountPageRoute = GoRoute(
-  path: accountPath,
-  name: accountRouteName,
-  builder: (context, _) => switch (context.read<SessionCubit>().state) {
-    SignedIn(:final account) => BlocProvider(
+  @override
+  Widget build(BuildContext context, GoRouterState state) => switch (context.read<SessionCubit>().state) {
+    SignedIn(:final account) => BlocProvider<AccountCubit>(
       create: (_) => AccountCubit(account: account),
       child: const AccountScreen(),
     ),
     SessionUnknown() || SignedOut() => const LaunchScreen(),
-  },
-);
+  };
+}

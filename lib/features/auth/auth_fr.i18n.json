@@ -10,7 +10,6 @@
   "weakPassword": "Choisis un mot de passe plus long.",
   "invalidEmail": "Saisis une adresse e-mail valide.",
   "networkFailure": "La connexion a échoué. Réessaie dans un instant.",
-  "unknownFailure": "Une erreur est survenue. Réessaie dans un instant.",
   "registerLead": "Crée ton ",
   "registerHighlight": "compte",
   "registerSubtitle": "Quelques secondes et on passe à table.",

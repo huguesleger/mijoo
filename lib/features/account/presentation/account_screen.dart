@@ -3,15 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/i18n/translations.g.dart';
-import '../../../core/presentation/failure_view.dart';
-import '../../../core_ui/ds_back_button.dart';
-import '../../../core_ui/ds_loader.dart';
-import '../../../core_ui/ds_page.dart';
-import '../../../core_ui/ds_tokens.dart';
-import '../../auth/presentation/auth_header.dart';
-import 'account_cubit.dart';
-import 'account_details.dart';
+import 'package:mijoo/core/i18n/translations.g.dart';
+import 'package:mijoo/core/presentation/widgets/failure_view.dart';
+import 'package:mijoo/core_ui/core_ui.dart';
+import 'package:mijoo/features/account/presentation/bloc/account_cubit.dart';
+import 'package:mijoo/features/account/presentation/widgets/account_details.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -27,7 +23,7 @@ class AccountScreen extends StatelessWidget {
             child: DsBackButton(onPressed: context.pop),
           ),
           const SizedBox(height: DsSpacing.medium),
-          AuthHeader(
+          DsHeader(
             lead: t.account.titleLead,
             highlight: t.account.titleHighlight,
             subtitle: none(),
