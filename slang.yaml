@@ -1,0 +1,7 @@
+base_locale: fr
+input_directory: lib/features
+output_directory: lib/core/i18n
+output_file_name: translations.g.dart
+namespaces: true
+string_interpolation: braces
+timestamp: false

@@ -1,0 +1,55 @@
+name: mijoo
+description: Organisation des repas et des courses en famille.
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.1
+
+dependencies:
+  equatable: ^2.0.8
+  firebase_auth: ^5.7.0
+  firebase_core: ^3.15.2
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^2.3.4
+  fpdart: ^1.2.0
+  get_it: ^8.3.0
+  go_router: ^17.5.0
+  slang: ^4.19.2
+  slang_flutter: ^4.19.0
+
+dev_dependencies:
+  integration_test:
+    sdk: flutter
+  bloc_test: ^10.0.0
+  mocktail: ^1.0.5
+  build_runner: ^2.15.1
+  flutter_gen_runner: ^5.15.0
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo/mijoo-logo.svg
+    - assets/images/bol-bleu.png
+  fonts:
+    - family: Outfit
+      fonts:
+        - asset: assets/fonts/Outfit-Regular.ttf
+        - asset: assets/fonts/Outfit-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Outfit-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Outfit-Bold.ttf
+          weight: 700
+
+flutter_gen:
+  output: lib/core_ui/assets/
+  integrations:
+    flutter_svg: true

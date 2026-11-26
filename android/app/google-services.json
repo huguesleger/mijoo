@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "718397273138",
+    "project_id": "mijoo-famille",
+    "storage_bucket": "mijoo-famille.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718397273138:android:a1ab43085ff6a0d6e4382b",
+        "android_client_info": {
+          "package_name": "com.mijoo.mijoo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDyf3sMpkxPfAo2RLpFajZf1gr-oTdT-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
