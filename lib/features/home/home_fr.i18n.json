@@ -1,0 +1,14 @@
+{
+  "hello": "Bonjour,",
+  "titleLead": "Qu’est-ce qu’on mange ",
+  "titleHighlight": "ce soir ?",
+  "scanTitle": "Scanne ton frigo",
+  "scanMessage": "Une photo et Mijoo repère tes ingrédients.",
+  "scanAction": "Prendre une photo",
+  "finishFirst": "À consommer vite",
+  "seeAll": "Tout voir",
+  "nothingToFinish": "Rien d’urgent dans ton frigo pour le moment.",
+  "mealIdea": "Idée du soir",
+  "mealSoonTitle": "Les idées de repas arrivent",
+  "mealSoonMessage": "Mijoo proposera des repas avec ce que tu as déjà au frigo."
+}

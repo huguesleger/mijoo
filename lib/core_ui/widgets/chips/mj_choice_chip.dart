@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:fpdart/fpdart.dart' show None, Option;
 
 import 'package:mijoo/core_ui/core_ui.dart';
 
@@ -8,12 +8,14 @@ class MjChoiceChip extends StatelessWidget {
     required this.label,
     required this.selected,
     required this.onTap,
+    this.icon = const None(),
     super.key,
   });
 
   final String label;
   final bool selected;
   final VoidCallback onTap;
+  final Option<IconData> icon;
 
   @override
   Widget build(BuildContext context) => Semantics(
@@ -27,22 +29,23 @@ class MjChoiceChip extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         constraints: const BoxConstraints(minHeight: 40),
-        padding: const EdgeInsets.symmetric(horizontal: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
-          color: selected ? MjColors.lavender : MjColors.field,
+          color: selected ? MjColors.ink : MjColors.onInk,
           borderRadius: MjRadius.pill,
-          border: Border.all(
-            color: selected ? MjColors.lavenderStrong : MjColors.field,
-          ),
+          border: Border.all(color: selected ? MjColors.ink : MjColors.cardBorder),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            if (selected) ...[
-              const Icon(LucideIcons.check, size: 16, color: MjColors.ink),
-              const SizedBox(width: 6),
-            ],
-            Text(label, style: MjTextStyles.choice),
+          children: <Widget>[
+            ...icon.match(
+              () => const <Widget>[],
+              (IconData icon) => <Widget>[
+                Icon(icon, size: 16, color: selected ? MjColors.onInk : MjColors.secondaryText),
+                const SizedBox(width: 6),
+              ],
+            ),
+            Text(label, style: MjTextStyles.choice.copyWith(color: selected ? MjColors.onInk : MjColors.ink)),
           ],
         ),
       ),

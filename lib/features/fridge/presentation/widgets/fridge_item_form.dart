@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
@@ -6,6 +7,8 @@ import 'package:mijoo/core_ui/core_ui.dart';
 import 'package:mijoo/features/fridge/domain/entities/fridge_category.dart';
 import 'package:mijoo/features/fridge/domain/entities/fridge_unit.dart';
 import 'package:mijoo/features/fridge/domain/rules/fridge_quantity.dart';
+import 'package:mijoo/features/fridge/domain/rules/fridge_quantity_step.dart';
+import 'package:mijoo/features/fridge/presentation/widgets/fridge_category_style.dart';
 import 'package:mijoo/features/fridge/presentation/widgets/fridge_choice_wrap.dart';
 import 'package:mijoo/features/fridge/presentation/widgets/fridge_date_field.dart';
 
@@ -35,6 +38,8 @@ class FridgeItemForm extends StatelessWidget {
   final ValueChanged<FridgeCategory> onCategory;
   final ValueChanged<Option<DateTime>> onBestBefore;
 
+  String _format(double value) => NumberFormat.decimalPattern('fr').format(value);
+
   @override
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,16 +52,25 @@ class FridgeItemForm extends StatelessWidget {
         onChanged: onName,
       ),
       const SizedBox(height: MjSpacing.fieldGap),
-      MjTextField(
+      MjQuantityStepper(
         label: t.fridge.quantity,
-        hint: t.fridge.quantityHint,
-        icon: LucideIcons.scale,
-        initialValue: quantity,
-        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        value: quantity,
+        decreaseLabel: t.fridge.decrease,
+        increaseLabel: t.fridge.increase,
         error: quantity.trim().isEmpty || parseFridgeQuantity(quantity).isSome()
             ? none()
             : some(t.fridge.quantityInvalid),
         onChanged: onQuantity,
+        onDecrease: parseFridgeQuantity(quantity)
+            .filter((double value) => value > fridgeQuantityStep(unit))
+            .map(
+              (double value) =>
+                  () => onQuantity(_format(decreaseFridgeQuantity(value, unit))),
+            )
+            .toNullable(),
+        onIncrease: () => onQuantity(
+          _format(increaseFridgeQuantity(parseFridgeQuantity(quantity).getOrElse(() => 0), unit)),
+        ),
       ),
       const SizedBox(height: MjSpacing.large),
       FridgeChoiceWrap<FridgeUnit>(
@@ -70,7 +84,8 @@ class FridgeItemForm extends StatelessWidget {
       FridgeChoiceWrap<FridgeCategory>(
         title: t.fridge.category,
         values: FridgeCategory.values,
-        labels: t.fridge.categories,
+        labels: t.fridge.shortCategories,
+        icons: some(fridgeCategoryIcon),
         selected: category,
         onSelected: onCategory,
       ),

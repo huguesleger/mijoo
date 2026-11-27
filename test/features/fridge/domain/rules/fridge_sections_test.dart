@@ -23,7 +23,7 @@ void main() {
   ];
 
   test('groups items by category in the aisle order, sorted by name', () {
-    final List<FridgeSection> sections = fridgeSections(items, '');
+    final List<FridgeSection> sections = fridgeSections(items, '', none());
     expect(sections.map((FridgeSection section) => section.category), <FridgeCategory>[
       FridgeCategory.fruitsVegetables,
       FridgeCategory.dairy,
@@ -33,9 +33,19 @@ void main() {
   });
 
   test('searches without case nor accents', () {
-    final List<FridgeSection> sections = fridgeSections(items, 'ECHAL');
+    final List<FridgeSection> sections = fridgeSections(items, 'ECHAL', none());
     expect(sections, hasLength(1));
     expect(sections.single.items.single.name, 'Échalotes');
-    expect(fridgeSections(items, 'pizza'), isEmpty);
+    expect(fridgeSections(items, 'pizza', none()), isEmpty);
+  });
+
+  test('keeps only the selected shelf', () {
+    final List<FridgeSection> sections = fridgeSections(items, '', some(FridgeCategory.dairy));
+    expect(sections.single.category, FridgeCategory.dairy);
+    expect(sections.single.items, hasLength(2));
+  });
+
+  test('lists the shelves in use in the aisle order', () {
+    expect(fridgeCategoriesInUse(items), <FridgeCategory>[FridgeCategory.fruitsVegetables, FridgeCategory.dairy]);
   });
 }

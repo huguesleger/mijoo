@@ -9,3 +9,5 @@ const String homePath = '/home';
 const String fridgePath = '/fridge';
 const String mealsPath = '/meals';
 const String shoppingPath = '/shopping';
+const String scanPath = '/scan';
+const String barcodePath = '/barcode';

@@ -24,4 +24,9 @@ abstract final class MjColors {
   static const success = Color(0xFF1F6B45);
   static const successSurface = Color(0xFFE6F5EC);
   static const disabled = Color(0xFFDDDBE6);
+  static const apricotSoft = Color(0xFFFFEDE5);
+  static const apricotDeep = Color(0xFFB4532C);
+  static const glacier = Color(0xFFE6F1FB);
+  static const glacierStrong = Color(0xFF3C6FA8);
+  static const cardBorder = Color(0xFFECE7F6);
 }

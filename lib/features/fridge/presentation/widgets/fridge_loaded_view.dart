@@ -6,26 +6,29 @@ import 'package:mijoo/core/core.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
 import 'package:mijoo/core/presentation/widgets/failure_view.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
-import 'package:mijoo/features/fridge/domain/entities/fridge_item.dart';
 import 'package:mijoo/features/fridge/domain/rules/fridge_sections.dart';
 import 'package:mijoo/features/fridge/presentation/bloc/fridge_cubit.dart';
+import 'package:mijoo/features/fridge/presentation/widgets/fridge_category_filter.dart';
 import 'package:mijoo/features/fridge/presentation/widgets/fridge_section_card.dart';
+import 'package:mijoo/features/fridge/presentation/widgets/fridge_stats.dart';
 
 class FridgeLoadedView extends StatelessWidget {
-  const FridgeLoadedView({required this.items, required this.query, required this.writeFailure, super.key});
+  const FridgeLoadedView({required this.state, super.key});
 
-  final List<FridgeItem> items;
-  final String query;
-  final Option<AppFailure> writeFailure;
+  final FridgeLoaded state;
 
   @override
   Widget build(BuildContext context) {
-    final List<FridgeSection> sections = fridgeSections(items, query);
+    final List<FridgeSection> sections = fridgeSections(state.items, state.query, state.category);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
+        FridgeStats(items: state.items, today: state.today),
+        const SizedBox(height: MjSpacing.medium),
         MjSearchField(hint: t.fridge.search, onChanged: context.read<FridgeCubit>().search),
-        ...writeFailure.match(
+        const SizedBox(height: MjSpacing.medium),
+        FridgeCategoryFilter(categories: fridgeCategoriesInUse(state.items), selected: state.category),
+        ...state.writeFailure.match(
           () => const <Widget>[],
           (AppFailure failure) => <Widget>[const SizedBox(height: MjSpacing.medium), FailureView(failure: failure)],
         ),
@@ -38,8 +41,8 @@ class FridgeLoadedView extends StatelessWidget {
             placement: MjMessagePlacement.tab,
           ),
         for (final FridgeSection section in sections) ...<Widget>[
-          FridgeSectionCard(section: section),
-          const SizedBox(height: MjSpacing.large),
+          FridgeSectionCard(section: section, today: state.today),
+          const SizedBox(height: MjSpacing.medium),
         ],
       ],
     );

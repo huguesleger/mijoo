@@ -37,6 +37,7 @@ Toujours passer par `fvm` (version de Flutter fixée dans `.fvmrc`). `fvm` est d
 
 - Projet `mijoo-famille`, base Firestore `(default)` à Paris (`europe-west9`). La configuration Flutter générée est dans `lib/core/firebase/firebase_options.dart`, `android/app/google-services.json` et `ios/Runner/GoogleService-Info.plist`.
 - Émulateurs locaux : `firebase emulators:start --only auth,firestore --project demo-mijoo` à la racine, puis `fvm flutter run --dart-define=FIREBASE_EMULATOR=true`.
+- Ajout au frigo par photo et lecture de date : Gemini par `firebase_ai` (Firebase AI Logic, Gemini Developer API, modèle principal `GeminiScanDataSource.model`, puis `fallbackModel` en cas de surcharge ou de quota atteint ; offre gratuite limitée en requêtes par jour et par modèle), activée dans la console Firebase ; aucune clé Gemini dans l'app. App Check est appliqué à AI Logic : en debug l'app utilise le fournisseur de débogage (jeton affiché dans les logs au premier lancement, à ajouter dans la console App Check), en release Play Integrity et DeviceCheck. Codes-barres : Open Food Facts (`openfoodfacts`).
 - Règles Firestore : `firestore.rules`. Tests : `cd firestore-tests && npm install && npm run test:emulator`. Déploiement : `firebase deploy --only firestore:rules`, uniquement à la demande de l'utilisateur.
 
 ## Règles produit

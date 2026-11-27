@@ -123,4 +123,30 @@ void main() {
       verify(() => repository.deleteItem(household, tomatoes.id)).called(1);
     },
   );
+
+  blocTest<FridgeCubit, FridgeState>(
+    'filters the fridge by shelf and shows every shelf again',
+    build: () {
+      when(() => repository.watchItems(household)).thenAnswer(
+        (_) => Stream<Either<AppFailure, List<FridgeItem>>>.value(right(<FridgeItem>[tomatoes])),
+      );
+      return build();
+    },
+    act: (FridgeCubit cubit) async {
+      cubit.watch();
+      await Future<void>.delayed(Duration.zero);
+      cubit
+        ..filter(some(FridgeCategory.fruitsVegetables))
+        ..filter(none());
+    },
+    skip: 2,
+    expect: () => <Matcher>[
+      isA<FridgeLoaded>().having(
+        (FridgeLoaded state) => state.category,
+        'category',
+        some(FridgeCategory.fruitsVegetables),
+      ),
+      isA<FridgeLoaded>().having((FridgeLoaded state) => state.category, 'category', isA<None>()),
+    ],
+  );
 }

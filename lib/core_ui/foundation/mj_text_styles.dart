@@ -35,7 +35,7 @@ abstract final class MjTextStyles {
     fontFamily: FontFamily.fredoka,
     color: MjColors.ink,
     fontSize: 24,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
   );
   static const fieldLabel = TextStyle(
     color: MjColors.ink,
@@ -65,9 +65,33 @@ abstract final class MjTextStyles {
     fontWeight: FontWeight.w400,
     letterSpacing: 0,
   );
+  static const cardTitle = TextStyle(
+    fontFamily: FontFamily.fredoka,
+    color: MjColors.ink,
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  );
+  static const stat = TextStyle(
+    fontFamily: FontFamily.fredoka,
+    color: MjColors.ink,
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+  );
+  static const itemTitle = TextStyle(
+    color: MjColors.ink,
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+  );
+  static const detail = TextStyle(
+    color: MjColors.secondaryText,
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    height: 18 / 13,
+  );
+  static const tag = TextStyle(fontSize: 12, fontWeight: FontWeight.w700);
   static const button = TextStyle(
     fontFamily: FontFamily.comfortaa,
     fontSize: 17,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
   );
 }

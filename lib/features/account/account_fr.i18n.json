@@ -1,8 +1,26 @@
 {
+  "title": "Mon compte",
   "titleLead": "Mon ",
   "titleHighlight": "compte",
   "name": "Nom",
   "email": "Adresse e-mail",
   "noName": "Non renseigné",
-  "signOut": "Se déconnecter"
+  "signOut": "Se déconnecter",
+  "household": "Mon foyer",
+  "peopleSingle": "1 personne",
+  "peopleSeveral": "{count} personnes",
+  "composition": "{adults}, {children}",
+  "adultsSingle": "1 adulte",
+  "adultsSeveral": "{count} adultes",
+  "childrenZero": "sans enfant",
+  "childrenSingle": "1 enfant",
+  "childrenSeveral": "{count} enfants",
+  "minutes": "{count} min",
+  "prepDetail": "au plus par repas",
+  "noBudget": "Sans budget",
+  "budgetDetail": "par semaine",
+  "allergiesZero": "Aucune allergie",
+  "allergiesSingle": "1 allergie",
+  "allergiesSeveral": "{count} allergies",
+  "noLocation": "Commune non renseignée"
 }

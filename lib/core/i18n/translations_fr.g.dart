@@ -45,7 +45,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$auth$fr auth = Translations$auth$fr.internal(_root);
 	late final Translations$failures$fr failures = Translations$failures$fr.internal(_root);
 	late final Translations$fridge$fr fridge = Translations$fridge$fr.internal(_root);
+	late final Translations$home$fr home = Translations$home$fr.internal(_root);
 	late final Translations$household$fr household = Translations$household$fr.internal(_root);
+	late final Translations$scan$fr scan = Translations$scan$fr.internal(_root);
 	late final Translations$setup$fr setup = Translations$setup$fr.internal(_root);
 	late final Translations$shell$fr shell = Translations$shell$fr.internal(_root);
 	late final Translations$welcome$fr welcome = Translations$welcome$fr.internal(_root);
@@ -58,6 +60,9 @@ class Translations$account$fr {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// fr: 'Mon compte'
+	String get title => 'Mon compte';
 
 	/// fr: 'Mon '
 	String get titleLead => 'Mon ';
@@ -76,6 +81,57 @@ class Translations$account$fr {
 
 	/// fr: 'Se déconnecter'
 	String get signOut => 'Se déconnecter';
+
+	/// fr: 'Mon foyer'
+	String get household => 'Mon foyer';
+
+	/// fr: '1 personne'
+	String get peopleSingle => '1 personne';
+
+	/// fr: '{count} personnes'
+	String peopleSeveral({required Object count}) => '${count} personnes';
+
+	/// fr: '{adults}, {children}'
+	String composition({required Object adults, required Object children}) => '${adults}, ${children}';
+
+	/// fr: '1 adulte'
+	String get adultsSingle => '1 adulte';
+
+	/// fr: '{count} adultes'
+	String adultsSeveral({required Object count}) => '${count} adultes';
+
+	/// fr: 'sans enfant'
+	String get childrenZero => 'sans enfant';
+
+	/// fr: '1 enfant'
+	String get childrenSingle => '1 enfant';
+
+	/// fr: '{count} enfants'
+	String childrenSeveral({required Object count}) => '${count} enfants';
+
+	/// fr: '{count} min'
+	String minutes({required Object count}) => '${count} min';
+
+	/// fr: 'au plus par repas'
+	String get prepDetail => 'au plus par repas';
+
+	/// fr: 'Sans budget'
+	String get noBudget => 'Sans budget';
+
+	/// fr: 'par semaine'
+	String get budgetDetail => 'par semaine';
+
+	/// fr: 'Aucune allergie'
+	String get allergiesZero => 'Aucune allergie';
+
+	/// fr: '1 allergie'
+	String get allergiesSingle => '1 allergie';
+
+	/// fr: '{count} allergies'
+	String allergiesSeveral({required Object count}) => '${count} allergies';
+
+	/// fr: 'Commune non renseignée'
+	String get noLocation => 'Commune non renseignée';
 }
 
 // Path: auth
@@ -242,6 +298,36 @@ class Translations$fridge$fr {
 	/// fr: 'Ajouter un ingrédient'
 	String get add => 'Ajouter un ingrédient';
 
+	/// fr: 'Ajouter au frigo'
+	String get addChoiceTitle => 'Ajouter au frigo';
+
+	/// fr: 'Photo du frigo'
+	String get addPhoto => 'Photo du frigo';
+
+	/// fr: 'Mijoo repère les ingrédients, tu valides.'
+	String get addPhotoDetail => 'Mijoo repère les ingrédients, tu valides.';
+
+	/// fr: 'Galerie'
+	String get addGallery => 'Galerie';
+
+	/// fr: 'Une photo déjà prise'
+	String get addGalleryDetail => 'Une photo déjà prise';
+
+	/// fr: 'Code-barres'
+	String get addBarcode => 'Code-barres';
+
+	/// fr: 'Rempli par Open Food Facts'
+	String get addBarcodeDetail => 'Rempli par Open Food Facts';
+
+	/// fr: 'À la main'
+	String get addManual => 'À la main';
+
+	/// fr: 'Nom, quantité, date'
+	String get addManualDetail => 'Nom, quantité, date';
+
+	/// fr: 'La photo est analysée par Gemini (Google), puis Mijoo ne la conserve pas.'
+	String get photoPrivacy => 'La photo est analysée par Gemini (Google), puis Mijoo ne la conserve pas.';
+
 	/// fr: 'Rechercher un ingrédient'
 	String get search => 'Rechercher un ingrédient';
 
@@ -290,14 +376,14 @@ class Translations$fridge$fr {
 	/// fr: 'Rayon'
 	String get category => 'Rayon';
 
-	/// fr: 'Date de consommation'
-	String get date => 'Date de consommation';
+	/// fr: 'À consommer avant'
+	String get date => 'À consommer avant';
 
 	/// fr: 'Facultative'
 	String get dateOptional => 'Facultative';
 
-	/// fr: 'Ajouter une date'
-	String get dateAdd => 'Ajouter une date';
+	/// fr: 'Choisir une date'
+	String get dateAdd => 'Choisir une date';
 
 	/// fr: 'Retirer la date'
 	String get dateRemove => 'Retirer la date';
@@ -338,6 +424,72 @@ class Translations$fridge$fr {
 		'drinks': 'Boissons',
 		'other': 'Autres',
 	};
+
+	/// fr: 'Tout'
+	String get filterAll => 'Tout';
+
+	late final Translations$fridge$stats$fr stats = Translations$fridge$stats$fr.internal(_root);
+	late final Translations$fridge$freshness$fr freshness = Translations$fridge$freshness$fr.internal(_root);
+	Map<String, String> get shortCategories => {
+		'fruitsVegetables': 'Fruits et légumes',
+		'meatFish': 'Viandes et poissons',
+		'dairy': 'Laitiers',
+		'grocery': 'Épicerie',
+		'frozen': 'Surgelés',
+		'drinks': 'Boissons',
+		'other': 'Autres',
+	};
+
+	/// fr: 'Diminuer la quantité'
+	String get decrease => 'Diminuer la quantité';
+
+	/// fr: 'Augmenter la quantité'
+	String get increase => 'Augmenter la quantité';
+}
+
+// Path: home
+class Translations$home$fr {
+	Translations$home$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Bonjour,'
+	String get hello => 'Bonjour,';
+
+	/// fr: 'Qu’est-ce qu’on mange '
+	String get titleLead => 'Qu’est-ce qu’on mange ';
+
+	/// fr: 'ce soir ?'
+	String get titleHighlight => 'ce soir ?';
+
+	/// fr: 'Scanne ton frigo'
+	String get scanTitle => 'Scanne ton frigo';
+
+	/// fr: 'Une photo et Mijoo repère tes ingrédients.'
+	String get scanMessage => 'Une photo et Mijoo repère tes ingrédients.';
+
+	/// fr: 'Prendre une photo'
+	String get scanAction => 'Prendre une photo';
+
+	/// fr: 'À consommer vite'
+	String get finishFirst => 'À consommer vite';
+
+	/// fr: 'Tout voir'
+	String get seeAll => 'Tout voir';
+
+	/// fr: 'Rien d’urgent dans ton frigo pour le moment.'
+	String get nothingToFinish => 'Rien d’urgent dans ton frigo pour le moment.';
+
+	/// fr: 'Idée du soir'
+	String get mealIdea => 'Idée du soir';
+
+	/// fr: 'Les idées de repas arrivent'
+	String get mealSoonTitle => 'Les idées de repas arrivent';
+
+	/// fr: 'Mijoo proposera des repas avec ce que tu as déjà au frigo.'
+	String get mealSoonMessage => 'Mijoo proposera des repas avec ce que tu as déjà au frigo.';
 }
 
 // Path: household
@@ -356,6 +508,138 @@ class Translations$household$fr {
 
 	/// fr: 'La connexion a échoué. Réessaie dans un instant.'
 	String get networkFailure => 'La connexion a échoué. Réessaie dans un instant.';
+}
+
+// Path: scan
+class Translations$scan$fr {
+	Translations$scan$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Ouverture de l’appareil photo…'
+	String get takingPhoto => 'Ouverture de l’appareil photo…';
+
+	/// fr: 'Mijoo regarde ton frigo'
+	String get analyzingTitle => 'Mijoo regarde ton frigo';
+
+	/// fr: 'On repère les ingrédients visibles, ça prend quelques secondes.'
+	String get analyzingMessage => 'On repère les ingrédients visibles, ça prend quelques secondes.';
+
+	/// fr: 'Ce que'
+	String get reviewTitleLead => 'Ce que';
+
+	/// fr: 'j’ai vu'
+	String get reviewTitleHighlight => 'j’ai vu';
+
+	/// fr: 'Vérifie, corrige ou décoche avant d’ajouter à ton frigo.'
+	String get reviewSubtitle => 'Vérifie, corrige ou décoche avant d’ajouter à ton frigo.';
+
+	/// fr: 'À vérifier'
+	String get uncertain => 'À vérifier';
+
+	/// fr: 'Déjà au frigo, on ajoute'
+	String get alreadyInFridge => 'Déjà au frigo, on ajoute';
+
+	/// fr: 'Modifier'
+	String get edit => 'Modifier';
+
+	/// fr: 'Choisis au moins un ingrédient'
+	String get addZero => 'Choisis au moins un ingrédient';
+
+	/// fr: 'Ajouter 1 ingrédient'
+	String get addSingle => 'Ajouter 1 ingrédient';
+
+	/// fr: 'Ajouter {count} ingrédients'
+	String addSeveral({required Object count}) => 'Ajouter ${count} ingrédients';
+
+	/// fr: 'Aucun ingrédient repéré'
+	String get nothingTitle => 'Aucun ingrédient repéré';
+
+	/// fr: 'Essaie une photo plus nette, porte du frigo grande ouverte, ou ajoute tes ingrédients à la main.'
+	String get nothingMessage => 'Essaie une photo plus nette, porte du frigo grande ouverte, ou ajoute tes ingrédients à la main.';
+
+	/// fr: 'Reprendre une photo'
+	String get retake => 'Reprendre une photo';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+
+	/// fr: 'Scanner un'
+	String get barcodeTitleLead => 'Scanner un';
+
+	/// fr: 'code-barres'
+	String get barcodeTitleHighlight => 'code-barres';
+
+	/// fr: 'Place le code-barres du produit dans le cadre.'
+	String get barcodeHint => 'Place le code-barres du produit dans le cadre.';
+
+	/// fr: 'Recherche du produit…'
+	String get barcodeSearching => 'Recherche du produit…';
+
+	/// fr: 'Produit introuvable'
+	String get barcodeNotFoundTitle => 'Produit introuvable';
+
+	/// fr: 'Ce code-barres n’est pas encore connu d’Open Food Facts. Tu peux ajouter le produit à la main.'
+	String get barcodeNotFoundMessage => 'Ce code-barres n’est pas encore connu d’Open Food Facts. Tu peux ajouter le produit à la main.';
+
+	/// fr: 'Ajouter à la main'
+	String get manual => 'Ajouter à la main';
+
+	/// fr: 'Scanner un autre produit'
+	String get scanAgain => 'Scanner un autre produit';
+
+	/// fr: 'Lire la date sur l’emballage'
+	String get readDate => 'Lire la date sur l’emballage';
+
+	/// fr: 'Lire'
+	String get readDateShort => 'Lire';
+
+	/// fr: 'Lecture de la date…'
+	String get readingDate => 'Lecture de la date…';
+
+	/// fr: 'Aucune date lisible sur la photo. Choisis-la dans le calendrier.'
+	String get dateNotFound => 'Aucune date lisible sur la photo. Choisis-la dans le calendrier.';
+
+	/// fr: 'La reconnaissance par photo n’est pas disponible pour le moment. Tu peux ajouter tes ingrédients à la main.'
+	String get unavailable => 'La reconnaissance par photo n’est pas disponible pour le moment. Tu peux ajouter tes ingrédients à la main.';
+
+	/// fr: 'L’analyse a échoué. Vérifie ta connexion et réessaie.'
+	String get networkFailure => 'L’analyse a échoué. Vérifie ta connexion et réessaie.';
+
+	/// fr: 'Trop d’analyses pour aujourd’hui. Réessaie plus tard ou ajoute tes ingrédients à la main.'
+	String get quotaReached => 'Trop d’analyses pour aujourd’hui. Réessaie plus tard ou ajoute tes ingrédients à la main.';
+
+	/// fr: 'L’analyse des photos est très demandée en ce moment. Réessaie dans quelques instants.'
+	String get busy => 'L’analyse des photos est très demandée en ce moment. Réessaie dans quelques instants.';
+
+	/// fr: 'La photo n’a pas pu être analysée. Réessaie avec une autre photo.'
+	String get invalidResponse => 'La photo n’a pas pu être analysée. Réessaie avec une autre photo.';
+
+	/// fr: 'La photo n’a pas pu être prise. Réessaie.'
+	String get photoFailure => 'La photo n’a pas pu être prise. Réessaie.';
+
+	/// fr: 'Mijoo n’a pas accès à l’appareil photo. Autorise-le dans les réglages de ton téléphone.'
+	String get cameraDenied => 'Mijoo n’a pas accès à l’appareil photo. Autorise-le dans les réglages de ton téléphone.';
+
+	/// fr: 'Le produit n’a pas pu être recherché. Vérifie ta connexion et réessaie.'
+	String get productLookupFailure => 'Le produit n’a pas pu être recherché. Vérifie ta connexion et réessaie.';
+
+	/// fr: '{count} ingrédients repérés'
+	String foundSure({required Object count}) => '${count} ingrédients repérés';
+
+	/// fr: '{count} ingrédients · {uncertain} à vérifier'
+	String foundUncertain({required Object count, required Object uncertain}) => '${count} ingrédients · ${uncertain} à vérifier';
+
+	/// fr: 'Tout cocher'
+	String get selectAll => 'Tout cocher';
+
+	/// fr: 'Tout décocher'
+	String get unselectAll => 'Tout décocher';
+
+	/// fr: 'Annuler l’analyse'
+	String get cancel => 'Annuler l’analyse';
 }
 
 // Path: setup
@@ -384,6 +668,12 @@ class Translations$setup$fr {
 	/// fr: 'Enfants'
 	String get children => 'Enfants';
 
+	/// fr: '13 ans et plus'
+	String get adultsDetail => '13 ans et plus';
+
+	/// fr: 'Moins de 13 ans'
+	String get childrenDetail => 'Moins de 13 ans';
+
 	/// fr: 'Retirer un'
 	String get decrease => 'Retirer un';
 
@@ -395,6 +685,15 @@ class Translations$setup$fr {
 
 	/// fr: '{count} min'
 	String minutes({required Object count}) => '${count} min';
+
+	/// fr: 'min'
+	String get minutesUnit => 'min';
+
+	/// fr: '1 portion par repas, prête en {minutes} min au plus.'
+	String portionsSingle({required Object minutes}) => '1 portion par repas, prête en ${minutes} min au plus.';
+
+	/// fr: '{count} portions par repas, prêtes en {minutes} min au plus.'
+	String portionsSeveral({required Object count, required Object minutes}) => '${count} portions par repas, prêtes en ${minutes} min au plus.';
 
 	/// fr: 'Tes '
 	String get preferencesLead => 'Tes ';
@@ -595,6 +894,51 @@ class Translations$fridge$quantities$fr {
 	String packSeveral({required Object count}) => '${count} paquets';
 }
 
+// Path: fridge.stats
+class Translations$fridge$stats$fr {
+	Translations$fridge$stats$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'ingrédient'
+	String get totalSingle => 'ingrédient';
+
+	/// fr: 'ingrédients'
+	String get totalSeveral => 'ingrédients';
+
+	/// fr: 'à finir vite'
+	String get toFinish => 'à finir vite';
+
+	/// fr: 'dépassé'
+	String get expiredSingle => 'dépassé';
+
+	/// fr: 'dépassés'
+	String get expiredSeveral => 'dépassés';
+}
+
+// Path: fridge.freshness
+class Translations$fridge$freshness$fr {
+	Translations$fridge$freshness$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Dépassé'
+	String get expired => 'Dépassé';
+
+	/// fr: 'Aujourd’hui'
+	String get today => 'Aujourd’hui';
+
+	/// fr: 'Demain'
+	String get tomorrow => 'Demain';
+
+	/// fr: 'Dans {count} j'
+	String inDays({required Object count}) => 'Dans ${count} j';
+}
+
 /// The flat map containing all translations for locale <fr>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -603,12 +947,30 @@ class Translations$fridge$quantities$fr {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'account.title' => 'Mon compte',
 			'account.titleLead' => 'Mon ',
 			'account.titleHighlight' => 'compte',
 			'account.name' => 'Nom',
 			'account.email' => 'Adresse e-mail',
 			'account.noName' => 'Non renseigné',
 			'account.signOut' => 'Se déconnecter',
+			'account.household' => 'Mon foyer',
+			'account.peopleSingle' => '1 personne',
+			'account.peopleSeveral' => ({required Object count}) => '${count} personnes',
+			'account.composition' => ({required Object adults, required Object children}) => '${adults}, ${children}',
+			'account.adultsSingle' => '1 adulte',
+			'account.adultsSeveral' => ({required Object count}) => '${count} adultes',
+			'account.childrenZero' => 'sans enfant',
+			'account.childrenSingle' => '1 enfant',
+			'account.childrenSeveral' => ({required Object count}) => '${count} enfants',
+			'account.minutes' => ({required Object count}) => '${count} min',
+			'account.prepDetail' => 'au plus par repas',
+			'account.noBudget' => 'Sans budget',
+			'account.budgetDetail' => 'par semaine',
+			'account.allergiesZero' => 'Aucune allergie',
+			'account.allergiesSingle' => '1 allergie',
+			'account.allergiesSeveral' => ({required Object count}) => '${count} allergies',
+			'account.noLocation' => 'Commune non renseignée',
 			'auth.signIn' => 'Se connecter',
 			'auth.register' => 'Créer un compte',
 			'auth.name' => 'Nom',
@@ -655,6 +1017,16 @@ extension on Translations {
 			'failures.unknown' => 'Une erreur est survenue. Réessaie dans un instant.',
 			'fridge.title' => 'Mon frigo',
 			'fridge.add' => 'Ajouter un ingrédient',
+			'fridge.addChoiceTitle' => 'Ajouter au frigo',
+			'fridge.addPhoto' => 'Photo du frigo',
+			'fridge.addPhotoDetail' => 'Mijoo repère les ingrédients, tu valides.',
+			'fridge.addGallery' => 'Galerie',
+			'fridge.addGalleryDetail' => 'Une photo déjà prise',
+			'fridge.addBarcode' => 'Code-barres',
+			'fridge.addBarcodeDetail' => 'Rempli par Open Food Facts',
+			'fridge.addManual' => 'À la main',
+			'fridge.addManualDetail' => 'Nom, quantité, date',
+			'fridge.photoPrivacy' => 'La photo est analysée par Gemini (Google), puis Mijoo ne la conserve pas.',
 			'fridge.search' => 'Rechercher un ingrédient',
 			'fridge.emptyTitle' => 'Ton frigo est vide',
 			'fridge.emptyMessage' => 'Ajoute ce que tu as sous la main pour recevoir des idées de repas.',
@@ -671,9 +1043,9 @@ extension on Translations {
 			'fridge.quantityInvalid' => 'Saisis une quantité supérieure à 0.',
 			'fridge.unit' => 'Unité',
 			'fridge.category' => 'Rayon',
-			'fridge.date' => 'Date de consommation',
+			'fridge.date' => 'À consommer avant',
 			'fridge.dateOptional' => 'Facultative',
-			'fridge.dateAdd' => 'Ajouter une date',
+			'fridge.dateAdd' => 'Choisir une date',
 			'fridge.dateRemove' => 'Retirer la date',
 			'fridge.save' => 'Enregistrer',
 			'fridge.create' => 'Ajouter',
@@ -702,19 +1074,96 @@ extension on Translations {
 			'fridge.categories.frozen' => 'Surgelés',
 			'fridge.categories.drinks' => 'Boissons',
 			'fridge.categories.other' => 'Autres',
+			'fridge.filterAll' => 'Tout',
+			'fridge.stats.totalSingle' => 'ingrédient',
+			'fridge.stats.totalSeveral' => 'ingrédients',
+			'fridge.stats.toFinish' => 'à finir vite',
+			'fridge.stats.expiredSingle' => 'dépassé',
+			'fridge.stats.expiredSeveral' => 'dépassés',
+			'fridge.freshness.expired' => 'Dépassé',
+			'fridge.freshness.today' => 'Aujourd’hui',
+			'fridge.freshness.tomorrow' => 'Demain',
+			'fridge.freshness.inDays' => ({required Object count}) => 'Dans ${count} j',
+			'fridge.shortCategories.fruitsVegetables' => 'Fruits et légumes',
+			'fridge.shortCategories.meatFish' => 'Viandes et poissons',
+			'fridge.shortCategories.dairy' => 'Laitiers',
+			'fridge.shortCategories.grocery' => 'Épicerie',
+			'fridge.shortCategories.frozen' => 'Surgelés',
+			'fridge.shortCategories.drinks' => 'Boissons',
+			'fridge.shortCategories.other' => 'Autres',
+			'fridge.decrease' => 'Diminuer la quantité',
+			'fridge.increase' => 'Augmenter la quantité',
+			'home.hello' => 'Bonjour,',
+			'home.titleLead' => 'Qu’est-ce qu’on mange ',
+			'home.titleHighlight' => 'ce soir ?',
+			'home.scanTitle' => 'Scanne ton frigo',
+			'home.scanMessage' => 'Une photo et Mijoo repère tes ingrédients.',
+			'home.scanAction' => 'Prendre une photo',
+			'home.finishFirst' => 'À consommer vite',
+			'home.seeAll' => 'Tout voir',
+			'home.nothingToFinish' => 'Rien d’urgent dans ton frigo pour le moment.',
+			'home.mealIdea' => 'Idée du soir',
+			'home.mealSoonTitle' => 'Les idées de repas arrivent',
+			'home.mealSoonMessage' => 'Mijoo proposera des repas avec ce que tu as déjà au frigo.',
 			'household.unavailable' => 'Ton foyer n’est pas accessible pour le moment. Réessaie dans un instant.',
 			'household.accessDenied' => 'Tu n’as pas accès à ce foyer.',
 			'household.networkFailure' => 'La connexion a échoué. Réessaie dans un instant.',
+			'scan.takingPhoto' => 'Ouverture de l’appareil photo…',
+			'scan.analyzingTitle' => 'Mijoo regarde ton frigo',
+			'scan.analyzingMessage' => 'On repère les ingrédients visibles, ça prend quelques secondes.',
+			'scan.reviewTitleLead' => 'Ce que',
+			'scan.reviewTitleHighlight' => 'j’ai vu',
+			'scan.reviewSubtitle' => 'Vérifie, corrige ou décoche avant d’ajouter à ton frigo.',
+			'scan.uncertain' => 'À vérifier',
+			'scan.alreadyInFridge' => 'Déjà au frigo, on ajoute',
+			'scan.edit' => 'Modifier',
+			'scan.addZero' => 'Choisis au moins un ingrédient',
+			'scan.addSingle' => 'Ajouter 1 ingrédient',
+			'scan.addSeveral' => ({required Object count}) => 'Ajouter ${count} ingrédients',
+			'scan.nothingTitle' => 'Aucun ingrédient repéré',
+			'scan.nothingMessage' => 'Essaie une photo plus nette, porte du frigo grande ouverte, ou ajoute tes ingrédients à la main.',
+			'scan.retake' => 'Reprendre une photo',
+			'scan.retry' => 'Réessayer',
+			'scan.barcodeTitleLead' => 'Scanner un',
+			'scan.barcodeTitleHighlight' => 'code-barres',
+			'scan.barcodeHint' => 'Place le code-barres du produit dans le cadre.',
+			'scan.barcodeSearching' => 'Recherche du produit…',
+			'scan.barcodeNotFoundTitle' => 'Produit introuvable',
+			'scan.barcodeNotFoundMessage' => 'Ce code-barres n’est pas encore connu d’Open Food Facts. Tu peux ajouter le produit à la main.',
+			'scan.manual' => 'Ajouter à la main',
+			'scan.scanAgain' => 'Scanner un autre produit',
+			'scan.readDate' => 'Lire la date sur l’emballage',
+			'scan.readDateShort' => 'Lire',
+			'scan.readingDate' => 'Lecture de la date…',
+			'scan.dateNotFound' => 'Aucune date lisible sur la photo. Choisis-la dans le calendrier.',
+			'scan.unavailable' => 'La reconnaissance par photo n’est pas disponible pour le moment. Tu peux ajouter tes ingrédients à la main.',
+			'scan.networkFailure' => 'L’analyse a échoué. Vérifie ta connexion et réessaie.',
+			'scan.quotaReached' => 'Trop d’analyses pour aujourd’hui. Réessaie plus tard ou ajoute tes ingrédients à la main.',
+			'scan.busy' => 'L’analyse des photos est très demandée en ce moment. Réessaie dans quelques instants.',
+			'scan.invalidResponse' => 'La photo n’a pas pu être analysée. Réessaie avec une autre photo.',
+			'scan.photoFailure' => 'La photo n’a pas pu être prise. Réessaie.',
+			'scan.cameraDenied' => 'Mijoo n’a pas accès à l’appareil photo. Autorise-le dans les réglages de ton téléphone.',
+			'scan.productLookupFailure' => 'Le produit n’a pas pu être recherché. Vérifie ta connexion et réessaie.',
+			'scan.foundSure' => ({required Object count}) => '${count} ingrédients repérés',
+			'scan.foundUncertain' => ({required Object count, required Object uncertain}) => '${count} ingrédients · ${uncertain} à vérifier',
+			'scan.selectAll' => 'Tout cocher',
+			'scan.unselectAll' => 'Tout décocher',
+			'scan.cancel' => 'Annuler l’analyse',
 			'setup.step' => ({required Object current, required Object total}) => 'Étape ${current} sur ${total}',
 			'setup.householdLead' => 'Ton ',
 			'setup.householdHighlight' => 'foyer',
 			'setup.householdSubtitle' => 'Pour adapter les portions de chaque repas.',
 			'setup.adults' => 'Adultes',
 			'setup.children' => 'Enfants',
+			'setup.adultsDetail' => '13 ans et plus',
+			'setup.childrenDetail' => 'Moins de 13 ans',
 			'setup.decrease' => 'Retirer un',
 			'setup.increase' => 'Ajouter un',
 			'setup.prepTime' => 'Temps de préparation maximum',
 			'setup.minutes' => ({required Object count}) => '${count} min',
+			'setup.minutesUnit' => 'min',
+			'setup.portionsSingle' => ({required Object minutes}) => '1 portion par repas, prête en ${minutes} min au plus.',
+			'setup.portionsSeveral' => ({required Object count, required Object minutes}) => '${count} portions par repas, prêtes en ${minutes} min au plus.',
 			'setup.preferencesLead' => 'Tes ',
 			'setup.preferencesHighlight' => 'goûts',
 			'setup.preferencesSubtitle' => 'Mijoo écarte toujours les exclusions et les allergies.',

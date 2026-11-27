@@ -137,6 +137,11 @@ describe('isolation entre foyers', () => {
     await assertFails(deleteDoc(item('alex')));
   });
 
+  test('un foyer pas encore créé se lit sans rien révéler', async () => {
+    await assertSucceeds(getDoc(doc(db('camille'), 'households', 'pas-encore-cree')));
+    await assertFails(getDoc(doc(db(), 'households', 'pas-encore-cree')));
+  });
+
   test('les autres sous-collections restent fermées', async () => {
     const householdId = await createHousehold('camille');
     await assertFails(

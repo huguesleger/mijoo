@@ -1,12 +1,11 @@
 import 'package:intl/intl.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
-import 'package:mijoo/features/fridge/domain/entities/fridge_item.dart';
 import 'package:mijoo/features/fridge/domain/entities/fridge_unit.dart';
 
-String fridgeQuantityLabel(FridgeItem item) {
-  final String count = NumberFormat.decimalPattern('fr').format(item.quantity);
-  final bool single = item.quantity <= 1;
-  return switch (item.unit) {
+String fridgeQuantityLabel(double quantity, FridgeUnit unit) {
+  final String count = NumberFormat.decimalPattern('fr').format(quantity);
+  final bool single = quantity <= 1;
+  return switch (unit) {
     FridgeUnit.piece =>
       single ? t.fridge.quantities.pieceSingle(count: count) : t.fridge.quantities.pieceSeveral(count: count),
     FridgeUnit.pack =>

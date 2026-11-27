@@ -20,16 +20,22 @@ class FridgeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const FridgeHeader(),
-          const SizedBox(height: MjSpacing.large),
+          const SizedBox(height: MjSpacing.medium),
           BlocBuilder<FridgeCubit, FridgeState>(
             builder: (_, FridgeState state) => switch (state) {
               FridgeLoading() => MjSkeletonizer(
-                child: FridgeLoadedView(items: fridgeBoneMock, query: '', writeFailure: none()),
+                child: FridgeLoadedView(
+                  state: FridgeLoaded(
+                    items: fridgeBoneMock,
+                    query: '',
+                    category: none(),
+                    today: DateTime(2000),
+                    writeFailure: none(),
+                  ),
+                ),
               ),
-              FridgeLoaded(:final items, :final query, :final writeFailure) =>
-                items.isEmpty
-                    ? const FridgeEmptyView()
-                    : FridgeLoadedView(items: items, query: query, writeFailure: writeFailure),
+              final FridgeLoaded loaded =>
+                loaded.items.isEmpty ? const FridgeEmptyView() : FridgeLoadedView(state: loaded),
               FridgeFailed(:final failure) => FridgeFailedView(failure: failure),
             },
           ),

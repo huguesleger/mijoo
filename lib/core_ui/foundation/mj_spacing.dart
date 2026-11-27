@@ -13,4 +13,6 @@ abstract final class MjSpacing {
   static const sheetTop = 36.0;
   static const fieldGap = 12.0;
   static const extraSmall = 4.0;
+  static const iconTile = 46.0;
+  static const pageGutter = 20.0;
 }

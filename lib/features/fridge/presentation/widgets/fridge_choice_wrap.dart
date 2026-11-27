@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
 
 class FridgeChoiceWrap<T extends Enum> extends StatelessWidget {
@@ -8,6 +9,7 @@ class FridgeChoiceWrap<T extends Enum> extends StatelessWidget {
     required this.labels,
     required this.selected,
     required this.onSelected,
+    this.icons = const None(),
     super.key,
   });
 
@@ -16,6 +18,7 @@ class FridgeChoiceWrap<T extends Enum> extends StatelessWidget {
   final Map<String, String> labels;
   final T selected;
   final ValueChanged<T> onSelected;
+  final Option<IconData Function(T value)> icons;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -33,6 +36,7 @@ class FridgeChoiceWrap<T extends Enum> extends StatelessWidget {
             MjChoiceChip(
               label: labels[value.name] ?? value.name,
               selected: value == selected,
+              icon: icons.map((IconData Function(T value) icon) => icon(value)),
               onTap: () => onSelected(value),
             ),
         ],

@@ -3,6 +3,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
+import 'package:mijoo/features/fridge/presentation/widgets/fridge_date_read_button.dart';
+import 'package:mijoo/features/fridge/presentation/widgets/fridge_date_read_message.dart';
 
 class FridgeDateField extends StatelessWidget {
   const FridgeDateField({required this.date, required this.onChanged, super.key});
@@ -22,36 +24,60 @@ class FridgeDateField extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Row(
-    children: <Widget>[
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context) => MjLabeledField(
+    label: t.fridge.date,
+    field: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Row(
+          spacing: 10,
           children: <Widget>[
-            Text(t.fridge.date, style: MjTextStyles.fieldLabel),
-            const SizedBox(height: MjSpacing.extraSmall),
-            Text(
-              date.match(
-                () => t.fridge.dateOptional,
-                (DateTime date) => MaterialLocalizations.of(context).formatMediumDate(date),
+            Expanded(
+              child: Material(
+                color: MjColors.field,
+                borderRadius: MjRadius.input,
+                child: InkWell(
+                  borderRadius: MjRadius.input,
+                  onTap: () => _pick(context),
+                  child: SizedBox(
+                    height: 52,
+                    child: Row(
+                      children: <Widget>[
+                        const SizedBox(width: MjSpacing.medium),
+                        const Icon(LucideIcons.calendar, size: 20, color: MjColors.lavenderStrong),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            date.match(
+                              () => t.fridge.dateOptional,
+                              (DateTime date) => MaterialLocalizations.of(context).formatMediumDate(date),
+                            ),
+                            style: date.isSome()
+                                ? MjTextStyles.choice
+                                : MjTextStyles.choice.copyWith(color: MjColors.placeholder),
+                          ),
+                        ),
+                        ...date.match(
+                          () => const <Widget>[],
+                          (_) => <Widget>[
+                            IconButton(
+                              tooltip: t.fridge.dateRemove,
+                              onPressed: () => onChanged(none()),
+                              icon: const Icon(LucideIcons.x, size: 18),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              style: MjTextStyles.caption,
             ),
+            const FridgeDateReadButton(),
           ],
         ),
-      ),
-      ...date.match(
-        () => const <Widget>[],
-        (_) => <Widget>[
-          IconButton(tooltip: t.fridge.dateRemove, onPressed: () => onChanged(none()), icon: const Icon(LucideIcons.x)),
-        ],
-      ),
-      MjRoundIconButton(
-        icon: LucideIcons.calendarPlus,
-        tooltip: t.fridge.dateAdd,
-        highlighted: true,
-        onPressed: () => _pick(context),
-      ),
-    ],
+        const FridgeDateReadMessage(),
+      ],
+    ),
   );
 }

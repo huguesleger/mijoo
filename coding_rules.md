@@ -29,7 +29,9 @@
     - `MjHeroPage` for the welcome screen on the pink and lilac gradient
     - `MjSheetPage` for the screens with a gradient header and a white sheet (sign in, register, forgot password, household setup), its title is a `MjHeader`
     - `MjPage` for the plain screens and the tabs; a tab starts with a `MjTabHeader` whose actions are `MjRoundIconButton`s
-  - Forms use `MjTextField`, `MjPasswordField`, `MjSearchField`, `MjCounter`, `MjChoiceChip` and `MjCheckChip`. The main action is a `FilledButton` (ink pill of the theme), a secondary link is a `MjLinkPrompt` or a `TextButton`
+  - Forms use `MjTextField`, `MjPasswordField`, `MjSearchField`, `MjCounter`, `MjQuantityStepper`, `MjChoiceChip` (ink when selected, optional icon) and `MjCheckChip`. The main action is a `FilledButton` (ink pill of the theme), a secondary link is a `MjLinkPrompt` or a `TextButton`
+  - Lists and summaries use white rounded cards: `MjListCard` for a tappable row, `MjIconTile` for the pastel square icon, `MjTag` for a small status, `MjStatCard` for a figure, `MjGradientCard` for the lavender to peony highlight, `MjSectionTitle` above a group. Their colour comes from a `MjTone` (lavender, peony, apricot, green, glacier, neutral), never from a raw colour
+  - A screen with an action fixed at the bottom passes it as the `footer` of `MjPage`
   - Loading:
     - A list read from Firestore shows its real view filled with a bone mock inside `MjSkeletonizer`. The bone mock is a top-level value in `<feature>_bone_mock.dart`, in the presentation layer, never in the state
     - Any other wait (sending a form, signing out) shows `MjLoader`

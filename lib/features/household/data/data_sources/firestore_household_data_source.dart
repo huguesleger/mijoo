@@ -12,9 +12,13 @@ import 'package:mijoo/features/household/data/mappers/household_mapper.dart';
 typedef HouseholdSnapshot = ({String id, FirestoreData data});
 
 final class FirestoreHouseholdDataSource {
-  FirestoreHouseholdDataSource(this._connection);
+  FirestoreHouseholdDataSource(this._connection, {Duration retryDelay = const Duration(seconds: 1)})
+    : _retryDelay = retryDelay;
+
+  static const int deniedRetries = 3;
 
   final FirebaseConnection _connection;
+  final Duration _retryDelay;
 
   Stream<Option<HouseholdSnapshot>> watchHousehold(String uid) => _connection.isConfigured
       ? Stream.fromFuture(_connection.firestore)
@@ -33,21 +37,31 @@ final class FirestoreHouseholdDataSource {
                   .asyncExpand(
                     (householdId) => householdId.match(
                       () => Stream.value(none<HouseholdSnapshot>()),
-                      (id) => _households(firestore)
-                          .doc(id)
-                          .snapshots()
-                          .map(
-                            (household) => Option.fromNullable(
-                              household.data(),
-                            ).map((data) => (id: household.id, data: data)),
-                          ),
+                      (id) => _retryWhileDenied(
+                        () => _households(firestore)
+                            .doc(id)
+                            .snapshots()
+                            .map(
+                              (household) => Option.fromNullable(
+                                household.data(),
+                              ).map((data) => (id: household.id, data: data)),
+                            ),
+                        deniedRetries,
+                      ),
                     ),
                   ),
             )
             .transform(
               StreamTransformer.fromHandlers(
                 handleError: (error, stack, sink) {
-                  log('household', name: 'mijoo.household', stackTrace: stack);
+                  log(
+                    switch (error) {
+                      FirebaseException(:final code) => 'household $code',
+                      _ => 'household ${error.runtimeType}',
+                    },
+                    name: 'mijoo.household',
+                    stackTrace: stack,
+                  );
                   sink.add(none());
                 },
               ),
@@ -74,6 +88,27 @@ final class FirestoreHouseholdDataSource {
   ) => _perform((firestore) async {
     await _households(firestore).doc(householdId).update({'profile': profile});
     return unit;
+  });
+
+  Stream<T> _retryWhileDenied<T>(Stream<T> Function() open, int retries) => Stream<T>.multi((
+    MultiStreamController<T> controller,
+  ) {
+    int retriesLeft = retries;
+    StreamSubscription<T>? subscription;
+    void follow(Stream<T> stream) => subscription = stream.listen(
+      controller.add,
+      onDone: controller.close,
+      onError: (Object error, StackTrace stack) => switch (error) {
+        FirebaseException(code: 'permission-denied') when retriesLeft > 0 => follow(
+          Stream<void>.fromFuture(
+            Future<void>.delayed(_retryDelay * (retries - --retriesLeft)),
+          ).asyncExpand((_) => open()),
+        ),
+        _ => controller.addError(error, stack),
+      },
+    );
+    follow(open());
+    controller.onCancel = () => subscription?.cancel();
   });
 
   CollectionReference<FirestoreData> _users(FirebaseFirestore firestore) => firestore.collection('users');

@@ -26,30 +26,32 @@ class MjNavigationItem extends StatelessWidget {
       onTap: onTap,
       borderRadius: MjRadius.pill,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        height: 56,
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOut,
+        height: 52,
+        constraints: const BoxConstraints(minWidth: 52),
+        padding: EdgeInsets.symmetric(horizontal: selected ? 18 : 0),
         decoration: BoxDecoration(
-          color: selected ? MjColors.lavender : Colors.transparent,
+          color: selected ? MjColors.ink : Colors.transparent,
           borderRadius: MjRadius.pill,
         ),
-        child: Column(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: 22,
-              color: selected ? MjColors.ink : MjColors.secondaryText,
-            ),
-            const SizedBox(height: 2),
-            Text(
-              label,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: MjTextStyles.navigation.copyWith(
-                color: selected ? MjColors.ink : MjColors.secondaryText,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+          children: <Widget>[
+            Icon(icon, size: 22, color: selected ? MjColors.onInk : MjColors.secondaryText),
+            if (selected) ...<Widget>[
+              const SizedBox(width: MjSpacing.small),
+              Text(
+                label,
+                maxLines: 1,
+                style: MjTextStyles.navigation.copyWith(
+                  color: MjColors.onInk,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
+            ],
           ],
         ),
       ),

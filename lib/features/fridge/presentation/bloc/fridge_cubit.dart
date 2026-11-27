@@ -5,6 +5,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:mijoo/config/setup_get_it.dart';
 import 'package:mijoo/core/core.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
+import 'package:mijoo/features/fridge/domain/entities/fridge_category.dart';
 import 'package:mijoo/features/fridge/domain/entities/fridge_item.dart';
 import 'package:mijoo/features/fridge/domain/entities/fridge_item_input.dart';
 import 'package:mijoo/features/fridge/domain/fridge_repository.dart';
@@ -13,15 +14,21 @@ import 'package:mijoo/features/household/domain/entities/household.dart';
 part 'package:mijoo/features/fridge/presentation/bloc/fridge_state.dart';
 
 final class FridgeCubit extends SafeCubit<FridgeState> {
-  FridgeCubit({required HouseholdId household, FridgeRepository? repository, Duration? minimalLoading})
-    : _household = household,
-      _repository = repository ?? getIt.get<FridgeRepository>(),
-      _minimalLoading = minimalLoading ?? MjSkeletonizer.minDuration,
-      super(const FridgeLoading());
+  FridgeCubit({
+    required HouseholdId household,
+    FridgeRepository? repository,
+    Duration? minimalLoading,
+    DateTime Function()? clock,
+  }) : _household = household,
+       _repository = repository ?? getIt.get<FridgeRepository>(),
+       _minimalLoading = minimalLoading ?? MjSkeletonizer.minDuration,
+       _clock = clock ?? DateTime.now,
+       super(const FridgeLoading());
 
   final HouseholdId _household;
   final FridgeRepository _repository;
   final Duration _minimalLoading;
+  final DateTime Function() _clock;
   StreamSubscription<Either<AppFailure, List<FridgeItem>>>? _items;
 
   void watch() {
@@ -34,8 +41,14 @@ final class FridgeCubit extends SafeCubit<FridgeState> {
             result.match<FridgeState>(
               FridgeFailed.new,
               (List<FridgeItem> items) => switch (state) {
-                final FridgeLoaded loaded => loaded.copyWith(items: items),
-                FridgeLoading() || FridgeFailed() => FridgeLoaded(items: items, query: '', writeFailure: none()),
+                final FridgeLoaded loaded => loaded.copyWith(items: items, today: _clock()),
+                FridgeLoading() || FridgeFailed() => FridgeLoaded(
+                  items: items,
+                  query: '',
+                  category: none(),
+                  today: _clock(),
+                  writeFailure: none(),
+                ),
               },
             ),
           ),
@@ -44,6 +57,11 @@ final class FridgeCubit extends SafeCubit<FridgeState> {
 
   void search(String query) => switch (state) {
     final FridgeLoaded loaded => emit(loaded.copyWith(query: query)),
+    FridgeLoading() || FridgeFailed() => null,
+  };
+
+  void filter(Option<FridgeCategory> category) => switch (state) {
+    final FridgeLoaded loaded => emit(loaded.copyWith(category: category)),
     FridgeLoading() || FridgeFailed() => null,
   };
 

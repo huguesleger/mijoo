@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_ai/firebase_ai.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -36,7 +38,28 @@ class FirebaseConnection {
     return firestore;
   });
 
-  late final Future<FirebaseApp> _app = Firebase.initializeApp(
+  late final Future<FirebaseAI> ai = _app.then(
+    (FirebaseApp app) => FirebaseAI.googleAI(
+      app: app,
+      appCheck: FirebaseAppCheck.instanceFor(app: app),
+    ),
+  );
+
+  late final Future<FirebaseApp> _app = _initializeApp().then((FirebaseApp app) async {
+    if (!_useEmulator) await _activateAppCheck(app);
+    return app;
+  });
+
+  /// Proves to Firebase that requests come from the genuine app, from the first call on.
+  ///
+  /// Debug builds use the debug providers: the token printed in the device logs on first launch
+  /// must be added in the Firebase console (App Check > Apps > Manage debug tokens).
+  Future<void> _activateAppCheck(FirebaseApp app) => FirebaseAppCheck.instanceFor(app: app).activate(
+    androidProvider: kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
+    appleProvider: kDebugMode ? AppleProvider.debug : AppleProvider.deviceCheck,
+  );
+
+  Future<FirebaseApp> _initializeApp() => Firebase.initializeApp(
     options: _useEmulator
         ? DefaultFirebaseOptions.currentPlatform.copyWith(
             projectId: 'demo-mijoo',

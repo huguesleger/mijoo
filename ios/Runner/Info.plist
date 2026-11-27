@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Mijoo utilise l’appareil photo pour reconnaître les ingrédients de ton frigo, lire une date de consommation ou scanner un code-barres.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Mijoo peut analyser une photo de ton frigo choisie dans ta galerie.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

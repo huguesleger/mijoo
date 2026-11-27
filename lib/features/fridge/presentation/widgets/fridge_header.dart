@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
 import 'package:mijoo/core/presentation/widgets/account_button.dart';
@@ -17,7 +16,7 @@ class FridgeHeader extends StatelessWidget {
         icon: LucideIcons.plus,
         tooltip: t.fridge.add,
         highlighted: true,
-        onPressed: () => openFridgeItemSheet(context, none()),
+        onPressed: () => openFridgeAddChoice(context),
       ),
       const AccountButton(),
     ],

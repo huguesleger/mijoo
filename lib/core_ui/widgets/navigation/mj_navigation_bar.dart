@@ -24,11 +24,11 @@ class MjNavigationBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: MjSpacing.medium),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: MjColors.surface,
+          color: MjColors.onInk,
           borderRadius: MjRadius.navigation,
           boxShadow: [
             BoxShadow(
-              color: MjColors.lavenderStrong.withValues(alpha: 0.18),
+              color: MjColors.lavenderStrong.withValues(alpha: 0.28),
               blurRadius: 30,
               offset: const Offset(0, 10),
             ),
@@ -37,15 +37,14 @@ class MjNavigationBar extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(MjSpacing.small),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               for (final (index, destination) in destinations.indexed)
-                Expanded(
-                  child: MjNavigationItem(
-                    icon: destination.icon,
-                    label: destination.label,
-                    selected: index == selectedIndex,
-                    onTap: () => onSelected(index),
-                  ),
+                MjNavigationItem(
+                  icon: destination.icon,
+                  label: destination.label,
+                  selected: index == selectedIndex,
+                  onTap: () => onSelected(index),
                 ),
             ],
           ),

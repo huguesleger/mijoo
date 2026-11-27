@@ -12,6 +12,8 @@ List<RouteBase> get $appRoutes => [
   $signInPageRoute,
   $registerPageRoute,
   $forgotPasswordPageRoute,
+  $barcodePageRoute,
+  $scanPageRoute,
   $launchPageRoute,
   $setupPageRoute,
   $welcomePageRoute,
@@ -245,6 +247,76 @@ mixin $ForgotPasswordPageRoute on GoRouteData {
 
   @override
   void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $barcodePageRoute => GoRouteData.$route(
+  path: '/barcode',
+  name: 'barcode',
+  hasOverriddenOnExit: false,
+  factory: $BarcodePageRoute._fromState,
+);
+
+mixin $BarcodePageRoute on GoRouteData {
+  static BarcodePageRoute _fromState(GoRouterState state) => const BarcodePageRoute();
+
+  @override
+  String get location => GoRouteData.$location('/barcode');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) => context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $scanPageRoute => GoRouteData.$route(
+  path: '/scan',
+  name: 'scan',
+  hasOverriddenOnExit: false,
+  factory: $ScanPageRoute._fromState,
+);
+
+mixin $ScanPageRoute on GoRouteData {
+  static ScanPageRoute _fromState(GoRouterState state) => ScanPageRoute(
+    source: _$PhotoSourceEnumMap._$fromName(
+      state.uri.queryParameters['source']!,
+    )!,
+  );
+
+  ScanPageRoute get _self => this as ScanPageRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/scan',
+    queryParams: {'source': _$PhotoSourceEnumMap[_self.source]},
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) => context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+const _$PhotoSourceEnumMap = {
+  PhotoSource.camera: 'camera',
+  PhotoSource.gallery: 'gallery',
+};
+
+extension<T extends Enum> on Map<T, String> {
+  T? _$fromName(String? value) => entries.where((element) => element.value == value).firstOrNull?.key;
 }
 
 RouteBase get $launchPageRoute => GoRouteData.$route(

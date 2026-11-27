@@ -1,6 +1,16 @@
 {
   "title": "Mon frigo",
   "add": "Ajouter un ingrédient",
+  "addChoiceTitle": "Ajouter au frigo",
+  "addPhoto": "Photo du frigo",
+  "addPhotoDetail": "Mijoo repère les ingrédients, tu valides.",
+  "addGallery": "Galerie",
+  "addGalleryDetail": "Une photo déjà prise",
+  "addBarcode": "Code-barres",
+  "addBarcodeDetail": "Rempli par Open Food Facts",
+  "addManual": "À la main",
+  "addManualDetail": "Nom, quantité, date",
+  "photoPrivacy": "La photo est analysée par Gemini (Google), puis Mijoo ne la conserve pas.",
   "search": "Rechercher un ingrédient",
   "emptyTitle": "Ton frigo est vide",
   "emptyMessage": "Ajoute ce que tu as sous la main pour recevoir des idées de repas.",
@@ -17,9 +27,9 @@
   "quantityInvalid": "Saisis une quantité supérieure à 0.",
   "unit": "Unité",
   "category": "Rayon",
-  "date": "Date de consommation",
+  "date": "À consommer avant",
   "dateOptional": "Facultative",
-  "dateAdd": "Ajouter une date",
+  "dateAdd": "Choisir une date",
   "dateRemove": "Retirer la date",
   "save": "Enregistrer",
   "create": "Ajouter",
@@ -53,5 +63,30 @@
     "frozen": "Surgelés",
     "drinks": "Boissons",
     "other": "Autres"
-  }
+  },
+  "filterAll": "Tout",
+  "stats": {
+    "totalSingle": "ingrédient",
+    "totalSeveral": "ingrédients",
+    "toFinish": "à finir vite",
+    "expiredSingle": "dépassé",
+    "expiredSeveral": "dépassés"
+  },
+  "freshness": {
+    "expired": "Dépassé",
+    "today": "Aujourd’hui",
+    "tomorrow": "Demain",
+    "inDays": "Dans {count} j"
+  },
+  "shortCategories(map)": {
+    "fruitsVegetables": "Fruits et légumes",
+    "meatFish": "Viandes et poissons",
+    "dairy": "Laitiers",
+    "grocery": "Épicerie",
+    "frozen": "Surgelés",
+    "drinks": "Boissons",
+    "other": "Autres"
+  },
+  "decrease": "Diminuer la quantité",
+  "increase": "Augmenter la quantité"
 }

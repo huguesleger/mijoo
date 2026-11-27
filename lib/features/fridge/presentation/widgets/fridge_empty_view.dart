@@ -13,7 +13,7 @@ class FridgeEmptyView extends StatelessWidget {
     title: some(t.fridge.emptyTitle),
     message: t.fridge.emptyMessage,
     icon: some(LucideIcons.refrigerator),
-    action: some(MjMessageAction(label: t.fridge.add, onPressed: () => openFridgeItemSheet(context, none()))),
+    action: some(MjMessageAction(label: t.fridge.add, onPressed: () => openFridgeAddChoice(context))),
     placement: MjMessagePlacement.tab,
   );
 }
