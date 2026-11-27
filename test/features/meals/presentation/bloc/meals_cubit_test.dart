@@ -10,21 +10,28 @@ import 'package:mijoo/features/meals/domain/entities/meal_request.dart';
 import 'package:mijoo/features/meals/domain/meals_failure.dart';
 import 'package:mijoo/features/meals/domain/meals_repository.dart';
 import 'package:mijoo/features/meals/presentation/bloc/meals_cubit.dart';
+import 'package:mijoo/features/shopping/domain/shopping_repository.dart';
+import 'package:mijoo/features/shopping/domain/use_cases/watch_shopping_week.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../../../shopping/shopping_fixtures.dart';
 import '../../meals_fixtures.dart';
 
 class MockMealsRepository extends Mock implements MealsRepository {}
 
 class MockFridgeRepository extends Mock implements FridgeRepository {}
 
+class MockShoppingRepository extends Mock implements ShoppingRepository {}
+
 void main() {
   const household = HouseholdId('h1');
   late MockMealsRepository meals;
   late MockFridgeRepository fridge;
+  late MockShoppingRepository shopping;
 
   setUpAll(() {
     registerFallbackValue(household);
+    registerShoppingFallbacks();
     registerFallbackValue(<String>[]);
     registerFallbackValue(MealPlan(ideas: const [], craving: MealCraving.any, createdAt: today));
     registerFallbackValue(
@@ -41,13 +48,16 @@ void main() {
     when(() => meals.recentMealTitles(household)).thenReturn(TaskEither.right(['Pâtes au pesto']));
     when(() => meals.savePlan(household, any())).thenReturn(TaskEither.right(unit));
     when(() => meals.findPhoto(any())).thenReturn(Task.of(none()));
+    shopping = MockShoppingRepository();
+    when(() => shopping.watchEntries(household)).thenAnswer((_) => Stream.value(right(const [])));
+    stubPricesAndExpenses(shopping, household);
   });
 
   MealsCubit build() => MealsCubit(
     household: household,
     profile: profile,
     meals: meals,
-    fridge: fridge,
+    watchWeek: WatchShoppingWeek(shopping: shopping, meals: meals, fridge: fridge),
     minimalLoading: Duration.zero,
     clock: () => today,
   );

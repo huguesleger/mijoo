@@ -52,6 +52,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$setup$fr setup = Translations$setup$fr.internal(_root);
 	late final Translations$shell$fr shell = Translations$shell$fr.internal(_root);
 	late final Translations$shopping$fr shopping = Translations$shopping$fr.internal(_root);
+	late final Translations$stores$fr stores = Translations$stores$fr.internal(_root);
 	late final Translations$welcome$fr welcome = Translations$welcome$fr.internal(_root);
 }
 
@@ -856,6 +857,27 @@ class Translations$meals$fr {
 
 	/// fr: 'Retirer de ma semaine'
 	String get removeFromWeek => 'Retirer de ma semaine';
+
+	/// fr: '0 €'
+	String get costNothing => '0 €';
+
+	/// fr: '≈ {amount} à acheter'
+	String costToBuy({required Object amount}) => '≈ ${amount} à acheter';
+
+	/// fr: 'Hors budget'
+	String get overBudget => 'Hors budget';
+
+	/// fr: 'Il reste {amount} cette semaine. 1 idée le dépasse : elle reste affichée, marquée hors budget.'
+	String budgetLeftSingle({required Object amount}) => 'Il reste ${amount} cette semaine. 1 idée le dépasse : elle reste affichée, marquée hors budget.';
+
+	/// fr: 'Il reste {amount} cette semaine. {count} idées le dépassent : elles restent affichées, marquées hors budget.'
+	String budgetLeftSeveral({required Object amount, required Object count}) => 'Il reste ${amount} cette semaine. ${count} idées le dépassent : elles restent affichées, marquées hors budget.';
+
+	/// fr: 'Le budget de la semaine est dépassé. 1 idée demande des achats : elle reste affichée, marquée hors budget.'
+	String get budgetSpentSingle => 'Le budget de la semaine est dépassé. 1 idée demande des achats : elle reste affichée, marquée hors budget.';
+
+	/// fr: 'Le budget de la semaine est dépassé. {count} idées demandent des achats : elles restent affichées, marquées hors budget.'
+	String budgetSpentSeveral({required Object count}) => 'Le budget de la semaine est dépassé. ${count} idées demandent des achats : elles restent affichées, marquées hors budget.';
 }
 
 // Path: scan
@@ -1256,17 +1278,11 @@ class Translations$shopping$fr {
 	/// fr: 'Mes courses'
 	String get title => 'Mes courses';
 
-	/// fr: 'Ranger dans le frigo'
-	String get store => 'Ranger dans le frigo';
+	/// fr: 'Magasin'
+	String get store => 'Magasin';
 
-	/// fr: 'à acheter'
-	String get toBuy => 'à acheter';
-
-	/// fr: 'dans le panier'
-	String get inBasket => 'dans le panier';
-
-	/// fr: 'repas prévus'
-	String get plannedMeals => 'repas prévus';
+	/// fr: 'Magasins autour de moi'
+	String get stores => 'Magasins autour de moi';
 
 	/// fr: 'Ajouter un article (pain, lessive…)'
 	String get addHint => 'Ajouter un article (pain, lessive…)';
@@ -1389,6 +1405,354 @@ class Translations$shopping$fr {
 
 	/// fr: 'Tu n’as pas accès à la liste de ce foyer.'
 	String get accessDenied => 'Tu n’as pas accès à la liste de ce foyer.';
+
+	/// fr: 'Semaine du {date}'
+	String week({required Object date}) => 'Semaine du ${date}';
+
+	/// fr: 'Dépense'
+	String get expense => 'Dépense';
+
+	/// fr: 'Dépensé'
+	String get spent => 'Dépensé';
+
+	/// fr: 'Panier prévu'
+	String get planned => 'Panier prévu';
+
+	/// fr: '{low} à {high}'
+	String plannedRange({required Object low, required Object high}) => '${low} à ${high}';
+
+	/// fr: 'Reste sur {budget}'
+	String remaining({required Object budget}) => 'Reste sur ${budget}';
+
+	/// fr: 'Dépassé sur {budget}'
+	String overBudget({required Object budget}) => 'Dépassé sur ${budget}';
+
+	/// fr: 'Pas de budget'
+	String get noBudget => 'Pas de budget';
+
+	/// fr: 'à définir dans Mon foyer'
+	String get noBudgetDetail => 'à définir dans Mon foyer';
+
+	/// fr: '≈ {amount}'
+	String approx({required Object amount}) => '≈ ${amount}';
+
+	/// fr: 'Sans prix connu'
+	String get unpriced => 'Sans prix connu';
+
+	/// fr: 'Pas compté dans le panier'
+	String get unpricedDetail => 'Pas compté dans le panier';
+
+	/// fr: 'Ajouter un prix'
+	String get addPrice => 'Ajouter un prix';
+
+	Map<String, String> get reliabilities => {
+		'low': 'Prix indicatif, peu fiable',
+		'medium': 'Prix assez fiable',
+		'high': 'Prix fiable',
+	};
+
+	/// fr: 'Prix'
+	String get priceTitle => 'Prix';
+
+	Map<String, String> get sources => {
+		'household': 'Ton prix, partagé avec le foyer',
+		'openPrices': 'Open Prices',
+		'catalog': 'Prix moyen indicatif Mijoo',
+	};
+
+	/// fr: '1 relevé en France'
+	String get observationsSingle => '1 relevé en France';
+
+	/// fr: '{count} relevés en France'
+	String observationsSeveral({required Object count}) => '${count} relevés en France';
+
+	/// fr: 'Dernier relevé le {date}'
+	String lastSeen({required Object date}) => 'Dernier relevé le ${date}';
+
+	Map<String, String> get myPrice => {
+		'kilogram': 'Mon prix au kilo',
+		'liter': 'Mon prix au litre',
+		'piece': 'Mon prix à la pièce',
+	};
+
+	/// fr: 'Par exemple 1,15'
+	String get myPriceHint => 'Par exemple 1,15';
+
+	/// fr: 'Ton prix sert à tout le foyer et remplace l’estimation.'
+	String get myPriceHelp => 'Ton prix sert à tout le foyer et remplace l’estimation.';
+
+	Map<String, String> get priceUnit => {
+		'kilogram': '€/kg',
+		'liter': '€/l',
+		'piece': '€',
+	};
+
+	/// fr: 'Saisis un prix en euros, par exemple 1,15.'
+	String get priceInvalid => 'Saisis un prix en euros, par exemple 1,15.';
+
+	/// fr: 'Nouvelle dépense'
+	String get expenseTitle => 'Nouvelle dépense';
+
+	/// fr: 'Montant'
+	String get amount => 'Montant';
+
+	/// fr: 'Par exemple 38,70'
+	String get amountHint => 'Par exemple 38,70';
+
+	/// fr: 'Saisis un montant en euros, par exemple 38,70.'
+	String get amountInvalid => 'Saisis un montant en euros, par exemple 38,70.';
+
+	/// fr: 'Date'
+	String get date => 'Date';
+
+	/// fr: 'Aujourd’hui'
+	String get today => 'Aujourd’hui';
+
+	/// fr: 'Facultatif'
+	String get storeHint => 'Facultatif';
+
+	/// fr: 'Ajouter la dépense'
+	String get addExpense => 'Ajouter la dépense';
+
+	/// fr: 'Cette semaine'
+	String get thisWeek => 'Cette semaine';
+
+	/// fr: '{spent} sur {budget}'
+	String weekSpent({required Object spent, required Object budget}) => '${spent} sur ${budget}';
+
+	/// fr: '{spent} dépensés'
+	String weekSpentNoBudget({required Object spent}) => '${spent} dépensés';
+
+	/// fr: '{date} · {name}'
+	String expenseBy({required Object date, required Object name}) => '${date} · ${name}';
+
+	/// fr: 'Supprimer la dépense de {amount}'
+	String deleteExpense({required Object amount}) => 'Supprimer la dépense de ${amount}';
+
+	/// fr: 'Aucune dépense saisie cette semaine.'
+	String get noExpense => 'Aucune dépense saisie cette semaine.';
+
+	/// fr: 'Courses'
+	String get expenseDefault => 'Courses';
+
+	/// fr: 'soit {price} le kilo'
+	String perKilogram({required Object price}) => 'soit ${price} le kilo';
+
+	/// fr: 'soit {price} le litre'
+	String perLiter({required Object price}) => 'soit ${price} le litre';
+
+	/// fr: 'soit {price} la pièce'
+	String perPiece({required Object price}) => 'soit ${price} la pièce';
+
+	/// fr: 'de {low} à {high} le kilo'
+	String rangeKilogram({required Object low, required Object high}) => 'de ${low} à ${high} le kilo';
+
+	/// fr: 'de {low} à {high} le litre'
+	String rangeLiter({required Object low, required Object high}) => 'de ${low} à ${high} le litre';
+
+	/// fr: 'de {low} à {high} la pièce'
+	String rangePiece({required Object low, required Object high}) => 'de ${low} à ${high} la pièce';
+}
+
+// Path: stores
+class Translations$stores$fr {
+	Translations$stores$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Magasins autour de moi'
+	String get title => 'Magasins autour de moi';
+
+	/// fr: 'Liste'
+	String get list => 'Liste';
+
+	/// fr: 'Carte'
+	String get map => 'Carte';
+
+	/// fr: '{city} · {postalCode}'
+	String townTitle({required Object city, required Object postalCode}) => '${city} · ${postalCode}';
+
+	/// fr: 'Commune de ton foyer'
+	String get townSubtitle => 'Commune de ton foyer';
+
+	/// fr: 'Ma position'
+	String get positionTitle => 'Ma position';
+
+	/// fr: 'Recherche autour de toi, non enregistrée'
+	String get positionSubtitle => 'Recherche autour de toi, non enregistrée';
+
+	/// fr: 'Ma position'
+	String get usePosition => 'Ma position';
+
+	/// fr: 'Ma commune'
+	String get useTown => 'Ma commune';
+
+	Map<String, String> get radius => {
+		'short': '500 m',
+		'near': '1 km',
+		'medium': '2 km',
+		'far': '5 km',
+	};
+	Map<String, String> get filters => {
+		'all': 'Tous',
+		'supermarkets': 'Supermarchés',
+		'local': 'Proximité',
+		'bakeries': 'Boulangeries',
+		'markets': 'Marchés',
+		'specialists': 'Spécialistes',
+	};
+	Map<String, String> get kinds => {
+		'supermarket': 'Supermarché',
+		'convenience': 'Supérette',
+		'bakery': 'Boulangerie',
+		'butcher': 'Boucherie',
+		'greengrocer': 'Primeur',
+		'organic': 'Magasin bio',
+		'cheese': 'Fromagerie',
+		'frozenFood': 'Surgelés',
+		'marketplace': 'Marché',
+	};
+
+	/// fr: '{meters} m'
+	String meters({required Object meters}) => '${meters} m';
+
+	/// fr: '{kilometers} km'
+	String kilometers({required Object kilometers}) => '${kilometers} km';
+
+	/// fr: '{hours}:{minutes}'
+	String time({required Object hours, required Object minutes}) => '${hours}:${minutes}';
+
+	/// fr: 'Ouvert · ferme à {time}'
+	String openUntil({required Object time}) => 'Ouvert · ferme à ${time}';
+
+	/// fr: 'Ouvert'
+	String get open => 'Ouvert';
+
+	/// fr: 'Fermé · ouvre à {time}'
+	String closedOpensToday({required Object time}) => 'Fermé · ouvre à ${time}';
+
+	/// fr: 'Fermé · ouvre {day} à {time}'
+	String closedOpensOn({required Object day, required Object time}) => 'Fermé · ouvre ${day} à ${time}';
+
+	/// fr: 'Fermé'
+	String get closed => 'Fermé';
+
+	/// fr: 'Horaires non renseignés'
+	String get hoursUnknown => 'Horaires non renseignés';
+
+	/// fr: 'Horaires sur la fiche'
+	String get hoursOnSheet => 'Horaires sur la fiche';
+
+	List<String> get days => [
+		'lundi',
+		'mardi',
+		'mercredi',
+		'jeudi',
+		'vendredi',
+		'samedi',
+		'dimanche',
+	];
+	List<String> get dayNames => [
+		'Lundi',
+		'Mardi',
+		'Mercredi',
+		'Jeudi',
+		'Vendredi',
+		'Samedi',
+		'Dimanche',
+	];
+
+	/// fr: '{day}, aujourd’hui'
+	String today({required Object day}) => '${day}, aujourd’hui';
+
+	/// fr: 'Fermé'
+	String get closedDay => 'Fermé';
+
+	/// fr: '{start} – {end}'
+	String range({required Object start, required Object end}) => '${start} – ${end}';
+
+	/// fr: 'Aucun magasin à moins de {radius}'
+	String countZero({required Object radius}) => 'Aucun magasin à moins de ${radius}';
+
+	/// fr: '1 magasin à moins de {radius}'
+	String countSingle({required Object radius}) => '1 magasin à moins de ${radius}';
+
+	/// fr: '{count} magasins à moins de {radius}'
+	String countSeveral({required Object count, required Object radius}) => '${count} magasins à moins de ${radius}';
+
+	/// fr: 'Aucun magasin de ce type dans ce rayon. Élargis la recherche ou choisis un autre type.'
+	String get emptyFilter => 'Aucun magasin de ce type dans ce rayon. Élargis la recherche ou choisis un autre type.';
+
+	/// fr: 'Données © contributeurs OpenStreetMap · distances à vol d’oiseau'
+	String get attribution => 'Données © contributeurs OpenStreetMap · distances à vol d’oiseau';
+
+	/// fr: 'contributeurs OpenStreetMap'
+	String get mapAttribution => 'contributeurs OpenStreetMap';
+
+	/// fr: '{kind} · {address}'
+	String kindAndAddress({required Object kind, required Object address}) => '${kind} · ${address}';
+
+	/// fr: '{kind} · à {distance}'
+	String kindAndDistance({required Object kind, required Object distance}) => '${kind} · à ${distance}';
+
+	/// fr: 'Horaires'
+	String get hours => 'Horaires';
+
+	/// fr: 'Itinéraire'
+	String get directions => 'Itinéraire';
+
+	/// fr: 'Horaires et adresse issus d’OpenStreetMap, à vérifier sur place.'
+	String get sheetNote => 'Horaires et adresse issus d’OpenStreetMap, à vérifier sur place.';
+
+	/// fr: 'Chercher autour de toi ?'
+	String get consentTitle => 'Chercher autour de toi ?';
+
+	/// fr: 'Mijoo utilise ta position seulement pour cette recherche. Elle n’est ni enregistrée ni partagée avec ton foyer.'
+	String get consentMessage => 'Mijoo utilise ta position seulement pour cette recherche. Elle n’est ni enregistrée ni partagée avec ton foyer.';
+
+	/// fr: 'Utiliser ma position'
+	String get consentAccept => 'Utiliser ma position';
+
+	/// fr: 'Rester sur {city}'
+	String consentStay({required Object city}) => 'Rester sur ${city}';
+
+	/// fr: 'Pas maintenant'
+	String get consentCancel => 'Pas maintenant';
+
+	/// fr: 'Si tu refuses, la recherche par commune reste disponible.'
+	String get consentNote => 'Si tu refuses, la recherche par commune reste disponible.';
+
+	/// fr: 'Où chercher ?'
+	String get noTownTitle => 'Où chercher ?';
+
+	/// fr: 'Indique la commune de ton foyer ou utilise ta position pour voir les magasins proches.'
+	String get noTownMessage => 'Indique la commune de ton foyer ou utilise ta position pour voir les magasins proches.';
+
+	/// fr: 'Renseigner ma commune'
+	String get noTownEdit => 'Renseigner ma commune';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+
+	/// fr: 'Recherche des commerces sur OpenStreetMap, cela peut prendre jusqu’à une minute.'
+	String get searching => 'Recherche des commerces sur OpenStreetMap, cela peut prendre jusqu’à une minute.';
+
+	/// fr: 'Impossible de joindre le service des magasins. Vérifie ta connexion et réessaie.'
+	String get networkFailure => 'Impossible de joindre le service des magasins. Vérifie ta connexion et réessaie.';
+
+	/// fr: 'Le service des magasins est très demandé. Réessaie dans un moment.'
+	String get busy => 'Le service des magasins est très demandé. Réessaie dans un moment.';
+
+	/// fr: 'La commune du foyer n’a pas été trouvée. Vérifie son code postal.'
+	String get townNotFound => 'La commune du foyer n’a pas été trouvée. Vérifie son code postal.';
+
+	/// fr: 'Impossible de trouver ta position. Vérifie que la localisation est activée.'
+	String get locationOff => 'Impossible de trouver ta position. Vérifie que la localisation est activée.';
+
+	/// fr: 'Mijoo n’a pas accès à ta position. Autorise-la dans les réglages, ou cherche autour de ta commune.'
+	String get locationDenied => 'Mijoo n’a pas accès à ta position. Autorise-la dans les réglages, ou cherche autour de ta commune.';
 }
 
 // Path: welcome
@@ -1774,6 +2138,13 @@ extension on Translations {
 			'meals.cookedTag' => 'Cuisiné',
 			'meals.addToWeek' => 'Ajouter à ma semaine',
 			'meals.removeFromWeek' => 'Retirer de ma semaine',
+			'meals.costNothing' => '0 €',
+			'meals.costToBuy' => ({required Object amount}) => '≈ ${amount} à acheter',
+			'meals.overBudget' => 'Hors budget',
+			'meals.budgetLeftSingle' => ({required Object amount}) => 'Il reste ${amount} cette semaine. 1 idée le dépasse : elle reste affichée, marquée hors budget.',
+			'meals.budgetLeftSeveral' => ({required Object amount, required Object count}) => 'Il reste ${amount} cette semaine. ${count} idées le dépassent : elles restent affichées, marquées hors budget.',
+			'meals.budgetSpentSingle' => 'Le budget de la semaine est dépassé. 1 idée demande des achats : elle reste affichée, marquée hors budget.',
+			'meals.budgetSpentSeveral' => ({required Object count}) => 'Le budget de la semaine est dépassé. ${count} idées demandent des achats : elles restent affichées, marquées hors budget.',
 			'scan.takingPhoto' => 'Ouverture de l’appareil photo…',
 			'scan.analyzingTitle' => 'Mijoo regarde ton frigo',
 			'scan.analyzingMessage' => 'On repère les ingrédients visibles, ça prend quelques secondes.',
@@ -1910,10 +2281,8 @@ extension on Translations {
 			'shell.greetingName' => ({required Object name}) => 'Bonjour ${name}',
 			'shell.account' => 'Mon compte',
 			'shopping.title' => 'Mes courses',
-			'shopping.store' => 'Ranger dans le frigo',
-			'shopping.toBuy' => 'à acheter',
-			'shopping.inBasket' => 'dans le panier',
-			'shopping.plannedMeals' => 'repas prévus',
+			'shopping.store' => 'Magasin',
+			'shopping.stores' => 'Magasins autour de moi',
 			'shopping.addHint' => 'Ajouter un article (pain, lessive…)',
 			'shopping.add' => 'Ajouter à la liste',
 			'shopping.manual' => 'Ajouté à la main',
@@ -1959,6 +2328,143 @@ extension on Translations {
 			'shopping.unavailable' => 'La liste de courses n’est pas disponible pour le moment.',
 			'shopping.networkFailure' => 'La connexion a échoué. Réessaie dans un instant.',
 			'shopping.accessDenied' => 'Tu n’as pas accès à la liste de ce foyer.',
+			'shopping.week' => ({required Object date}) => 'Semaine du ${date}',
+			'shopping.expense' => 'Dépense',
+			'shopping.spent' => 'Dépensé',
+			'shopping.planned' => 'Panier prévu',
+			'shopping.plannedRange' => ({required Object low, required Object high}) => '${low} à ${high}',
+			'shopping.remaining' => ({required Object budget}) => 'Reste sur ${budget}',
+			'shopping.overBudget' => ({required Object budget}) => 'Dépassé sur ${budget}',
+			'shopping.noBudget' => 'Pas de budget',
+			'shopping.noBudgetDetail' => 'à définir dans Mon foyer',
+			'shopping.approx' => ({required Object amount}) => '≈ ${amount}',
+			'shopping.unpriced' => 'Sans prix connu',
+			'shopping.unpricedDetail' => 'Pas compté dans le panier',
+			'shopping.addPrice' => 'Ajouter un prix',
+			'shopping.reliabilities.low' => 'Prix indicatif, peu fiable',
+			'shopping.reliabilities.medium' => 'Prix assez fiable',
+			'shopping.reliabilities.high' => 'Prix fiable',
+			'shopping.priceTitle' => 'Prix',
+			'shopping.sources.household' => 'Ton prix, partagé avec le foyer',
+			'shopping.sources.openPrices' => 'Open Prices',
+			'shopping.sources.catalog' => 'Prix moyen indicatif Mijoo',
+			'shopping.observationsSingle' => '1 relevé en France',
+			'shopping.observationsSeveral' => ({required Object count}) => '${count} relevés en France',
+			'shopping.lastSeen' => ({required Object date}) => 'Dernier relevé le ${date}',
+			'shopping.myPrice.kilogram' => 'Mon prix au kilo',
+			'shopping.myPrice.liter' => 'Mon prix au litre',
+			'shopping.myPrice.piece' => 'Mon prix à la pièce',
+			'shopping.myPriceHint' => 'Par exemple 1,15',
+			'shopping.myPriceHelp' => 'Ton prix sert à tout le foyer et remplace l’estimation.',
+			'shopping.priceUnit.kilogram' => '€/kg',
+			'shopping.priceUnit.liter' => '€/l',
+			'shopping.priceUnit.piece' => '€',
+			'shopping.priceInvalid' => 'Saisis un prix en euros, par exemple 1,15.',
+			'shopping.expenseTitle' => 'Nouvelle dépense',
+			'shopping.amount' => 'Montant',
+			'shopping.amountHint' => 'Par exemple 38,70',
+			'shopping.amountInvalid' => 'Saisis un montant en euros, par exemple 38,70.',
+			'shopping.date' => 'Date',
+			'shopping.today' => 'Aujourd’hui',
+			'shopping.storeHint' => 'Facultatif',
+			'shopping.addExpense' => 'Ajouter la dépense',
+			'shopping.thisWeek' => 'Cette semaine',
+			'shopping.weekSpent' => ({required Object spent, required Object budget}) => '${spent} sur ${budget}',
+			'shopping.weekSpentNoBudget' => ({required Object spent}) => '${spent} dépensés',
+			'shopping.expenseBy' => ({required Object date, required Object name}) => '${date} · ${name}',
+			'shopping.deleteExpense' => ({required Object amount}) => 'Supprimer la dépense de ${amount}',
+			'shopping.noExpense' => 'Aucune dépense saisie cette semaine.',
+			_ => null,
+		} ?? switch (path) {
+			'shopping.expenseDefault' => 'Courses',
+			'shopping.perKilogram' => ({required Object price}) => 'soit ${price} le kilo',
+			'shopping.perLiter' => ({required Object price}) => 'soit ${price} le litre',
+			'shopping.perPiece' => ({required Object price}) => 'soit ${price} la pièce',
+			'shopping.rangeKilogram' => ({required Object low, required Object high}) => 'de ${low} à ${high} le kilo',
+			'shopping.rangeLiter' => ({required Object low, required Object high}) => 'de ${low} à ${high} le litre',
+			'shopping.rangePiece' => ({required Object low, required Object high}) => 'de ${low} à ${high} la pièce',
+			'stores.title' => 'Magasins autour de moi',
+			'stores.list' => 'Liste',
+			'stores.map' => 'Carte',
+			'stores.townTitle' => ({required Object city, required Object postalCode}) => '${city} · ${postalCode}',
+			'stores.townSubtitle' => 'Commune de ton foyer',
+			'stores.positionTitle' => 'Ma position',
+			'stores.positionSubtitle' => 'Recherche autour de toi, non enregistrée',
+			'stores.usePosition' => 'Ma position',
+			'stores.useTown' => 'Ma commune',
+			'stores.radius.short' => '500 m',
+			'stores.radius.near' => '1 km',
+			'stores.radius.medium' => '2 km',
+			'stores.radius.far' => '5 km',
+			'stores.filters.all' => 'Tous',
+			'stores.filters.supermarkets' => 'Supermarchés',
+			'stores.filters.local' => 'Proximité',
+			'stores.filters.bakeries' => 'Boulangeries',
+			'stores.filters.markets' => 'Marchés',
+			'stores.filters.specialists' => 'Spécialistes',
+			'stores.kinds.supermarket' => 'Supermarché',
+			'stores.kinds.convenience' => 'Supérette',
+			'stores.kinds.bakery' => 'Boulangerie',
+			'stores.kinds.butcher' => 'Boucherie',
+			'stores.kinds.greengrocer' => 'Primeur',
+			'stores.kinds.organic' => 'Magasin bio',
+			'stores.kinds.cheese' => 'Fromagerie',
+			'stores.kinds.frozenFood' => 'Surgelés',
+			'stores.kinds.marketplace' => 'Marché',
+			'stores.meters' => ({required Object meters}) => '${meters} m',
+			'stores.kilometers' => ({required Object kilometers}) => '${kilometers} km',
+			'stores.time' => ({required Object hours, required Object minutes}) => '${hours}:${minutes}',
+			'stores.openUntil' => ({required Object time}) => 'Ouvert · ferme à ${time}',
+			'stores.open' => 'Ouvert',
+			'stores.closedOpensToday' => ({required Object time}) => 'Fermé · ouvre à ${time}',
+			'stores.closedOpensOn' => ({required Object day, required Object time}) => 'Fermé · ouvre ${day} à ${time}',
+			'stores.closed' => 'Fermé',
+			'stores.hoursUnknown' => 'Horaires non renseignés',
+			'stores.hoursOnSheet' => 'Horaires sur la fiche',
+			'stores.days.0' => 'lundi',
+			'stores.days.1' => 'mardi',
+			'stores.days.2' => 'mercredi',
+			'stores.days.3' => 'jeudi',
+			'stores.days.4' => 'vendredi',
+			'stores.days.5' => 'samedi',
+			'stores.days.6' => 'dimanche',
+			'stores.dayNames.0' => 'Lundi',
+			'stores.dayNames.1' => 'Mardi',
+			'stores.dayNames.2' => 'Mercredi',
+			'stores.dayNames.3' => 'Jeudi',
+			'stores.dayNames.4' => 'Vendredi',
+			'stores.dayNames.5' => 'Samedi',
+			'stores.dayNames.6' => 'Dimanche',
+			'stores.today' => ({required Object day}) => '${day}, aujourd’hui',
+			'stores.closedDay' => 'Fermé',
+			'stores.range' => ({required Object start, required Object end}) => '${start} – ${end}',
+			'stores.countZero' => ({required Object radius}) => 'Aucun magasin à moins de ${radius}',
+			'stores.countSingle' => ({required Object radius}) => '1 magasin à moins de ${radius}',
+			'stores.countSeveral' => ({required Object count, required Object radius}) => '${count} magasins à moins de ${radius}',
+			'stores.emptyFilter' => 'Aucun magasin de ce type dans ce rayon. Élargis la recherche ou choisis un autre type.',
+			'stores.attribution' => 'Données © contributeurs OpenStreetMap · distances à vol d’oiseau',
+			'stores.mapAttribution' => 'contributeurs OpenStreetMap',
+			'stores.kindAndAddress' => ({required Object kind, required Object address}) => '${kind} · ${address}',
+			'stores.kindAndDistance' => ({required Object kind, required Object distance}) => '${kind} · à ${distance}',
+			'stores.hours' => 'Horaires',
+			'stores.directions' => 'Itinéraire',
+			'stores.sheetNote' => 'Horaires et adresse issus d’OpenStreetMap, à vérifier sur place.',
+			'stores.consentTitle' => 'Chercher autour de toi ?',
+			'stores.consentMessage' => 'Mijoo utilise ta position seulement pour cette recherche. Elle n’est ni enregistrée ni partagée avec ton foyer.',
+			'stores.consentAccept' => 'Utiliser ma position',
+			'stores.consentStay' => ({required Object city}) => 'Rester sur ${city}',
+			'stores.consentCancel' => 'Pas maintenant',
+			'stores.consentNote' => 'Si tu refuses, la recherche par commune reste disponible.',
+			'stores.noTownTitle' => 'Où chercher ?',
+			'stores.noTownMessage' => 'Indique la commune de ton foyer ou utilise ta position pour voir les magasins proches.',
+			'stores.noTownEdit' => 'Renseigner ma commune',
+			'stores.retry' => 'Réessayer',
+			'stores.searching' => 'Recherche des commerces sur OpenStreetMap, cela peut prendre jusqu’à une minute.',
+			'stores.networkFailure' => 'Impossible de joindre le service des magasins. Vérifie ta connexion et réessaie.',
+			'stores.busy' => 'Le service des magasins est très demandé. Réessaie dans un moment.',
+			'stores.townNotFound' => 'La commune du foyer n’a pas été trouvée. Vérifie son code postal.',
+			'stores.locationOff' => 'Impossible de trouver ta position. Vérifie que la localisation est activée.',
+			'stores.locationDenied' => 'Mijoo n’a pas accès à ta position. Autorise-la dans les réglages, ou cherche autour de ta commune.',
 			'welcome.appName' => 'Mijoo',
 			'welcome.titleLead' => 'Cuisine malin\navec ',
 			'welcome.titleHighlight' => 'ton frigo',

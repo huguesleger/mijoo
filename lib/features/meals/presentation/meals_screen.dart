@@ -9,6 +9,7 @@ import 'package:mijoo/features/meals/presentation/bloc/meals_cubit.dart';
 import 'package:mijoo/features/meals/presentation/meals_bone_mock.dart';
 import 'package:mijoo/features/meals/presentation/widgets/meals_failed_view.dart';
 import 'package:mijoo/features/meals/presentation/widgets/meals_header.dart';
+import 'package:mijoo/features/shopping/presentation/shopping_bone_mock.dart';
 import 'package:mijoo/features/meals/presentation/widgets/meals_loaded_view.dart';
 
 class MealsScreen extends StatelessWidget {
@@ -32,6 +33,7 @@ class MealsScreen extends StatelessWidget {
                   state: MealsLoaded(
                     plan: some(MealPlan(ideas: mealsBoneMock, craving: MealCraving.any, createdAt: DateTime(2000))),
                     week: const [],
+                    shopping: shoppingWeekBoneMock,
                     items: const [],
                     profile: profile,
                     today: DateTime(2000),

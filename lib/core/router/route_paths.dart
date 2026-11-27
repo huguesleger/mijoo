@@ -12,5 +12,6 @@ const String fridgePath = '/fridge';
 const String mealsPath = '/meals';
 const String mealDetailPath = '/meal/:id';
 const String shoppingPath = '/shopping';
+const String storesPath = '/stores';
 const String scanPath = '/scan';
 const String barcodePath = '/barcode';

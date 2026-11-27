@@ -6,7 +6,6 @@ import 'package:mijoo/config/setup_get_it.dart';
 import 'package:mijoo/core/core.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
 import 'package:mijoo/features/fridge/domain/entities/fridge_item.dart';
-import 'package:mijoo/features/fridge/domain/fridge_repository.dart';
 import 'package:mijoo/features/fridge/domain/rules/fridge_freshness.dart';
 import 'package:mijoo/features/household/domain/entities/household.dart';
 import 'package:mijoo/features/household/domain/entities/household_profile.dart';
@@ -18,6 +17,9 @@ import 'package:mijoo/features/meals/domain/entities/week_meal.dart';
 import 'package:mijoo/features/meals/domain/meals_failure.dart';
 import 'package:mijoo/features/meals/domain/meals_repository.dart';
 import 'package:mijoo/features/meals/domain/rules/meal_restrictions.dart';
+import 'package:mijoo/features/shopping/domain/entities/shopping_week.dart';
+import 'package:mijoo/features/shopping/domain/rules/week_budget_rules.dart';
+import 'package:mijoo/features/shopping/domain/use_cases/watch_shopping_week.dart';
 
 part 'package:mijoo/features/meals/presentation/bloc/meals_state.dart';
 
@@ -26,13 +28,13 @@ final class MealsCubit extends SafeCubit<MealsState> {
     required HouseholdId household,
     required HouseholdProfile profile,
     MealsRepository? meals,
-    FridgeRepository? fridge,
+    WatchShoppingWeek? watchWeek,
     Duration? minimalLoading,
     DateTime Function()? clock,
   }) : _household = household,
        _profile = profile,
        _meals = meals ?? getIt.get<MealsRepository>(),
-       _fridge = fridge ?? getIt.get<FridgeRepository>(),
+       _watchWeek = watchWeek ?? getIt.get<WatchShoppingWeek>(),
        _minimalLoading = minimalLoading ?? MjSkeletonizer.minDuration,
        _clock = clock ?? DateTime.now,
        super(const MealsLoading());
@@ -40,39 +42,38 @@ final class MealsCubit extends SafeCubit<MealsState> {
   final HouseholdId _household;
   final HouseholdProfile _profile;
   final MealsRepository _meals;
-  final FridgeRepository _fridge;
+  final WatchShoppingWeek _watchWeek;
   final Duration _minimalLoading;
   final DateTime Function() _clock;
-  StreamSubscription<Either<AppFailure, ((Option<MealPlan>, List<WeekMeal>), List<FridgeItem>)>>? _data;
+  StreamSubscription<Either<AppFailure, (Option<MealPlan>, ShoppingWeek)>>? _data;
 
   void watch() {
     unawaited(_data?.cancel());
     emit(const MealsLoading());
     _data = Stream<void>.fromFuture(Future<void>.delayed(_minimalLoading))
         .asyncExpand(
-          (_) => combineLatestEither(
-            combineLatestEither(_meals.watchPlan(_household), _meals.watchWeek(_household)),
-            _fridge.watchItems(_household),
-          ),
+          (_) => combineLatestEither(_meals.watchPlan(_household), _watchWeek(_household, weekStart(_clock()))),
         )
         .listen(
-          (Either<AppFailure, ((Option<MealPlan>, List<WeekMeal>), List<FridgeItem>)> result) => emit(
+          (Either<AppFailure, (Option<MealPlan>, ShoppingWeek)> result) => emit(
             result.match<MealsState>(
               MealsFailed.new,
-              (((Option<MealPlan>, List<WeekMeal>), List<FridgeItem>) data) => switch (state) {
+              ((Option<MealPlan>, ShoppingWeek) data) => switch (state) {
                 final MealsLoaded loaded => loaded.copyWith(
-                  plan: data.$1.$1,
-                  week: _sorted(data.$1.$2),
-                  items: data.$2,
+                  plan: data.$1,
+                  week: _sorted(data.$2.facts.week),
+                  items: data.$2.facts.items,
+                  shopping: data.$2,
                   today: _clock(),
                 ),
                 MealsLoading() || MealsFailed() => MealsLoaded(
-                  plan: data.$1.$1,
-                  week: _sorted(data.$1.$2),
-                  items: data.$2,
+                  plan: data.$1,
+                  week: _sorted(data.$2.facts.week),
+                  items: data.$2.facts.items,
+                  shopping: data.$2,
                   profile: _profile,
                   today: _clock(),
-                  craving: data.$1.$1.match(() => MealCraving.any, (MealPlan plan) => plan.craving),
+                  craving: data.$1.match(() => MealCraving.any, (MealPlan plan) => plan.craving),
                   generation: const MealsIdle(),
                 ),
               },

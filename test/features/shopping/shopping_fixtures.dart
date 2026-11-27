@@ -1,4 +1,9 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:mijoo/features/household/domain/entities/household.dart';
+import 'package:mijoo/features/shopping/domain/entities/expense.dart';
+import 'package:mijoo/features/shopping/domain/entities/price_basis.dart';
+import 'package:mijoo/features/shopping/domain/shopping_repository.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:mijoo/features/fridge/domain/entities/fridge_unit.dart';
 import 'package:mijoo/features/meals/domain/entities/meal_ingredient.dart';
 import 'package:mijoo/features/meals/domain/entities/week_meal.dart';
@@ -40,3 +45,14 @@ ShoppingEntry entry(
     addedBy: manual ? some('Camille') : none(),
   ),
 );
+
+void registerShoppingFallbacks() {
+  registerFallbackValue(DateTime(2000));
+  registerFallbackValue(<String, PriceBasis>{});
+}
+
+void stubPricesAndExpenses(ShoppingRepository shopping, HouseholdId household, {List<Expense> expenses = const []}) {
+  when(() => shopping.watchPrices(household)).thenAnswer((_) => Stream.value(right(const [])));
+  when(() => shopping.watchExpenses(household, any())).thenAnswer((_) => Stream.value(right(expenses)));
+  when(() => shopping.openPrices(any())).thenReturn(Task.of(const {}));
+}

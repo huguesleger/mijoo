@@ -256,6 +256,39 @@ service cloud.firestore {
               && request.resource.data.status in ['planned', 'cooked']));
       }
 
+      match /prices/{priceId} {
+        allow read: if isMember(householdId);
+        allow create, update: if isMember(householdId)
+          && request.resource.data.keys().hasOnly(['key', 'name', 'cents', 'basis', 'updatedAt'])
+          && request.resource.data.key is string
+          && request.resource.data.key.size() <= 200
+          && request.resource.data.name is string
+          && request.resource.data.name.size() >= 1
+          && request.resource.data.name.size() <= 80
+          && request.resource.data.cents is number
+          && request.resource.data.cents > 0
+          && request.resource.data.cents <= 10000000
+          && request.resource.data.basis in ['kilogram', 'liter', 'piece']
+          && request.resource.data.updatedAt == request.time;
+        allow delete: if isMember(householdId);
+      }
+
+      match /expenses/{expenseId} {
+        allow read, delete: if isMember(householdId);
+        allow create: if isMember(householdId)
+          && request.resource.data.keys().hasOnly(['amountCents', 'date', 'store', 'addedBy', 'createdAt'])
+          && request.resource.data.amountCents is int
+          && request.resource.data.amountCents > 0
+          && request.resource.data.amountCents <= 10000000
+          && request.resource.data.date is timestamp
+          && (request.resource.data.store == null
+            || (request.resource.data.store is string && request.resource.data.store.size() <= 80))
+          && (request.resource.data.addedBy == null
+            || (request.resource.data.addedBy is string && request.resource.data.addedBy.size() <= 80))
+          && request.resource.data.createdAt == request.time;
+        allow update: if false;
+      }
+
       match /shopping/{entryId} {
         allow read, delete: if isMember(householdId);
         allow create, update: if isMember(householdId) && isShoppingEntry(request.resource.data);

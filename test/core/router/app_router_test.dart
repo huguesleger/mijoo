@@ -21,9 +21,11 @@ import 'package:mijoo/features/meals/domain/entities/meal_plan.dart';
 import 'package:mijoo/features/meals/domain/meals_repository.dart';
 import 'package:mijoo/features/session/presentation/bloc/session_cubit.dart';
 import 'package:mijoo/features/shopping/domain/shopping_repository.dart';
+import 'package:mijoo/features/shopping/domain/use_cases/watch_shopping_week.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../features/meals/meals_fixtures.dart';
+import '../../features/shopping/shopping_fixtures.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 
@@ -43,7 +45,10 @@ void main() {
   late StreamController<Option<Household>> households;
   late StreamController<Option<Account>> accounts;
 
-  setUpAll(() => registerFallbackValue(const HouseholdMember(id: AccountId('x'), name: 'x')));
+  setUpAll(() {
+    registerFallbackValue(const HouseholdMember(id: AccountId('x'), name: 'x'));
+    registerShoppingFallbacks();
+  });
 
   setUp(() {
     households = StreamController<Option<Household>>.broadcast();
@@ -63,8 +68,10 @@ void main() {
     when(() => meals.watchWeek(householdId)).thenAnswer((_) => Stream.value(right(const [])));
     final shopping = MockShoppingRepository();
     when(() => shopping.watchEntries(householdId)).thenAnswer((_) => Stream.value(right(const [])));
+    stubPricesAndExpenses(shopping, householdId);
     getIt
       ..registerSingleton<ShoppingRepository>(shopping)
+      ..registerFactory<WatchShoppingWeek>(WatchShoppingWeek.new)
       ..registerSingleton<AuthRepository>(auth)
       ..registerSingleton<HouseholdRepository>(householdRepository)
       ..registerSingleton<FridgeRepository>(fridge)

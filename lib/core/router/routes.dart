@@ -38,6 +38,8 @@ import 'package:mijoo/features/setup/presentation/join_screen.dart';
 import 'package:mijoo/features/setup/presentation/setup_screen.dart';
 import 'package:mijoo/features/shopping/presentation/bloc/shopping_cubit.dart';
 import 'package:mijoo/features/shopping/presentation/shopping_screen.dart';
+import 'package:mijoo/features/stores/presentation/bloc/stores_cubit.dart';
+import 'package:mijoo/features/stores/presentation/stores_screen.dart';
 import 'package:mijoo/features/welcome/presentation/bloc/welcome_cubit.dart';
 import 'package:mijoo/features/welcome/presentation/welcome_screen.dart';
 
@@ -57,4 +59,5 @@ part 'package:mijoo/features/setup/presentation/household_edit_page_route.dart';
 part 'package:mijoo/features/setup/presentation/join_page_route.dart';
 part 'package:mijoo/features/setup/presentation/setup_page_route.dart';
 part 'package:mijoo/features/shopping/presentation/shopping_page_route.dart';
+part 'package:mijoo/features/stores/presentation/stores_page_route.dart';
 part 'package:mijoo/features/welcome/presentation/welcome_page_route.dart';

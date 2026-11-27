@@ -18,6 +18,7 @@ export 'package:mijoo/core_ui/widgets/display/mj_check_circle.dart';
 export 'package:mijoo/core_ui/widgets/display/mj_code_display.dart';
 export 'package:mijoo/core_ui/widgets/display/mj_icon_tile.dart';
 export 'package:mijoo/core_ui/widgets/display/mj_info_tile.dart';
+export 'package:mijoo/core_ui/widgets/display/mj_signal_bars.dart';
 export 'package:mijoo/core_ui/widgets/display/mj_stat_card.dart';
 export 'package:mijoo/core_ui/widgets/feedback/mj_icon_badge.dart';
 export 'package:mijoo/core_ui/widgets/feedback/mj_loader.dart';

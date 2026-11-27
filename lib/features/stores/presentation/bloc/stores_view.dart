@@ -1,0 +1,1 @@
+enum StoresView { list, map }

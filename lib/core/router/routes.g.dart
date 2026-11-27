@@ -19,6 +19,7 @@ List<RouteBase> get $appRoutes => [
   $householdEditPageRoute,
   $joinPageRoute,
   $setupPageRoute,
+  $storesPageRoute,
   $welcomePageRoute,
 ];
 
@@ -440,6 +441,32 @@ mixin $SetupPageRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/setup');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) => context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $storesPageRoute => GoRouteData.$route(
+  path: '/stores',
+  name: 'stores',
+  hasOverriddenOnExit: false,
+  factory: $StoresPageRoute._fromState,
+);
+
+mixin $StoresPageRoute on GoRouteData {
+  static StoresPageRoute _fromState(GoRouterState state) => const StoresPageRoute();
+
+  @override
+  String get location => GoRouteData.$location('/stores');
 
   @override
   void go(BuildContext context) => context.go(location);

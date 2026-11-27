@@ -38,6 +38,8 @@ Toujours passer par `fvm` (version de Flutter fixée dans `.fvmrc`). `fvm` est d
 - Projet `mijoo-famille`, base Firestore `(default)` à Paris (`europe-west9`). La configuration Flutter générée est dans `lib/core/firebase/firebase_options.dart`, `android/app/google-services.json` et `ios/Runner/GoogleService-Info.plist`.
 - Émulateurs locaux : `firebase emulators:start --only auth,firestore --project demo-mijoo` à la racine, puis `fvm flutter run --dart-define=FIREBASE_EMULATOR=true`.
 - Ajout au frigo par photo, lecture de date et idées de repas : Gemini par `firebase_ai` (Firebase AI Logic, Gemini Developer API, modèle principal `GeminiGenerator.model` (`lib/core/firebase/gemini_generator.dart`, partagé par le scan et les idées de repas), puis `fallbackModel` en cas de surcharge ou de quota atteint ; offre gratuite limitée en requêtes par jour et par modèle), activée dans la console Firebase ; aucune clé Gemini dans l'app. App Check est appliqué à AI Logic : en debug l'app utilise le fournisseur de débogage (jeton affiché dans les logs au premier lancement, à ajouter dans la console App Check), en release Play Integrity et DeviceCheck. Codes-barres : Open Food Facts (`openfoodfacts`). Photos d'illustration des recettes : TheMealDB (clé de test publique `1`, sans compte, usage personnel), cherchées une fois à la génération à partir des mots-clés anglais donnés par Gemini, puis enregistrées avec l'idée.
+- Prix des courses : prix saisi par le foyer (`households/{id}/prices`), sinon relevés Open Prices en euros pour la France (`prices.openfoodfacts.org`, sans clé, mis en cache 12 h dans l'app), sinon catalogue indicatif `price_catalog.dart`. Dépenses dans `households/{id}/expenses`, semaine du lundi au dimanche.
+- Magasins autour de moi : commune du foyer géocodée par la Base Adresse Nationale (`api-adresse.data.gouv.fr`, sans clé), ou position de l’appareil sur demande (`geolocator`, jamais enregistrée ni envoyée ailleurs qu’à Overpass). Commerces OpenStreetMap par Overpass (`overpass-api.de`, sans clé, lent aux heures chargées : délai 60 s, une relance après 5 s sur 429, 502 ou 504), gardés 15 min en mémoire et, pour la commune seulement, 7 jours sur l’appareil (`shared_preferences`). Carte `flutter_map` sur les tuiles `tile.openstreetmap.org` (usage familial, attribution affichée). Itinéraire par `url_launcher` vers Plans ou Google Maps.
 - Foyer partagé : un membre crée un code dans `invites/{code}` (48 h, usage unique) ; l'autre parent le saisit à l'inscription, et l'écriture groupée l'ajoute à `memberIds`, marque le code utilisé et crée son lien `users/{uid}`. Les noms affichés des membres sont dans `households/{id}/members/{uid}`.
 - Règles Firestore : `firestore.rules`. Tests : `cd firestore-tests && npm install && npm run test:emulator`. Déploiement : `firebase deploy --only firestore:rules`, uniquement à la demande de l'utilisateur.
 
@@ -51,7 +53,11 @@ Toujours passer par `fvm` (version de Flutter fixée dans `.fvmrc`). `fvm` est d
 
 ## Vérification
 
-Ne pas lancer l'app sur un simulateur iOS ni un émulateur Android pour vérifier : l'utilisateur le fait lui-même. S'en tenir à l'analyse et aux tests, puis indiquer ce qu'il faut vérifier sur appareil.
+Après l'analyse et les tests, vérifier les parcours modifiés sur le simulateur iOS uniquement : jamais sur l'émulateur Android, que l'utilisateur teste lui-même.
+
+- Lancer l'app avec `fvm flutter run -d <simulateur> --debug --no-resident` (`flutter build ios --simulator` échoue sur les architectures du framework Flutter).
+- Le compte connecté sur le simulateur est le compte « test » : y supprimer les données ajoutées pour vérifier (dépense, article), et signaler celles qui ne peuvent pas l'être.
+- Indiquer à la fin ce qui reste à vérifier sur Android et sur un vrai appareil.
 
 ## Git
 

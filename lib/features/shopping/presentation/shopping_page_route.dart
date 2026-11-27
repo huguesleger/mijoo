@@ -9,6 +9,7 @@ class ShoppingPageRoute extends GoRouteData with $ShoppingPageRoute {
       create: (_) => ShoppingCubit(
         household: household.id,
         author: account.name.getOrElse(() => account.email.split('@').first),
+        budgetCents: household.profile.flatMap((HouseholdProfile profile) => profile.weeklyBudgetCents),
       )..watch(),
       child: const ShoppingScreen(),
     ),

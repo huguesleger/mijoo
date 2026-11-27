@@ -5,6 +5,7 @@ import 'package:mijoo/core/i18n/translations.g.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
 import 'package:mijoo/features/meals/presentation/meals_bone_mock.dart';
 import 'package:mijoo/features/meals/presentation/widgets/meal_idea_list.dart';
+import 'package:mijoo/features/shopping/presentation/shopping_bone_mock.dart';
 
 class MealsGeneratingView extends StatelessWidget {
   const MealsGeneratingView({required this.itemCount, super.key});
@@ -29,7 +30,13 @@ class MealsGeneratingView extends StatelessWidget {
       ),
       const SizedBox(height: MjSpacing.fieldGap),
       MjSkeletonizer(
-        child: MealIdeaList(ideas: mealsBoneMock, items: const [], today: DateTime(2000)),
+        child: MealIdeaList(
+          ideas: mealsBoneMock,
+          items: const [],
+          today: DateTime(2000),
+          prices: shoppingWeekBoneMock.prices,
+          remainingCents: none(),
+        ),
       ),
     ],
   );

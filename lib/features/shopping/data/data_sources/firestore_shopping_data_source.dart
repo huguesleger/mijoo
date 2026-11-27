@@ -67,6 +67,83 @@ final class FirestoreShoppingDataSource {
         return unit;
       });
 
+  Stream<Either<AppFailure, List<({String id, Map<String, Object?> data})>>> watchPrices(String householdId) =>
+      _watch(householdId, 'prices', (CollectionReference<Map<String, Object?>> prices) => prices);
+
+  Stream<Either<AppFailure, List<({String id, Map<String, Object?> data})>>> watchExpenses(
+    String householdId,
+    DateTime since,
+  ) => _watch(
+    householdId,
+    'expenses',
+    (CollectionReference<Map<String, Object?>> expenses) =>
+        expenses.where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(since)),
+  );
+
+  TaskEither<AppFailure, Unit> savePrice(String householdId, String priceId, Map<String, Object?> data) =>
+      _perform((FirebaseFirestore firestore) async {
+        await firestore.collection('households').doc(householdId).collection('prices').doc(priceId).set(
+          <String, Object?>{...data, 'updatedAt': FieldValue.serverTimestamp()},
+        );
+        return unit;
+      });
+
+  TaskEither<AppFailure, Unit> addExpense(String householdId, Map<String, Object?> data) =>
+      _perform((FirebaseFirestore firestore) async {
+        await firestore.collection('households').doc(householdId).collection('expenses').add(<String, Object?>{
+          ...data,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
+        return unit;
+      });
+
+  TaskEither<AppFailure, Unit> deleteExpense(String householdId, String expenseId) =>
+      _perform((FirebaseFirestore firestore) async {
+        await firestore.collection('households').doc(householdId).collection('expenses').doc(expenseId).delete();
+        return unit;
+      });
+
+  Stream<Either<AppFailure, List<({String id, Map<String, Object?> data})>>> _watch(
+    String householdId,
+    String collection,
+    Query<Map<String, Object?>> Function(CollectionReference<Map<String, Object?>>) query,
+  ) => _connection.isConfigured
+      ? Stream<FirebaseFirestore>.fromFuture(_connection.firestore)
+            .asyncExpand(
+              (FirebaseFirestore firestore) =>
+                  query(firestore.collection('households').doc(householdId).collection(collection)).snapshots(),
+            )
+            .map(
+              (QuerySnapshot<Map<String, Object?>> snapshot) =>
+                  Either<AppFailure, List<({String id, Map<String, Object?> data})>>.right(
+                    <({String id, Map<String, Object?> data})>[
+                      for (final QueryDocumentSnapshot<Map<String, Object?>> document in snapshot.docs)
+                        (id: document.id, data: document.data()),
+                    ],
+                  ),
+            )
+            .transform(
+              StreamTransformer<
+                Either<AppFailure, List<({String id, Map<String, Object?> data})>>,
+                Either<AppFailure, List<({String id, Map<String, Object?> data})>>
+              >.fromHandlers(
+                handleError:
+                    (
+                      Object error,
+                      StackTrace stack,
+                      EventSink<Either<AppFailure, List<({String id, Map<String, Object?> data})>>> sink,
+                    ) {
+                      log('$collection ${_code(error)}', name: 'mijoo.shopping', stackTrace: stack);
+                      sink.add(
+                        Either<AppFailure, List<({String id, Map<String, Object?> data})>>.left(_failure(error)),
+                      );
+                    },
+              ),
+            )
+      : Stream<Either<AppFailure, List<({String id, Map<String, Object?> data})>>>.value(
+          Either<AppFailure, List<({String id, Map<String, Object?> data})>>.left(const ShoppingUnavailable()),
+        );
+
   CollectionReference<ShoppingEntryData> _entries(FirebaseFirestore firestore, String householdId) =>
       firestore.collection('households').doc(householdId).collection('shopping');
 

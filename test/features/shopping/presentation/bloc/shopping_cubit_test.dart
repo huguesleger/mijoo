@@ -11,6 +11,7 @@ import 'package:mijoo/features/shopping/domain/entities/shopping_entry.dart';
 import 'package:mijoo/features/shopping/domain/entities/shopping_line.dart';
 import 'package:mijoo/features/shopping/domain/rules/shopping_list_rules.dart';
 import 'package:mijoo/features/shopping/domain/shopping_repository.dart';
+import 'package:mijoo/features/shopping/domain/use_cases/watch_shopping_week.dart';
 import 'package:mijoo/features/shopping/presentation/bloc/shopping_cubit.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -41,6 +42,7 @@ void main() {
     registerFallbackValue(eggsInFridge.input);
     registerFallbackValue(entry('x').input);
     registerFallbackValue(<ShoppingEntryId>[]);
+    registerShoppingFallbacks();
   });
 
   setUp(() {
@@ -57,14 +59,16 @@ void main() {
     when(() => shopping.deleteEntries(household, any())).thenReturn(TaskEither.right(unit));
     when(() => fridge.addItem(household, any())).thenReturn(TaskEither.right(unit));
     when(() => fridge.updateItem(household, any(), any())).thenReturn(TaskEither.right(unit));
+    stubPricesAndExpenses(shopping, household);
   });
 
   ShoppingCubit build() => ShoppingCubit(
     household: household,
     author: 'Camille',
+    budgetCents: none(),
     shopping: shopping,
-    meals: meals,
     fridge: fridge,
+    watchWeek: WatchShoppingWeek(shopping: shopping, meals: meals, fridge: fridge),
     minimalLoading: Duration.zero,
   );
 
@@ -105,6 +109,17 @@ void main() {
     expect(added.name, 'Sacs poubelle');
     expect(added.manual, isTrue);
     expect(added.addedBy, some('Camille'));
+    await cubit.close();
+  });
+
+  test('files an article added by hand in its aisle and usual unit', () async {
+    final cubit = build();
+    await lines(cubit);
+    await cubit.add('Riz basmati');
+    final added = verify(() => shopping.addEntry(household, captureAny())).captured.single as ShoppingEntryInput;
+    expect(added.unit, FridgeUnit.gram);
+    expect(added.quantity, some(500.0));
+    expect(added.category, some(FridgeCategory.grocery));
     await cubit.close();
   });
 

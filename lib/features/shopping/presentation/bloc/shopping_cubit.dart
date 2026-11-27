@@ -8,17 +8,20 @@ import 'package:mijoo/core_ui/core_ui.dart';
 import 'package:mijoo/features/fridge/domain/entities/fridge_category.dart';
 import 'package:mijoo/features/fridge/domain/entities/fridge_item.dart';
 import 'package:mijoo/features/fridge/domain/entities/fridge_item_input.dart';
-import 'package:mijoo/features/fridge/domain/entities/fridge_unit.dart';
 import 'package:mijoo/features/fridge/domain/fridge_repository.dart';
 import 'package:mijoo/features/household/domain/entities/household.dart';
-import 'package:mijoo/features/meals/domain/entities/week_meal.dart';
-import 'package:mijoo/features/meals/domain/meals_repository.dart';
 import 'package:mijoo/features/scan/domain/rules/existing_ingredient.dart';
+import 'package:mijoo/features/shopping/domain/entities/expense.dart';
+import 'package:mijoo/features/shopping/domain/entities/household_price.dart';
 import 'package:mijoo/features/shopping/domain/entities/shopping_entry.dart';
+import 'package:mijoo/features/shopping/domain/entities/shopping_week.dart';
 import 'package:mijoo/features/shopping/domain/entities/shopping_line.dart';
+import 'package:mijoo/features/shopping/domain/rules/prices.dart';
 import 'package:mijoo/features/shopping/domain/rules/shopping_list_rules.dart';
 import 'package:mijoo/features/shopping/domain/rules/shopping_storage.dart';
+import 'package:mijoo/features/shopping/domain/rules/week_budget_rules.dart';
 import 'package:mijoo/features/shopping/domain/shopping_repository.dart';
+import 'package:mijoo/features/shopping/domain/use_cases/watch_shopping_week.dart';
 
 part 'package:mijoo/features/shopping/presentation/bloc/shopping_state.dart';
 
@@ -26,42 +29,45 @@ final class ShoppingCubit extends SafeCubit<ShoppingState> {
   ShoppingCubit({
     required HouseholdId household,
     required String author,
+    required Option<int> budgetCents,
     ShoppingRepository? shopping,
-    MealsRepository? meals,
     FridgeRepository? fridge,
+    WatchShoppingWeek? watchWeek,
     Duration? minimalLoading,
+    DateTime Function()? clock,
   }) : _household = household,
        _author = author,
+       _budgetCents = budgetCents,
        _shopping = shopping ?? getIt.get<ShoppingRepository>(),
-       _meals = meals ?? getIt.get<MealsRepository>(),
        _fridge = fridge ?? getIt.get<FridgeRepository>(),
+       _watchWeek = watchWeek ?? getIt.get<WatchShoppingWeek>(),
        _minimalLoading = minimalLoading ?? MjSkeletonizer.minDuration,
+       _clock = clock ?? DateTime.now,
        super(const ShoppingLoading());
 
   final HouseholdId _household;
   final String _author;
+  final Option<int> _budgetCents;
   final ShoppingRepository _shopping;
-  final MealsRepository _meals;
   final FridgeRepository _fridge;
+  final WatchShoppingWeek _watchWeek;
   final Duration _minimalLoading;
-  StreamSubscription<Either<AppFailure, ((List<WeekMeal>, List<FridgeItem>), List<ShoppingEntry>)>>? _data;
+  final DateTime Function() _clock;
+  StreamSubscription<Either<AppFailure, ShoppingWeek>>? _data;
 
   void watch() {
     unawaited(_data?.cancel());
     emit(const ShoppingLoading());
     _data = Stream<void>.fromFuture(Future<void>.delayed(_minimalLoading))
-        .asyncExpand(
-          (_) => combineLatestEither(
-            combineLatestEither(_meals.watchWeek(_household), _fridge.watchItems(_household)),
-            _shopping.watchEntries(_household),
-          ),
-        )
+        .asyncExpand((_) => _watchWeek(_household, weekStart(_clock())))
         .listen(
-          (Either<AppFailure, ((List<WeekMeal>, List<FridgeItem>), List<ShoppingEntry>)> result) => emit(
+          (Either<AppFailure, ShoppingWeek> result) => emit(
             result.match<ShoppingState>(
               ShoppingFailed.new,
-              (((List<WeekMeal>, List<FridgeItem>), List<ShoppingEntry>) data) => ShoppingLoaded(
-                facts: (week: data.$1.$1, items: data.$1.$2, entries: data.$2),
+              (ShoppingWeek week) => ShoppingLoaded(
+                week: week,
+                budgetCents: _budgetCents,
+                today: _clock(),
                 writeFailure: switch (state) {
                   ShoppingLoaded(:final Option<AppFailure> writeFailure) => writeFailure,
                   ShoppingLoading() || ShoppingFailed() => none(),
@@ -75,27 +81,48 @@ final class ShoppingCubit extends SafeCubit<ShoppingState> {
   Future<void> toggle(ShoppingLine line) =>
       _write(_shopping.saveEntry(_household, line.id, lineEntry(line, checked: !line.checked)));
 
-  Future<void> add(String name) => name.trim().isEmpty
-      ? Future<void>.value()
-      : _write(
-          _shopping.addEntry(
-            _household,
-            ShoppingEntryInput(
-              key: ingredientKey(name),
-              name: name.trim(),
-              quantity: some(1),
-              unit: FridgeUnit.piece,
-              category: none(),
-              checked: false,
-              dismissed: false,
-              manual: true,
-              addedBy: some(_author),
-            ),
-          ),
-        );
+  Future<void> add(String name) => name.trim().isEmpty ? Future<void>.value() : _addManual(name.trim());
 
-  Future<void> save(ShoppingLine line, double quantity, FridgeCategory category) =>
-      _write(_shopping.saveEntry(_household, line.id, lineEntry(line, quantity: quantity, category: category)));
+  Future<void> _addManual(String name) {
+    final ManualDefaults defaults = manualDefaults(name);
+    return _write(
+      _shopping.addEntry(
+        _household,
+        ShoppingEntryInput(
+          key: ingredientKey(name),
+          name: name,
+          quantity: some(defaults.quantity),
+          unit: defaults.unit,
+          category: defaults.category,
+          checked: false,
+          dismissed: false,
+          manual: true,
+          addedBy: some(_author),
+        ),
+      ),
+    );
+  }
+
+  Future<void> save(ShoppingLine line, double quantity, FridgeCategory category, Option<HouseholdPrice> price) =>
+      _write(
+        _shopping
+            .saveEntry(_household, line.id, lineEntry(line, quantity: quantity, category: category))
+            .flatMap(
+              (_) => price.match(
+                () => TaskEither<AppFailure, Unit>.right(unit),
+                (HouseholdPrice price) => _shopping.savePrice(_household, price),
+              ),
+            ),
+      );
+
+  Future<void> addExpense(int amountCents, DateTime date, Option<String> store) => _write(
+    _shopping.addExpense(
+      _household,
+      ExpenseInput(amountCents: amountCents, date: date, store: store, addedBy: some(_author)),
+    ),
+  );
+
+  Future<void> deleteExpense(ExpenseId expense) => _write(_shopping.deleteExpense(_household, expense));
 
   Future<void> remove(ShoppingLine line) => _write(
     line.manual
@@ -104,7 +131,7 @@ final class ShoppingCubit extends SafeCubit<ShoppingState> {
   );
 
   Future<void> store(List<ShoppingStorage> toFridge, List<ShoppingLine> checked) => switch (state) {
-    ShoppingLoaded(:final ShoppingFacts facts) => _write(
+    ShoppingLoaded(week: (facts: final ShoppingFacts facts, prices: _, expenses: _)) => _write(
       TaskEither.traverseListSeq<AppFailure, ShoppingStorage, Unit>(
         toFridge,
         (ShoppingStorage storage) => _storeInFridge(storageToFridgeItem(storage), facts.items),

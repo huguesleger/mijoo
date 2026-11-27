@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
+import 'package:mijoo/features/shopping/domain/entities/line_cost.dart';
+import 'package:mijoo/features/shopping/domain/entities/shopping_entry.dart';
 import 'package:mijoo/features/shopping/domain/entities/shopping_line.dart';
 import 'package:mijoo/features/shopping/presentation/widgets/shopping_line_tile.dart';
 
@@ -10,6 +12,9 @@ class ShoppingSection extends StatelessWidget {
     required this.icon,
     required this.tone,
     required this.lines,
+    required this.costs,
+    required this.today,
+    required this.trailing,
     super.key,
   });
 
@@ -17,6 +22,9 @@ class ShoppingSection extends StatelessWidget {
   final IconData icon;
   final MjTone tone;
   final List<ShoppingLine> lines;
+  final Map<ShoppingEntryId, LineCost> costs;
+  final DateTime today;
+  final String trailing;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -32,13 +40,14 @@ class ShoppingSection extends StatelessWidget {
             Expanded(
               child: MjSectionTitle(
                 title: title,
-                trailing: some(Text('${lines.length}', style: MjTextStyles.detail)),
+                trailing: some(Text(trailing, style: MjTextStyles.detail)),
               ),
             ),
           ],
         ),
       ),
-      for (final ShoppingLine line in lines) ShoppingLineTile(line: line),
+      for (final ShoppingLine line in lines)
+        ShoppingLineTile(line: line, cost: Option<LineCost>.fromNullable(costs[line.id]), today: today),
     ],
   );
 }

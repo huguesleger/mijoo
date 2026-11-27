@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
 import 'package:mijoo/features/shopping/domain/entities/shopping_line.dart';
-import 'package:mijoo/features/shopping/domain/entities/shopping_list.dart';
 import 'package:mijoo/features/shopping/domain/rules/shopping_list_rules.dart';
+import 'package:mijoo/features/shopping/domain/rules/week_budget_rules.dart';
 import 'package:mijoo/features/shopping/presentation/bloc/shopping_cubit.dart';
 import 'package:mijoo/features/shopping/presentation/shopping_bone_mock.dart';
 import 'package:mijoo/features/shopping/presentation/shopping_navigation.dart';
@@ -18,14 +18,10 @@ class ShoppingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocBuilder<ShoppingCubit, ShoppingState>(
     builder: (BuildContext context, ShoppingState state) {
-      final Option<ShoppingList> list = switch (state) {
-        ShoppingLoaded(:final facts) => some(shoppingList(facts)),
-        ShoppingLoading() || ShoppingFailed() => none(),
+      final List<ShoppingLine> checked = switch (state) {
+        ShoppingLoaded(:final facts) => shoppingList(facts).lines.where((ShoppingLine line) => line.checked).toList(),
+        ShoppingLoading() || ShoppingFailed() => const <ShoppingLine>[],
       };
-      final List<ShoppingLine> checked = list.match(
-        () => const <ShoppingLine>[],
-        (ShoppingList list) => list.lines.where((ShoppingLine line) => line.checked).toList(),
-      );
       return MjPage(
         child: Padding(
           padding: const EdgeInsets.only(bottom: MjSpacing.navigationClearance),
@@ -38,14 +34,18 @@ class ShoppingScreen extends StatelessWidget {
                 ShoppingLoading() => MjSkeletonizer(
                   child: ShoppingLoadedView(
                     list: shoppingBoneMock,
+                    budget: weekBudget(shoppingWeekBoneMock, none(), DateTime(2000)),
                     state: ShoppingLoaded(
-                      facts: (week: const [], items: const [], entries: const []),
+                      week: shoppingWeekBoneMock,
+                      budgetCents: none(),
+                      today: DateTime(2000),
                       writeFailure: none(),
                     ),
                   ),
                 ),
                 final ShoppingLoaded loaded => ShoppingLoadedView(
-                  list: list.getOrElse(() => shoppingBoneMock),
+                  list: shoppingList(loaded.facts),
+                  budget: weekBudget(loaded.week, loaded.budgetCents, loaded.today),
                   state: loaded,
                 ),
                 ShoppingFailed(:final failure) => ShoppingFailedView(failure: failure),

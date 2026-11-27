@@ -7,7 +7,13 @@ import 'package:mijoo/features/fridge/domain/entities/fridge_unit.dart';
 import 'package:mijoo/features/fridge/domain/fridge_repository.dart';
 import 'package:mijoo/features/household/domain/entities/household.dart';
 import 'package:mijoo/features/meals/domain/meals_repository.dart';
+import 'package:mijoo/features/shopping/domain/entities/expense.dart';
+import 'package:mijoo/features/shopping/domain/entities/household_price.dart';
+import 'package:mijoo/features/shopping/domain/entities/open_price_stats.dart';
+import 'package:mijoo/features/shopping/domain/entities/shopping_week.dart';
 import 'package:mijoo/features/shopping/domain/rules/shopping_list_rules.dart';
+import 'package:mijoo/features/shopping/domain/rules/week_budget_rules.dart';
+import 'package:mijoo/features/shopping/domain/use_cases/watch_shopping_week.dart';
 import 'package:mijoo/features/shopping/domain/shopping_repository.dart';
 import 'package:mijoo/features/shopping/presentation/bloc/shopping_cubit.dart';
 import 'package:mijoo/features/shopping/presentation/widgets/shopping_line_sheet.dart';
@@ -36,6 +42,16 @@ void main() {
     items: [fridgeItem('Oeufs', quantity: 2)],
     entries: [entry('m1', key: 'sac poubelle', name: 'Sacs poubelle', quantity: some(1), manual: true)],
   );
+  final ShoppingWeek week = (
+    facts: facts,
+    prices: (household: const <HouseholdPrice>[], openPrices: const <String, OpenPriceStats>{}),
+    expenses: [
+      Expense(
+        id: const ExpenseId('e1'),
+        input: ExpenseInput(amountCents: 4500, date: today, store: some('Lidl'), addedBy: some('Hugues')),
+      ),
+    ],
+  );
 
   testWidgets('groups the list by aisle with packaging and reserved stock', (WidgetTester tester) async {
     await pumpScreen(
@@ -44,27 +60,36 @@ void main() {
         create: (_) => ShoppingCubit(
           household: const HouseholdId('h1'),
           author: 'Camille',
+          budgetCents: some(12000),
           shopping: MockShoppingRepository(),
-          meals: MockMealsRepository(),
           fridge: MockFridgeRepository(),
+          watchWeek: WatchShoppingWeek(
+            shopping: MockShoppingRepository(),
+            meals: MockMealsRepository(),
+            fridge: MockFridgeRepository(),
+          ),
         ),
         child: MjPage(
           child: ShoppingLoadedView(
             list: shoppingList(facts),
-            state: ShoppingLoaded(facts: facts, writeFailure: none()),
+            budget: weekBudget(week, some(12000), today),
+            state: ShoppingLoaded(week: week, budgetCents: some(12000), today: today, writeFailure: none()),
           ),
         ),
       ),
     );
 
     expect(tester.takeException(), isNull);
-    expect(find.text('repas prévus'), findsOneWidget);
+    expect(find.text('Dépensé'), findsOneWidget);
+    expect(find.textContaining(RegExp(r'^45\s€$')), findsOneWidget);
+    expect(find.text('Panier prévu'), findsOneWidget);
+    expect(find.textContaining(RegExp(r'^Reste sur 120\s€$')), findsOneWidget);
+    expect(find.text('Sans prix connu'), findsOneWidget);
     expect(find.text('Œufs'), findsOneWidget);
     expect(find.text('1 × boîte de 6'), findsOneWidget);
     expect(find.text('il faut 5 pièces'), findsOneWidget);
     expect(find.text('Omelette · Salade de pâtes'), findsWidgets);
     expect(find.text('800 g'), findsOneWidget);
-    expect(find.text('Ajouté à la main'), findsOneWidget);
     expect(find.text('Ajouté par Camille'), findsOneWidget);
     expect(find.text('Déjà dans le frigo'), findsOneWidget);
   });
@@ -74,7 +99,9 @@ void main() {
     await pumpScreen(
       tester,
       Scaffold(
-        body: SingleChildScrollView(child: ShoppingLineSheet(line: eggs)),
+        body: SingleChildScrollView(
+          child: ShoppingLineSheet(line: eggs, book: week.prices, today: today),
+        ),
       ),
     );
 

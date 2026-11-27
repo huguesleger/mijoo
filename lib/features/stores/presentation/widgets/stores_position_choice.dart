@@ -1,0 +1,1 @@
+enum StoresPositionChoice { usePosition, stay }

@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
+import 'package:mijoo/features/shopping/domain/entities/line_cost.dart';
 import 'package:mijoo/features/shopping/domain/entities/shopping_line.dart';
 import 'package:mijoo/features/shopping/presentation/bloc/shopping_cubit.dart';
 import 'package:mijoo/features/shopping/presentation/shopping_navigation.dart';
 import 'package:mijoo/features/shopping/presentation/widgets/shopping_labels.dart';
+import 'package:mijoo/features/shopping/presentation/widgets/shopping_line_price.dart';
 
 class ShoppingLineTile extends StatelessWidget {
-  const ShoppingLineTile({required this.line, super.key});
+  const ShoppingLineTile({required this.line, required this.cost, required this.today, super.key});
 
   final ShoppingLine line;
+  final Option<LineCost> cost;
+  final DateTime today;
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +54,14 @@ class ShoppingLineTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  line.manual
-                      ? line.addedBy.match(() => t.shopping.manual, (String name) => t.shopping.addedBy(name: name))
-                      : line.meals.join(' · '),
+                  switch ((line.manual, cost)) {
+                    (true, _) => line.addedBy.match(
+                      () => t.shopping.manual,
+                      (String name) => t.shopping.addedBy(name: name),
+                    ),
+                    (false, None()) => t.shopping.unpricedDetail,
+                    (false, Some()) => line.meals.join(' · '),
+                  },
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: MjTextStyles.detail.copyWith(fontSize: 11.5),
@@ -73,6 +83,8 @@ class ShoppingLineTile extends StatelessWidget {
                   Text(needed, style: MjTextStyles.detail.copyWith(fontSize: 10.5, color: MjColors.placeholder)),
                 ],
               ),
+              const SizedBox(height: 2),
+              ShoppingLinePrice(cost: cost, today: today),
             ],
           ),
         ],

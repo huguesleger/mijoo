@@ -20,6 +20,7 @@ final class MealsLoaded extends MealsState {
     required this.plan,
     required this.week,
     required this.items,
+    required this.shopping,
     required this.profile,
     required this.today,
     required this.craving,
@@ -29,6 +30,7 @@ final class MealsLoaded extends MealsState {
   final Option<MealPlan> plan;
   final List<WeekMeal> week;
   final List<FridgeItem> items;
+  final ShoppingWeek shopping;
   final HouseholdProfile profile;
   final DateTime today;
   final MealCraving craving;
@@ -38,6 +40,7 @@ final class MealsLoaded extends MealsState {
     Option<MealPlan>? plan,
     List<WeekMeal>? week,
     List<FridgeItem>? items,
+    ShoppingWeek? shopping,
     DateTime? today,
     MealCraving? craving,
     MealsGeneration? generation,
@@ -45,6 +48,7 @@ final class MealsLoaded extends MealsState {
     plan: plan ?? this.plan,
     week: week ?? this.week,
     items: items ?? this.items,
+    shopping: shopping ?? this.shopping,
     profile: profile,
     today: today ?? this.today,
     craving: craving ?? this.craving,

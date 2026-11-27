@@ -17,14 +17,22 @@ import 'package:mijoo/features/meals/data/repositories/meals_repository_impl.dar
 import 'package:mijoo/features/meals/domain/meals_repository.dart';
 import 'package:mijoo/features/scan/data/data_sources/gemini_scan_data_source.dart';
 import 'package:mijoo/features/shopping/data/data_sources/firestore_shopping_data_source.dart';
+import 'package:mijoo/features/shopping/data/data_sources/open_prices_data_source.dart';
 import 'package:mijoo/features/shopping/data/repositories/shopping_repository_impl.dart';
 import 'package:mijoo/features/shopping/domain/shopping_repository.dart';
+import 'package:mijoo/features/shopping/domain/use_cases/watch_shopping_week.dart';
 import 'package:mijoo/features/scan/data/data_sources/open_food_facts_data_source.dart';
 import 'package:mijoo/features/scan/data/data_sources/photo_data_source.dart';
 import 'package:mijoo/features/scan/data/repositories/product_repository_impl.dart';
 import 'package:mijoo/features/scan/data/repositories/scan_repository_impl.dart';
 import 'package:mijoo/features/scan/domain/product_repository.dart';
 import 'package:mijoo/features/scan/domain/scan_repository.dart';
+import 'package:mijoo/features/stores/data/data_sources/address_data_source.dart';
+import 'package:mijoo/features/stores/data/data_sources/overpass_data_source.dart';
+import 'package:mijoo/features/stores/data/data_sources/position_data_source.dart';
+import 'package:mijoo/features/stores/data/data_sources/stores_cache_data_source.dart';
+import 'package:mijoo/features/stores/data/repositories/stores_repository_impl.dart';
+import 'package:mijoo/features/stores/domain/stores_repository.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -47,4 +55,11 @@ void configureDependencies() => getIt
   ..registerLazySingleton<MealDbPhotoDataSource>(MealDbPhotoDataSource.new)
   ..registerLazySingleton<MealsRepository>(() => MealsRepositoryImpl(getIt.get(), getIt.get(), getIt.get()))
   ..registerLazySingleton<FirestoreShoppingDataSource>(() => FirestoreShoppingDataSource(getIt.get()))
-  ..registerLazySingleton<ShoppingRepository>(() => ShoppingRepositoryImpl(getIt.get()));
+  ..registerLazySingleton<OpenPricesDataSource>(OpenPricesDataSource.new)
+  ..registerLazySingleton<ShoppingRepository>(() => ShoppingRepositoryImpl(getIt.get(), getIt.get()))
+  ..registerFactory<WatchShoppingWeek>(WatchShoppingWeek.new)
+  ..registerLazySingleton<AddressDataSource>(AddressDataSource.new)
+  ..registerLazySingleton<StoresCacheDataSource>(StoresCacheDataSource.new)
+  ..registerLazySingleton<OverpassDataSource>(() => OverpassDataSource(cache: getIt.get()))
+  ..registerLazySingleton<PositionDataSource>(PositionDataSource.new)
+  ..registerLazySingleton<StoresRepository>(() => StoresRepositoryImpl(getIt.get(), getIt.get(), getIt.get()));

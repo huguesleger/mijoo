@@ -18,6 +18,9 @@ import 'package:mijoo/features/meals/presentation/widgets/meal_detail_content.da
 import 'package:mijoo/features/meals/presentation/widgets/meal_detail_footer.dart';
 import 'package:mijoo/features/meals/presentation/widgets/meal_photo.dart';
 import 'package:mijoo/features/meals/presentation/widgets/meals_loaded_view.dart';
+import 'package:mijoo/features/shopping/domain/shopping_repository.dart';
+import 'package:mijoo/features/shopping/domain/use_cases/watch_shopping_week.dart';
+import 'package:mijoo/features/shopping/presentation/shopping_bone_mock.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../helpers/pump_screen.dart';
@@ -26,6 +29,8 @@ import '../meals_fixtures.dart';
 class MockMealsRepository extends Mock implements MealsRepository {}
 
 class MockFridgeRepository extends Mock implements FridgeRepository {}
+
+class MockShoppingRepository extends Mock implements ShoppingRepository {}
 
 void main() {
   final spinach = fridgeItem('Épinards', unit: FridgeUnit.pack, bestBefore: some(today.add(const Duration(days: 1))));
@@ -40,7 +45,11 @@ void main() {
           household: const HouseholdId('h1'),
           profile: profile,
           meals: MockMealsRepository(),
-          fridge: MockFridgeRepository(),
+          watchWeek: WatchShoppingWeek(
+            shopping: MockShoppingRepository(),
+            meals: MockMealsRepository(),
+            fridge: MockFridgeRepository(),
+          ),
         ),
         child: MjPage(
           child: MealsLoadedView(
@@ -48,6 +57,7 @@ void main() {
               plan: some(MealPlan(ideas: [idea], craving: MealCraving.any, createdAt: today)),
               week: [WeekMeal(idea: idea, status: WeekMealStatus.cooked, addedAt: today)],
               items: [spinach, eggs],
+              shopping: shoppingWeekBoneMock,
               profile: profile,
               today: today,
               craving: MealCraving.any,

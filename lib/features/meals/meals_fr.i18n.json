@@ -90,5 +90,12 @@
   "inWeek": "Dans ma semaine",
   "cookedTag": "Cuisiné",
   "addToWeek": "Ajouter à ma semaine",
-  "removeFromWeek": "Retirer de ma semaine"
+  "removeFromWeek": "Retirer de ma semaine",
+  "costNothing": "0 €",
+  "costToBuy": "≈ {amount} à acheter",
+  "overBudget": "Hors budget",
+  "budgetLeftSingle": "Il reste {amount} cette semaine. 1 idée le dépasse : elle reste affichée, marquée hors budget.",
+  "budgetLeftSeveral": "Il reste {amount} cette semaine. {count} idées le dépassent : elles restent affichées, marquées hors budget.",
+  "budgetSpentSingle": "Le budget de la semaine est dépassé. 1 idée demande des achats : elle reste affichée, marquée hors budget.",
+  "budgetSpentSeveral": "Le budget de la semaine est dépassé. {count} idées demandent des achats : elles restent affichées, marquées hors budget."
 }

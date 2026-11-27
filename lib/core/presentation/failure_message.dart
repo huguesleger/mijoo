@@ -6,6 +6,7 @@ import 'package:mijoo/features/household/domain/household_failure.dart';
 import 'package:mijoo/features/meals/domain/meals_failure.dart';
 import 'package:mijoo/features/scan/domain/scan_failure.dart';
 import 'package:mijoo/features/shopping/domain/shopping_failure.dart';
+import 'package:mijoo/features/stores/domain/stores_failure.dart';
 
 String failureMessage(AppFailure failure) => switch (failure) {
   FirebaseUnavailable() => t.auth.firebaseUnavailable,
@@ -41,5 +42,10 @@ String failureMessage(AppFailure failure) => switch (failure) {
   ShoppingUnavailable() => t.shopping.unavailable,
   ShoppingNetworkFailure() => t.shopping.networkFailure,
   ShoppingAccessDenied() => t.shopping.accessDenied,
+  StoresNetworkFailure() => t.stores.networkFailure,
+  StoresBusy() => t.stores.busy,
+  StoresTownNotFound() => t.stores.townNotFound,
+  StoresLocationOff() => t.stores.locationOff,
+  StoresLocationDenied() => t.stores.locationDenied,
   _ => t.failures.unknown,
 };
