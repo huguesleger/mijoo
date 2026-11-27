@@ -1,5 +1,8 @@
 {
   "unavailable": "Ton foyer n’est pas accessible pour le moment. Réessaie dans un instant.",
   "accessDenied": "Tu n’as pas accès à ce foyer.",
-  "networkFailure": "La connexion a échoué. Réessaie dans un instant."
+  "networkFailure": "La connexion a échoué. Réessaie dans un instant.",
+  "inviteNotFound": "Ce code n’existe pas. Vérifie-le ou demande un nouveau code.",
+  "inviteExpired": "Ce code a expiré. Demande un nouveau code.",
+  "inviteAlreadyUsed": "Ce code a déjà servi. Demande un nouveau code."
 }

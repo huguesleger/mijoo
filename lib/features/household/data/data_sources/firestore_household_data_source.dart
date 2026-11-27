@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:math' show Random;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fpdart/fpdart.dart';
@@ -8,6 +9,8 @@ import 'package:mijoo/core/core.dart';
 import 'package:mijoo/core/firebase/firebase_connection.dart';
 import 'package:mijoo/features/household/domain/household_failure.dart';
 import 'package:mijoo/features/household/data/mappers/household_mapper.dart';
+import 'package:mijoo/features/household/data/mappers/invite_mapper.dart';
+import 'package:mijoo/features/household/domain/rules/invite_codes.dart';
 
 typedef HouseholdSnapshot = ({String id, FirestoreData data});
 
@@ -89,6 +92,86 @@ final class FirestoreHouseholdDataSource {
     await _households(firestore).doc(householdId).update({'profile': profile});
     return unit;
   });
+
+  Stream<Either<AppFailure, List<FirestoreData>>> watchMembers(String householdId) => _connection.isConfigured
+      ? Stream<FirebaseFirestore>.fromFuture(_connection.firestore)
+            .asyncExpand((FirebaseFirestore firestore) => _members(firestore, householdId).snapshots())
+            .map(
+              (QuerySnapshot<FirestoreData> snapshot) => Either<AppFailure, List<FirestoreData>>.right(<FirestoreData>[
+                for (final QueryDocumentSnapshot<FirestoreData> document in snapshot.docs)
+                  <String, Object?>{...document.data(), 'id': document.id},
+              ]),
+            )
+            .transform(
+              StreamTransformer<
+                Either<AppFailure, List<FirestoreData>>,
+                Either<AppFailure, List<FirestoreData>>
+              >.fromHandlers(
+                handleError: (Object error, StackTrace stack, EventSink<Either<AppFailure, List<FirestoreData>>> sink) {
+                  log('members ${error.runtimeType}', name: 'mijoo.household', stackTrace: stack);
+                  sink.add(Either<AppFailure, List<FirestoreData>>.left(const HouseholdUnavailable()));
+                },
+              ),
+            )
+      : Stream<Either<AppFailure, List<FirestoreData>>>.value(
+          Either<AppFailure, List<FirestoreData>>.left(const HouseholdUnavailable()),
+        );
+
+  TaskEither<AppFailure, Unit> saveMember(String householdId, String uid, String name) =>
+      _perform((FirebaseFirestore firestore) async {
+        await _members(firestore, householdId).doc(uid).set(<String, Object?>{'name': name});
+        return unit;
+      });
+
+  TaskEither<AppFailure, String> createInvite(String householdId, String uid) =>
+      _perform((FirebaseFirestore firestore) async {
+        final String code = newInviteCode(Random.secure()).value;
+        await firestore.collection('invites').doc(code).set(<String, Object?>{
+          'householdId': householdId,
+          'createdBy': uid,
+          'createdAt': FieldValue.serverTimestamp(),
+          'expiresAt': Timestamp.fromDate(DateTime.now().add(inviteLifetime)),
+          'usedBy': null,
+        });
+        return code;
+      });
+
+  TaskEither<AppFailure, Unit> joinHousehold(String uid, String name, String code) =>
+      _perform((FirebaseFirestore firestore) => firestore.collection('invites').doc(code).get())
+          .flatMap(
+            (DocumentSnapshot<FirestoreData> invite) => TaskEither<AppFailure, String>.fromEither(
+              firestoreToInviteHousehold(invite.data(), DateTime.now()),
+            ),
+          )
+          .flatMap(
+            (String householdId) => _perform((FirebaseFirestore firestore) async {
+              await (firestore.batch()
+                    ..update(_households(firestore).doc(householdId), <String, Object?>{
+                      'memberIds': FieldValue.arrayUnion(<String>[uid]),
+                      'lastInvite': code,
+                    })
+                    ..update(firestore.collection('invites').doc(code), <String, Object?>{'usedBy': uid})
+                    ..set(_users(firestore).doc(uid), <String, Object?>{'householdId': householdId})
+                    ..set(_members(firestore, householdId).doc(uid), <String, Object?>{'name': name}))
+                  .commit();
+              return unit;
+            }),
+          );
+
+  TaskEither<AppFailure, Unit> leaveHousehold(String householdId, String uid) =>
+      _perform((FirebaseFirestore firestore) async {
+        await (firestore.batch()
+              ..update(_households(firestore).doc(householdId), <String, Object?>{
+                'memberIds': FieldValue.arrayRemove(<String>[uid]),
+              })
+              ..delete(_members(firestore, householdId).doc(uid))
+              ..delete(_users(firestore).doc(uid)))
+            .commit();
+        return unit;
+      });
+
+  CollectionReference<FirestoreData> _members(FirebaseFirestore firestore, String householdId) =>
+      _households(firestore).doc(householdId).collection('members');
 
   Stream<T> _retryWhileDenied<T>(Stream<T> Function() open, int retries) => Stream<T>.multi((
     MultiStreamController<T> controller,

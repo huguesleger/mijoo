@@ -2,6 +2,7 @@ import 'package:fpdart/fpdart.dart';
 
 import 'package:mijoo/features/auth/domain/entities/account.dart';
 import 'package:mijoo/features/household/domain/entities/household.dart';
+import 'package:mijoo/features/household/domain/entities/household_member.dart';
 import 'package:mijoo/features/household/domain/entities/household_profile.dart';
 
 typedef FirestoreData = Map<String, Object?>;
@@ -63,4 +64,11 @@ String _string(Object? value) => switch (value) {
 List<String> _strings(Object? value) => switch (value) {
   final List<Object?> items => items.whereType<String>().toList(),
   _ => const [],
+};
+
+Option<HouseholdMember> firestoreToHouseholdMember(FirestoreData data) => switch ((data['id'], data['name'])) {
+  (final String id, final String name) when name.trim().isNotEmpty => some(
+    HouseholdMember(id: AccountId(id), name: name.trim()),
+  ),
+  _ => none(),
 };

@@ -42,15 +42,14 @@ void main() {
   );
 
   Future<void> fillAndFinish(SetupCubit cubit) async {
-    cubit
-      ..update(adults: some(2), children: some(2))
-      ..update(exclusions: some({FoodExclusion.pork}));
+    cubit.create();
+    cubit.change(
+      initialSetupDraft.copyWith(adults: some(2), children: some(2), exclusions: some({FoodExclusion.pork})),
+    );
     await cubit.next();
     await cubit.next();
-    cubit.update(
-      budget: some('120,50'),
-      postalCode: some('69001'),
-      city: some('Lyon'),
+    cubit.change(
+      cubit.state.draftOrInitial.copyWith(budget: some('120,50'), postalCode: some('69001'), city: some('Lyon')),
     );
     await cubit.next();
   }
@@ -117,35 +116,29 @@ void main() {
 
   test('blocks the last step on an invalid budget or postal code', () {
     final cubit = build(none());
-    const draft = SetupCubit.initialDraft;
-    expect(cubit.canContinue(draft, SetupStep.budget), isTrue);
-    expect(
-      cubit.canContinue((
-        adults: draft.adults,
-        children: draft.children,
-        maxPrepMinutes: draft.maxPrepMinutes,
-        likes: draft.likes,
-        exclusions: draft.exclusions,
-        allergies: draft.allergies,
-        budget: 'abc',
-        postalCode: '',
-        city: '',
-      ), SetupStep.budget),
-      isFalse,
-    );
-    expect(
-      cubit.canContinue((
-        adults: draft.adults,
-        children: draft.children,
-        maxPrepMinutes: draft.maxPrepMinutes,
-        likes: draft.likes,
-        exclusions: draft.exclusions,
-        allergies: draft.allergies,
-        budget: '',
-        postalCode: '690',
-        city: '',
-      ), SetupStep.budget),
-      isFalse,
-    );
+    expect(cubit.canContinue(initialSetupDraft, SetupStep.budget), isTrue);
+    expect(cubit.canContinue(initialSetupDraft.copyWith(budget: some('abc')), SetupStep.budget), isFalse);
+    expect(cubit.canContinue(initialSetupDraft.copyWith(postalCode: some('690')), SetupStep.budget), isFalse);
   });
+
+  test('asks a new parent to create or join a household', () {
+    expect(build(none()).state, isA<SetupChoosing>());
+    expect(build(some(householdId)).state, isA<SetupEditing>());
+  });
+
+  blocTest<SetupCubit, SetupState>(
+    'goes back to the choice from the first step',
+    build: () => build(none()),
+    act: (cubit) => cubit
+      ..create()
+      ..back(),
+    expect: () => [isA<SetupEditing>(), isA<SetupChoosing>()],
+  );
+}
+
+extension on SetupState {
+  SetupDraft get draftOrInitial => switch (this) {
+    SetupEditing(:final draft) || SetupSaving(:final draft) || SetupFailed(:final draft) => draft,
+    SetupChoosing() || SetupDone() => initialSetupDraft,
+  };
 }

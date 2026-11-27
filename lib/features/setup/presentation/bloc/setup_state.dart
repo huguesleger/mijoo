@@ -1,20 +1,12 @@
 part of 'package:mijoo/features/setup/presentation/bloc/setup_cubit.dart';
 
-typedef SetupDraft = ({
-  int adults,
-  int children,
-  int maxPrepMinutes,
-  Set<FoodLike> likes,
-  Set<FoodExclusion> exclusions,
-  Set<Allergen> allergies,
-  String budget,
-  String postalCode,
-  String city,
-});
-
 @immutable
 sealed class SetupState {
   const SetupState();
+}
+
+final class SetupChoosing extends SetupState {
+  const SetupChoosing();
 }
 
 final class SetupEditing extends SetupState {

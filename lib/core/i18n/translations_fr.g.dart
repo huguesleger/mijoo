@@ -47,9 +47,11 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$fridge$fr fridge = Translations$fridge$fr.internal(_root);
 	late final Translations$home$fr home = Translations$home$fr.internal(_root);
 	late final Translations$household$fr household = Translations$household$fr.internal(_root);
+	late final Translations$meals$fr meals = Translations$meals$fr.internal(_root);
 	late final Translations$scan$fr scan = Translations$scan$fr.internal(_root);
 	late final Translations$setup$fr setup = Translations$setup$fr.internal(_root);
 	late final Translations$shell$fr shell = Translations$shell$fr.internal(_root);
+	late final Translations$shopping$fr shopping = Translations$shopping$fr.internal(_root);
 	late final Translations$welcome$fr welcome = Translations$welcome$fr.internal(_root);
 }
 
@@ -132,6 +134,78 @@ class Translations$account$fr {
 
 	/// fr: 'Commune non renseignée'
 	String get noLocation => 'Commune non renseignée';
+
+	/// fr: 'Modifier'
+	String get editHousehold => 'Modifier';
+
+	/// fr: 'Membres'
+	String get members => 'Membres';
+
+	/// fr: '1 membre'
+	String get membersSingle => '1 membre';
+
+	/// fr: '{count} membres'
+	String membersSeveral({required Object count}) => '${count} membres';
+
+	/// fr: 'Toi'
+	String get you => 'Toi';
+
+	/// fr: 'Membre du foyer'
+	String get member => 'Membre du foyer';
+
+	/// fr: 'Personne d’autre pour l’instant'
+	String get nobody => 'Personne d’autre pour l’instant';
+
+	/// fr: 'Partage un code pour inviter'
+	String get nobodyDetail => 'Partage un code pour inviter';
+
+	/// fr: 'Inviter quelqu’un'
+	String get invite => 'Inviter quelqu’un';
+
+	/// fr: 'Inviter dans ton foyer'
+	String get inviteTitle => 'Inviter dans ton foyer';
+
+	/// fr: 'Elle ou il crée son compte Mijoo, choisit « Rejoindre un foyer » et saisit ce code.'
+	String get inviteMessage => 'Elle ou il crée son compte Mijoo, choisit « Rejoindre un foyer » et saisit ce code.';
+
+	/// fr: 'Code d’invitation {code}'
+	String inviteCodeLabel({required Object code}) => 'Code d’invitation ${code}';
+
+	/// fr: 'Valable 48 h'
+	String get inviteValid => 'Valable 48 h';
+
+	/// fr: 'Une seule fois'
+	String get inviteOnce => 'Une seule fois';
+
+	/// fr: 'Partager le code'
+	String get share => 'Partager le code';
+
+	/// fr: 'Copier'
+	String get copy => 'Copier';
+
+	/// fr: 'Code copié'
+	String get copied => 'Code copié';
+
+	/// fr: 'Rejoins notre foyer sur Mijoo avec le code {code}, valable 48 heures. Crée ton compte puis choisis « Rejoindre un foyer ».'
+	String shareText({required Object code}) => 'Rejoins notre foyer sur Mijoo avec le code ${code}, valable 48 heures. Crée ton compte puis choisis « Rejoindre un foyer ».';
+
+	/// fr: 'La personne verra tout le foyer : frigo, idées, semaine et courses. Ne partage le code qu’avec elle.'
+	String get inviteNote => 'La personne verra tout le foyer : frigo, idées, semaine et courses. Ne partage le code qu’avec elle.';
+
+	/// fr: 'Quitter ce foyer'
+	String get leave => 'Quitter ce foyer';
+
+	/// fr: 'Quitter ce foyer ?'
+	String get leaveTitle => 'Quitter ce foyer ?';
+
+	/// fr: 'Tu ne verras plus le frigo, les idées ni la liste de ce foyer. Tu pourras ensuite créer un foyer ou en rejoindre un autre avec un code.'
+	String get leaveMessage => 'Tu ne verras plus le frigo, les idées ni la liste de ce foyer. Tu pourras ensuite créer un foyer ou en rejoindre un autre avec un code.';
+
+	/// fr: 'Quitter le foyer'
+	String get leaveConfirm => 'Quitter le foyer';
+
+	/// fr: 'Annuler'
+	String get cancel => 'Annuler';
 }
 
 // Path: auth
@@ -485,11 +559,11 @@ class Translations$home$fr {
 	/// fr: 'Idée du soir'
 	String get mealIdea => 'Idée du soir';
 
-	/// fr: 'Les idées de repas arrivent'
-	String get mealSoonTitle => 'Les idées de repas arrivent';
+	/// fr: 'Idées de repas'
+	String get mealSoonTitle => 'Idées de repas';
 
-	/// fr: 'Mijoo proposera des repas avec ce que tu as déjà au frigo.'
-	String get mealSoonMessage => 'Mijoo proposera des repas avec ce que tu as déjà au frigo.';
+	/// fr: 'Trois repas avec ce que tu as déjà au frigo.'
+	String get mealSoonMessage => 'Trois repas avec ce que tu as déjà au frigo.';
 }
 
 // Path: household
@@ -508,6 +582,280 @@ class Translations$household$fr {
 
 	/// fr: 'La connexion a échoué. Réessaie dans un instant.'
 	String get networkFailure => 'La connexion a échoué. Réessaie dans un instant.';
+
+	/// fr: 'Ce code n’existe pas. Vérifie-le ou demande un nouveau code.'
+	String get inviteNotFound => 'Ce code n’existe pas. Vérifie-le ou demande un nouveau code.';
+
+	/// fr: 'Ce code a expiré. Demande un nouveau code.'
+	String get inviteExpired => 'Ce code a expiré. Demande un nouveau code.';
+
+	/// fr: 'Ce code a déjà servi. Demande un nouveau code.'
+	String get inviteAlreadyUsed => 'Ce code a déjà servi. Demande un nouveau code.';
+}
+
+// Path: meals
+class Translations$meals$fr {
+	Translations$meals$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Idées repas'
+	String get title => 'Idées repas';
+
+	/// fr: 'Trois nouvelles idées'
+	String get refresh => 'Trois nouvelles idées';
+
+	/// fr: 'Pour 1 · {minutes} min max'
+	String forOne({required Object minutes}) => 'Pour 1 · ${minutes} min max';
+
+	/// fr: 'Pour {count} · {minutes} min max'
+	String forSeveral({required Object count, required Object minutes}) => 'Pour ${count} · ${minutes} min max';
+
+	/// fr: 'sans {label}'
+	String without({required Object label}) => 'sans ${label}';
+
+	/// fr: 'Aucun interdit déclaré'
+	String get noRestriction => 'Aucun interdit déclaré';
+
+	/// fr: '1 à finir vite'
+	String get toFinishSingle => '1 à finir vite';
+
+	/// fr: '{count} à finir vite'
+	String toFinishSeveral({required Object count}) => '${count} à finir vite';
+
+	Map<String, String> get cravings => {
+		'any': 'Au choix',
+		'quick': 'Rapide',
+		'vegetarian': 'Végétarien',
+		'comforting': 'Réconfortant',
+	};
+
+	/// fr: '{count} min'
+	String minutes({required Object count}) => '${count} min';
+
+	/// fr: '{count} pers.'
+	String servingsShort({required Object count}) => '${count} pers.';
+
+	/// fr: '1 personne'
+	String get servingsSingle => '1 personne';
+
+	/// fr: '{count} personnes'
+	String servingsSeveral({required Object count}) => '${count} personnes';
+
+	/// fr: 'Tout est dans le frigo'
+	String get coverageAll => 'Tout est dans le frigo';
+
+	/// fr: '{count} sur {total} ingrédients du frigo'
+	String coverage({required Object count, required Object total}) => '${count} sur ${total} ingrédients du frigo';
+
+	/// fr: '1 à acheter'
+	String get toBuySingle => '1 à acheter';
+
+	/// fr: '{count} à acheter'
+	String toBuySeveral({required Object count}) => '${count} à acheter';
+
+	/// fr: 'Rien à acheter'
+	String get nothingToBuy => 'Rien à acheter';
+
+	/// fr: 'Qu’est-ce qu’on mange ?'
+	String get emptyTitle => 'Qu’est-ce qu’on mange ?';
+
+	/// fr: 'Mijoo te propose 3 repas avec ce qu’il y a dans ton frigo, en commençant par ce qui est à finir vite.'
+	String get emptyMessage => 'Mijoo te propose 3 repas avec ce qu’il y a dans ton frigo, en commençant par ce qui est à finir vite.';
+
+	/// fr: 'Trouver 3 idées'
+	String get find => 'Trouver 3 idées';
+
+	/// fr: 'Mijoo cherche tes repas'
+	String get generatingTitle => 'Mijoo cherche tes repas';
+
+	/// fr: 'Avec ton ingrédient, en commençant par ce qui est à finir vite.'
+	String get generatingSingle => 'Avec ton ingrédient, en commençant par ce qui est à finir vite.';
+
+	/// fr: 'Avec tes {count} ingrédients, en commençant par ceux à finir vite.'
+	String generatingSeveral({required Object count}) => 'Avec tes ${count} ingrédients, en commençant par ceux à finir vite.';
+
+	/// fr: 'Ton frigo est vide : Mijoo choisit des recettes simples.'
+	String get generatingEmptyFridge => 'Ton frigo est vide : Mijoo choisit des recettes simples.';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+
+	/// fr: '{name} à finir'
+	String finishFirst({required Object name}) => '${name} à finir';
+
+	/// fr: 'Ingrédients'
+	String get ingredients => 'Ingrédients';
+
+	/// fr: '{count} sur {total} dans le frigo'
+	String inFridgeCount({required Object count, required Object total}) => '${count} sur ${total} dans le frigo';
+
+	/// fr: 'Vérifie les étiquettes : des allergies sont déclarées dans le foyer.'
+	String get allergyNote => 'Vérifie les étiquettes : des allergies sont déclarées dans le foyer.';
+
+	/// fr: 'Vérifie les étiquettes des produits avant de cuisiner.'
+	String get labelNote => 'Vérifie les étiquettes des produits avant de cuisiner.';
+
+	/// fr: 'J’ai cuisiné ce repas'
+	String get cooked => 'J’ai cuisiné ce repas';
+
+	/// fr: 'Cette idée n’est plus proposée'
+	String get missingTitle => 'Cette idée n’est plus proposée';
+
+	/// fr: 'Le foyer a reçu de nouvelles idées entre-temps.'
+	String get missingMessage => 'Le foyer a reçu de nouvelles idées entre-temps.';
+
+	/// fr: 'Retour aux idées'
+	String get back => 'Retour aux idées';
+
+	/// fr: 'Bon appétit !'
+	String get cookedTitle => 'Bon appétit !';
+
+	/// fr: 'Voici ce que Mijoo retire du frigo. Ajuste si besoin.'
+	String get cookedMessage => 'Voici ce que Mijoo retire du frigo. Ajuste si besoin.';
+
+	/// fr: 'Aucun ingrédient de cette recette ne vient du frigo.'
+	String get cookedNothing => 'Aucun ingrédient de cette recette ne vient du frigo.';
+
+	/// fr: 'Il en reste {quantity}'
+	String left({required Object quantity}) => 'Il en reste ${quantity}';
+
+	/// fr: 'Le repas rejoint l’historique : Mijoo évitera de le reproposer trop vite.'
+	String get historyNote => 'Le repas rejoint l’historique : Mijoo évitera de le reproposer trop vite.';
+
+	/// fr: 'Mettre à jour le frigo'
+	String get updateFridge => 'Mettre à jour le frigo';
+
+	/// fr: 'Enregistrer le repas'
+	String get saveMeal => 'Enregistrer le repas';
+
+	/// fr: 'Ne rien retirer'
+	String get keepFridge => 'Ne rien retirer';
+
+	/// fr: 'Retirer moins de {name}'
+	String less({required Object name}) => 'Retirer moins de ${name}';
+
+	/// fr: 'Retirer plus de {name}'
+	String more({required Object name}) => 'Retirer plus de ${name}';
+
+	/// fr: 'Garder {name}'
+	String keep({required Object name}) => 'Garder ${name}';
+
+	/// fr: 'Retirer {name}'
+	String remove({required Object name}) => 'Retirer ${name}';
+
+	/// fr: 'Les idées de repas ne sont pas disponibles pour le moment.'
+	String get unavailable => 'Les idées de repas ne sont pas disponibles pour le moment.';
+
+	/// fr: 'La connexion a échoué. Réessaie dans un instant.'
+	String get networkFailure => 'La connexion a échoué. Réessaie dans un instant.';
+
+	/// fr: 'Tu n’as pas accès aux repas de ce foyer.'
+	String get accessDenied => 'Tu n’as pas accès aux repas de ce foyer.';
+
+	/// fr: 'Le service d’idées est très sollicité. Réessaie dans quelques minutes.'
+	String get busy => 'Le service d’idées est très sollicité. Réessaie dans quelques minutes.';
+
+	/// fr: 'Les idées gratuites du jour sont épuisées. Réessaie demain matin.'
+	String get quotaReached => 'Les idées gratuites du jour sont épuisées. Réessaie demain matin.';
+
+	/// fr: 'Les idées reçues étaient incomplètes. Réessaie.'
+	String get invalidResponse => 'Les idées reçues étaient incomplètes. Réessaie.';
+
+	/// fr: 'Aucune idée ne respectait vos contraintes. Réessaie ou change d’envie.'
+	String get nothingSuitable => 'Aucune idée ne respectait vos contraintes. Réessaie ou change d’envie.';
+
+	/// fr: 'Préparation'
+	String get prep => 'Préparation';
+
+	/// fr: 'Cuisson'
+	String get cook => 'Cuisson';
+
+	/// fr: 'Personnes'
+	String get people => 'Personnes';
+
+	/// fr: 'Niveau'
+	String get level => 'Niveau';
+
+	Map<String, String> get difficulties => {
+		'easy': 'Facile',
+		'medium': 'Moyen',
+		'hard': 'Difficile',
+	};
+
+	/// fr: 'Photo d’illustration'
+	String get photoBadge => 'Photo d’illustration';
+
+	/// fr: 'Ingrédients'
+	String get tabIngredients => 'Ingrédients';
+
+	/// fr: 'Préparation'
+	String get tabSteps => 'Préparation';
+
+	/// fr: 'Pour 1 personne'
+	String get servingsTitleSingle => 'Pour 1 personne';
+
+	/// fr: 'Pour {count} personnes'
+	String servingsTitleSeveral({required Object count}) => 'Pour ${count} personnes';
+
+	/// fr: 'Les quantités suivent'
+	String get servingsFollow => 'Les quantités suivent';
+
+	/// fr: 'Recette prévue pour {count}'
+	String servingsBase({required Object count}) => 'Recette prévue pour ${count}';
+
+	/// fr: 'Une personne de moins'
+	String get fewerPeople => 'Une personne de moins';
+
+	/// fr: 'Une personne de plus'
+	String get morePeople => 'Une personne de plus';
+
+	/// fr: 'Dans le frigo'
+	String get inFridgeLine => 'Dans le frigo';
+
+	/// fr: 'Il en manque {quantity}'
+	String missingLine({required Object quantity}) => 'Il en manque ${quantity}';
+
+	/// fr: 'À acheter'
+	String get toBuyLine => 'À acheter';
+
+	/// fr: '{line} · ou {substitute}'
+	String orSubstituteLine({required Object line, required Object substitute}) => '${line} · ou ${substitute}';
+
+	/// fr: 'Étape {number}'
+	String stepNumber({required Object number}) => 'Étape ${number}';
+
+	/// fr: '1 étape'
+	String get stepCountSingle => '1 étape';
+
+	/// fr: '{count} étapes'
+	String stepCountSeveral({required Object count}) => '${count} étapes';
+
+	/// fr: 'Ma semaine'
+	String get week => 'Ma semaine';
+
+	/// fr: '1 repas · {portions} portions'
+	String weekSummarySingle({required Object portions}) => '1 repas · ${portions} portions';
+
+	/// fr: '{count} repas · {portions} portions'
+	String weekSummarySeveral({required Object count, required Object portions}) => '${count} repas · ${portions} portions';
+
+	/// fr: 'Idées du soir'
+	String get tonight => 'Idées du soir';
+
+	/// fr: 'Dans ma semaine'
+	String get inWeek => 'Dans ma semaine';
+
+	/// fr: 'Cuisiné'
+	String get cookedTag => 'Cuisiné';
+
+	/// fr: 'Ajouter à ma semaine'
+	String get addToWeek => 'Ajouter à ma semaine';
+
+	/// fr: 'Retirer de ma semaine'
+	String get removeFromWeek => 'Retirer de ma semaine';
 }
 
 // Path: scan
@@ -805,6 +1153,66 @@ class Translations$setup$fr {
 
 	/// fr: 'Découvrir Mijoo'
 	String get start => 'Découvrir Mijoo';
+
+	/// fr: 'Modifier mon foyer'
+	String get editTitle => 'Modifier mon foyer';
+
+	/// fr: 'Composition'
+	String get editComposition => 'Composition';
+
+	/// fr: 'Goûts'
+	String get editPreferences => 'Goûts';
+
+	/// fr: 'Budget et commune'
+	String get editBudget => 'Budget et commune';
+
+	/// fr: 'Enregistrer'
+	String get save => 'Enregistrer';
+
+	/// fr: 'Ton '
+	String get chooseLead => 'Ton ';
+
+	/// fr: 'foyer'
+	String get chooseHighlight => 'foyer';
+
+	/// fr: 'Tout le monde chez toi partage le même frigo et la même liste.'
+	String get chooseSubtitle => 'Tout le monde chez toi partage le même frigo et la même liste.';
+
+	/// fr: 'Créer mon foyer'
+	String get createTitle => 'Créer mon foyer';
+
+	/// fr: 'Je suis le premier de la famille sur Mijoo.'
+	String get createDetail => 'Je suis le premier de la famille sur Mijoo.';
+
+	/// fr: 'Rejoindre un foyer'
+	String get joinTitle => 'Rejoindre un foyer';
+
+	/// fr: 'Quelqu’un de la famille m’a envoyé un code.'
+	String get joinDetail => 'Quelqu’un de la famille m’a envoyé un code.';
+
+	/// fr: 'Pas de code ? Demande à la personne qui utilise déjà Mijoo de t’en envoyer un depuis Mon compte.'
+	String get noCode => 'Pas de code ? Demande à la personne qui utilise déjà Mijoo de t’en envoyer un depuis Mon compte.';
+
+	/// fr: 'Rejoindre '
+	String get joinLead => 'Rejoindre ';
+
+	/// fr: 'un foyer'
+	String get joinHighlight => 'un foyer';
+
+	/// fr: 'Saisis le code reçu de ta famille.'
+	String get joinSubtitle => 'Saisis le code reçu de ta famille.';
+
+	/// fr: 'Code d’invitation'
+	String get codeLabel => 'Code d’invitation';
+
+	/// fr: 'MJ-4K7Q'
+	String get codeHint => 'MJ-4K7Q';
+
+	/// fr: 'Valable 48 heures après sa création.'
+	String get codeHelp => 'Valable 48 heures après sa création.';
+
+	/// fr: 'Rejoindre le foyer'
+	String get join => 'Rejoindre le foyer';
 }
 
 // Path: shell
@@ -833,11 +1241,154 @@ class Translations$shell$fr {
 	/// fr: 'Bonjour {name}'
 	String greetingName({required Object name}) => 'Bonjour ${name}';
 
-	/// fr: 'Cette partie arrive bientôt.'
-	String get comingSoon => 'Cette partie arrive bientôt.';
-
 	/// fr: 'Mon compte'
 	String get account => 'Mon compte';
+}
+
+// Path: shopping
+class Translations$shopping$fr {
+	Translations$shopping$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Mes courses'
+	String get title => 'Mes courses';
+
+	/// fr: 'Ranger dans le frigo'
+	String get store => 'Ranger dans le frigo';
+
+	/// fr: 'à acheter'
+	String get toBuy => 'à acheter';
+
+	/// fr: 'dans le panier'
+	String get inBasket => 'dans le panier';
+
+	/// fr: 'repas prévus'
+	String get plannedMeals => 'repas prévus';
+
+	/// fr: 'Ajouter un article (pain, lessive…)'
+	String get addHint => 'Ajouter un article (pain, lessive…)';
+
+	/// fr: 'Ajouter à la liste'
+	String get add => 'Ajouter à la liste';
+
+	/// fr: 'Ajouté à la main'
+	String get manual => 'Ajouté à la main';
+
+	/// fr: 'Ajouté par {name}'
+	String addedBy({required Object name}) => 'Ajouté par ${name}';
+
+	/// fr: 'il faut {quantity}'
+	String needed({required Object quantity}) => 'il faut ${quantity}';
+
+	/// fr: '{count} × {pack}'
+	String packed({required Object count, required Object pack}) => '${count} × ${pack}';
+
+	Map<String, String> get packs => {
+		'eggBox': 'boîte de 6',
+		'butter': 'plaquette de 250 g',
+		'cream': 'brique de 20 cl',
+		'milk': 'bouteille de 1 l',
+		'gratedCheese': 'sachet de 200 g',
+		'pasta': 'paquet de 500 g',
+		'rice': 'paquet de 1 kg',
+		'flour': 'paquet de 1 kg',
+	};
+
+	/// fr: 'Déjà dans le frigo'
+	String get reserved => 'Déjà dans le frigo';
+
+	/// fr: 'réservé · {count}'
+	String reservedCount({required Object count}) => 'réservé · ${count}';
+
+	/// fr: 'Réservé'
+	String get reservedTag => 'Réservé';
+
+	/// fr: '{meals} · {quantity}'
+	String reservedFor({required Object meals, required Object quantity}) => '${meals} · ${quantity}';
+
+	/// fr: 'Cocher {name}'
+	String check({required Object name}) => 'Cocher ${name}';
+
+	/// fr: 'Décocher {name}'
+	String uncheck({required Object name}) => 'Décocher ${name}';
+
+	/// fr: 'Ta liste est vide'
+	String get emptyTitle => 'Ta liste est vide';
+
+	/// fr: 'Ajoute des repas à ta semaine depuis l’onglet Repas : leurs ingrédients manquants arrivent ici. Tu peux aussi ajouter un article ci-dessus.'
+	String get emptyMessage => 'Ajoute des repas à ta semaine depuis l’onglet Repas : leurs ingrédients manquants arrivent ici. Tu peux aussi ajouter un article ci-dessus.';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+
+	/// fr: 'Quantité à acheter'
+	String get quantityTitle => 'Quantité à acheter';
+
+	/// fr: 'Il faut {quantity}.'
+	String neededExplained({required Object quantity}) => 'Il faut ${quantity}.';
+
+	/// fr: 'Il faut {quantity}. Arrondi au conditionnement : {pack}.'
+	String packExplained({required Object quantity, required Object pack}) => 'Il faut ${quantity}. Arrondi au conditionnement : ${pack}.';
+
+	/// fr: 'Rayon'
+	String get aisle => 'Rayon';
+
+	/// fr: 'Enregistrer'
+	String get save => 'Enregistrer';
+
+	/// fr: 'Retirer de la liste'
+	String get remove => 'Retirer de la liste';
+
+	/// fr: 'Moins'
+	String get less => 'Moins';
+
+	/// fr: 'Plus'
+	String get more => 'Plus';
+
+	/// fr: 'Ranger dans le frigo'
+	String get storeTitle => 'Ranger dans le frigo';
+
+	/// fr: '1 article coché. Ajuste ce que tu as vraiment acheté.'
+	String get storeMessageSingle => '1 article coché. Ajuste ce que tu as vraiment acheté.';
+
+	/// fr: '{count} articles cochés. Ajuste ce que tu as vraiment acheté.'
+	String storeMessageSeveral({required Object count}) => '${count} articles cochés. Ajuste ce que tu as vraiment acheté.';
+
+	/// fr: 'Hors frigo, retiré de la liste'
+	String get outsideFridge => 'Hors frigo, retiré de la liste';
+
+	/// fr: 'Les ingrédients rejoignent le frigo et quittent la liste. Ceux des repas prévus restent réservés.'
+	String get storeNote => 'Les ingrédients rejoignent le frigo et quittent la liste. Ceux des repas prévus restent réservés.';
+
+	/// fr: 'Retirer de la liste'
+	String get storeZero => 'Retirer de la liste';
+
+	/// fr: 'Ranger 1 article'
+	String get storeSingle => 'Ranger 1 article';
+
+	/// fr: 'Ranger {count} articles'
+	String storeSeveral({required Object count}) => 'Ranger ${count} articles';
+
+	/// fr: 'Plus tard'
+	String get later => 'Plus tard';
+
+	/// fr: 'Ranger {name} dans le frigo'
+	String keepInFridge({required Object name}) => 'Ranger ${name} dans le frigo';
+
+	/// fr: 'Ne pas ranger {name}'
+	String skipFridge({required Object name}) => 'Ne pas ranger ${name}';
+
+	/// fr: 'La liste de courses n’est pas disponible pour le moment.'
+	String get unavailable => 'La liste de courses n’est pas disponible pour le moment.';
+
+	/// fr: 'La connexion a échoué. Réessaie dans un instant.'
+	String get networkFailure => 'La connexion a échoué. Réessaie dans un instant.';
+
+	/// fr: 'Tu n’as pas accès à la liste de ce foyer.'
+	String get accessDenied => 'Tu n’as pas accès à la liste de ce foyer.';
 }
 
 // Path: welcome
@@ -971,6 +1522,30 @@ extension on Translations {
 			'account.allergiesSingle' => '1 allergie',
 			'account.allergiesSeveral' => ({required Object count}) => '${count} allergies',
 			'account.noLocation' => 'Commune non renseignée',
+			'account.editHousehold' => 'Modifier',
+			'account.members' => 'Membres',
+			'account.membersSingle' => '1 membre',
+			'account.membersSeveral' => ({required Object count}) => '${count} membres',
+			'account.you' => 'Toi',
+			'account.member' => 'Membre du foyer',
+			'account.nobody' => 'Personne d’autre pour l’instant',
+			'account.nobodyDetail' => 'Partage un code pour inviter',
+			'account.invite' => 'Inviter quelqu’un',
+			'account.inviteTitle' => 'Inviter dans ton foyer',
+			'account.inviteMessage' => 'Elle ou il crée son compte Mijoo, choisit « Rejoindre un foyer » et saisit ce code.',
+			'account.inviteCodeLabel' => ({required Object code}) => 'Code d’invitation ${code}',
+			'account.inviteValid' => 'Valable 48 h',
+			'account.inviteOnce' => 'Une seule fois',
+			'account.share' => 'Partager le code',
+			'account.copy' => 'Copier',
+			'account.copied' => 'Code copié',
+			'account.shareText' => ({required Object code}) => 'Rejoins notre foyer sur Mijoo avec le code ${code}, valable 48 heures. Crée ton compte puis choisis « Rejoindre un foyer ».',
+			'account.inviteNote' => 'La personne verra tout le foyer : frigo, idées, semaine et courses. Ne partage le code qu’avec elle.',
+			'account.leave' => 'Quitter ce foyer',
+			'account.leaveTitle' => 'Quitter ce foyer ?',
+			'account.leaveMessage' => 'Tu ne verras plus le frigo, les idées ni la liste de ce foyer. Tu pourras ensuite créer un foyer ou en rejoindre un autre avec un code.',
+			'account.leaveConfirm' => 'Quitter le foyer',
+			'account.cancel' => 'Annuler',
 			'auth.signIn' => 'Se connecter',
 			'auth.register' => 'Créer un compte',
 			'auth.name' => 'Nom',
@@ -1103,11 +1678,102 @@ extension on Translations {
 			'home.seeAll' => 'Tout voir',
 			'home.nothingToFinish' => 'Rien d’urgent dans ton frigo pour le moment.',
 			'home.mealIdea' => 'Idée du soir',
-			'home.mealSoonTitle' => 'Les idées de repas arrivent',
-			'home.mealSoonMessage' => 'Mijoo proposera des repas avec ce que tu as déjà au frigo.',
+			'home.mealSoonTitle' => 'Idées de repas',
+			'home.mealSoonMessage' => 'Trois repas avec ce que tu as déjà au frigo.',
 			'household.unavailable' => 'Ton foyer n’est pas accessible pour le moment. Réessaie dans un instant.',
 			'household.accessDenied' => 'Tu n’as pas accès à ce foyer.',
 			'household.networkFailure' => 'La connexion a échoué. Réessaie dans un instant.',
+			'household.inviteNotFound' => 'Ce code n’existe pas. Vérifie-le ou demande un nouveau code.',
+			'household.inviteExpired' => 'Ce code a expiré. Demande un nouveau code.',
+			'household.inviteAlreadyUsed' => 'Ce code a déjà servi. Demande un nouveau code.',
+			'meals.title' => 'Idées repas',
+			'meals.refresh' => 'Trois nouvelles idées',
+			'meals.forOne' => ({required Object minutes}) => 'Pour 1 · ${minutes} min max',
+			'meals.forSeveral' => ({required Object count, required Object minutes}) => 'Pour ${count} · ${minutes} min max',
+			'meals.without' => ({required Object label}) => 'sans ${label}',
+			'meals.noRestriction' => 'Aucun interdit déclaré',
+			'meals.toFinishSingle' => '1 à finir vite',
+			'meals.toFinishSeveral' => ({required Object count}) => '${count} à finir vite',
+			'meals.cravings.any' => 'Au choix',
+			'meals.cravings.quick' => 'Rapide',
+			'meals.cravings.vegetarian' => 'Végétarien',
+			'meals.cravings.comforting' => 'Réconfortant',
+			'meals.minutes' => ({required Object count}) => '${count} min',
+			'meals.servingsShort' => ({required Object count}) => '${count} pers.',
+			'meals.servingsSingle' => '1 personne',
+			'meals.servingsSeveral' => ({required Object count}) => '${count} personnes',
+			'meals.coverageAll' => 'Tout est dans le frigo',
+			'meals.coverage' => ({required Object count, required Object total}) => '${count} sur ${total} ingrédients du frigo',
+			'meals.toBuySingle' => '1 à acheter',
+			'meals.toBuySeveral' => ({required Object count}) => '${count} à acheter',
+			'meals.nothingToBuy' => 'Rien à acheter',
+			'meals.emptyTitle' => 'Qu’est-ce qu’on mange ?',
+			'meals.emptyMessage' => 'Mijoo te propose 3 repas avec ce qu’il y a dans ton frigo, en commençant par ce qui est à finir vite.',
+			'meals.find' => 'Trouver 3 idées',
+			'meals.generatingTitle' => 'Mijoo cherche tes repas',
+			'meals.generatingSingle' => 'Avec ton ingrédient, en commençant par ce qui est à finir vite.',
+			'meals.generatingSeveral' => ({required Object count}) => 'Avec tes ${count} ingrédients, en commençant par ceux à finir vite.',
+			'meals.generatingEmptyFridge' => 'Ton frigo est vide : Mijoo choisit des recettes simples.',
+			'meals.retry' => 'Réessayer',
+			'meals.finishFirst' => ({required Object name}) => '${name} à finir',
+			'meals.ingredients' => 'Ingrédients',
+			'meals.inFridgeCount' => ({required Object count, required Object total}) => '${count} sur ${total} dans le frigo',
+			'meals.allergyNote' => 'Vérifie les étiquettes : des allergies sont déclarées dans le foyer.',
+			'meals.labelNote' => 'Vérifie les étiquettes des produits avant de cuisiner.',
+			'meals.cooked' => 'J’ai cuisiné ce repas',
+			'meals.missingTitle' => 'Cette idée n’est plus proposée',
+			'meals.missingMessage' => 'Le foyer a reçu de nouvelles idées entre-temps.',
+			'meals.back' => 'Retour aux idées',
+			'meals.cookedTitle' => 'Bon appétit !',
+			'meals.cookedMessage' => 'Voici ce que Mijoo retire du frigo. Ajuste si besoin.',
+			'meals.cookedNothing' => 'Aucun ingrédient de cette recette ne vient du frigo.',
+			'meals.left' => ({required Object quantity}) => 'Il en reste ${quantity}',
+			'meals.historyNote' => 'Le repas rejoint l’historique : Mijoo évitera de le reproposer trop vite.',
+			'meals.updateFridge' => 'Mettre à jour le frigo',
+			'meals.saveMeal' => 'Enregistrer le repas',
+			'meals.keepFridge' => 'Ne rien retirer',
+			'meals.less' => ({required Object name}) => 'Retirer moins de ${name}',
+			'meals.more' => ({required Object name}) => 'Retirer plus de ${name}',
+			'meals.keep' => ({required Object name}) => 'Garder ${name}',
+			'meals.remove' => ({required Object name}) => 'Retirer ${name}',
+			'meals.unavailable' => 'Les idées de repas ne sont pas disponibles pour le moment.',
+			'meals.networkFailure' => 'La connexion a échoué. Réessaie dans un instant.',
+			'meals.accessDenied' => 'Tu n’as pas accès aux repas de ce foyer.',
+			'meals.busy' => 'Le service d’idées est très sollicité. Réessaie dans quelques minutes.',
+			'meals.quotaReached' => 'Les idées gratuites du jour sont épuisées. Réessaie demain matin.',
+			'meals.invalidResponse' => 'Les idées reçues étaient incomplètes. Réessaie.',
+			'meals.nothingSuitable' => 'Aucune idée ne respectait vos contraintes. Réessaie ou change d’envie.',
+			'meals.prep' => 'Préparation',
+			'meals.cook' => 'Cuisson',
+			'meals.people' => 'Personnes',
+			'meals.level' => 'Niveau',
+			'meals.difficulties.easy' => 'Facile',
+			'meals.difficulties.medium' => 'Moyen',
+			'meals.difficulties.hard' => 'Difficile',
+			'meals.photoBadge' => 'Photo d’illustration',
+			'meals.tabIngredients' => 'Ingrédients',
+			'meals.tabSteps' => 'Préparation',
+			'meals.servingsTitleSingle' => 'Pour 1 personne',
+			'meals.servingsTitleSeveral' => ({required Object count}) => 'Pour ${count} personnes',
+			'meals.servingsFollow' => 'Les quantités suivent',
+			'meals.servingsBase' => ({required Object count}) => 'Recette prévue pour ${count}',
+			'meals.fewerPeople' => 'Une personne de moins',
+			'meals.morePeople' => 'Une personne de plus',
+			'meals.inFridgeLine' => 'Dans le frigo',
+			'meals.missingLine' => ({required Object quantity}) => 'Il en manque ${quantity}',
+			'meals.toBuyLine' => 'À acheter',
+			'meals.orSubstituteLine' => ({required Object line, required Object substitute}) => '${line} · ou ${substitute}',
+			'meals.stepNumber' => ({required Object number}) => 'Étape ${number}',
+			'meals.stepCountSingle' => '1 étape',
+			'meals.stepCountSeveral' => ({required Object count}) => '${count} étapes',
+			'meals.week' => 'Ma semaine',
+			'meals.weekSummarySingle' => ({required Object portions}) => '1 repas · ${portions} portions',
+			'meals.weekSummarySeveral' => ({required Object count, required Object portions}) => '${count} repas · ${portions} portions',
+			'meals.tonight' => 'Idées du soir',
+			'meals.inWeek' => 'Dans ma semaine',
+			'meals.cookedTag' => 'Cuisiné',
+			'meals.addToWeek' => 'Ajouter à ma semaine',
+			'meals.removeFromWeek' => 'Retirer de ma semaine',
 			'scan.takingPhoto' => 'Ouverture de l’appareil photo…',
 			'scan.analyzingTitle' => 'Mijoo regarde ton frigo',
 			'scan.analyzingMessage' => 'On repère les ingrédients visibles, ça prend quelques secondes.',
@@ -1216,14 +1882,83 @@ extension on Translations {
 			'setup.doneSubtitle' => 'Ton foyer est configuré.',
 			'setup.doneMessage' => 'Ajoute ce qu’il y a dans ton frigo pour recevoir tes premières idées de repas.',
 			'setup.start' => 'Découvrir Mijoo',
+			'setup.editTitle' => 'Modifier mon foyer',
+			'setup.editComposition' => 'Composition',
+			'setup.editPreferences' => 'Goûts',
+			'setup.editBudget' => 'Budget et commune',
+			'setup.save' => 'Enregistrer',
+			'setup.chooseLead' => 'Ton ',
+			'setup.chooseHighlight' => 'foyer',
+			'setup.chooseSubtitle' => 'Tout le monde chez toi partage le même frigo et la même liste.',
+			'setup.createTitle' => 'Créer mon foyer',
+			'setup.createDetail' => 'Je suis le premier de la famille sur Mijoo.',
+			'setup.joinTitle' => 'Rejoindre un foyer',
+			'setup.joinDetail' => 'Quelqu’un de la famille m’a envoyé un code.',
+			'setup.noCode' => 'Pas de code ? Demande à la personne qui utilise déjà Mijoo de t’en envoyer un depuis Mon compte.',
+			'setup.joinLead' => 'Rejoindre ',
+			'setup.joinHighlight' => 'un foyer',
+			'setup.joinSubtitle' => 'Saisis le code reçu de ta famille.',
+			'setup.codeLabel' => 'Code d’invitation',
+			'setup.codeHint' => 'MJ-4K7Q',
+			'setup.codeHelp' => 'Valable 48 heures après sa création.',
+			'setup.join' => 'Rejoindre le foyer',
 			'shell.home' => 'Accueil',
 			'shell.fridge' => 'Frigo',
 			'shell.meals' => 'Repas',
 			'shell.shopping' => 'Courses',
 			'shell.greeting' => 'Bonjour',
 			'shell.greetingName' => ({required Object name}) => 'Bonjour ${name}',
-			'shell.comingSoon' => 'Cette partie arrive bientôt.',
 			'shell.account' => 'Mon compte',
+			'shopping.title' => 'Mes courses',
+			'shopping.store' => 'Ranger dans le frigo',
+			'shopping.toBuy' => 'à acheter',
+			'shopping.inBasket' => 'dans le panier',
+			'shopping.plannedMeals' => 'repas prévus',
+			'shopping.addHint' => 'Ajouter un article (pain, lessive…)',
+			'shopping.add' => 'Ajouter à la liste',
+			'shopping.manual' => 'Ajouté à la main',
+			'shopping.addedBy' => ({required Object name}) => 'Ajouté par ${name}',
+			'shopping.needed' => ({required Object quantity}) => 'il faut ${quantity}',
+			'shopping.packed' => ({required Object count, required Object pack}) => '${count} × ${pack}',
+			'shopping.packs.eggBox' => 'boîte de 6',
+			'shopping.packs.butter' => 'plaquette de 250 g',
+			'shopping.packs.cream' => 'brique de 20 cl',
+			'shopping.packs.milk' => 'bouteille de 1 l',
+			'shopping.packs.gratedCheese' => 'sachet de 200 g',
+			'shopping.packs.pasta' => 'paquet de 500 g',
+			'shopping.packs.rice' => 'paquet de 1 kg',
+			'shopping.packs.flour' => 'paquet de 1 kg',
+			'shopping.reserved' => 'Déjà dans le frigo',
+			'shopping.reservedCount' => ({required Object count}) => 'réservé · ${count}',
+			'shopping.reservedTag' => 'Réservé',
+			'shopping.reservedFor' => ({required Object meals, required Object quantity}) => '${meals} · ${quantity}',
+			'shopping.check' => ({required Object name}) => 'Cocher ${name}',
+			'shopping.uncheck' => ({required Object name}) => 'Décocher ${name}',
+			'shopping.emptyTitle' => 'Ta liste est vide',
+			'shopping.emptyMessage' => 'Ajoute des repas à ta semaine depuis l’onglet Repas : leurs ingrédients manquants arrivent ici. Tu peux aussi ajouter un article ci-dessus.',
+			'shopping.retry' => 'Réessayer',
+			'shopping.quantityTitle' => 'Quantité à acheter',
+			'shopping.neededExplained' => ({required Object quantity}) => 'Il faut ${quantity}.',
+			'shopping.packExplained' => ({required Object quantity, required Object pack}) => 'Il faut ${quantity}. Arrondi au conditionnement : ${pack}.',
+			'shopping.aisle' => 'Rayon',
+			'shopping.save' => 'Enregistrer',
+			'shopping.remove' => 'Retirer de la liste',
+			'shopping.less' => 'Moins',
+			'shopping.more' => 'Plus',
+			'shopping.storeTitle' => 'Ranger dans le frigo',
+			'shopping.storeMessageSingle' => '1 article coché. Ajuste ce que tu as vraiment acheté.',
+			'shopping.storeMessageSeveral' => ({required Object count}) => '${count} articles cochés. Ajuste ce que tu as vraiment acheté.',
+			'shopping.outsideFridge' => 'Hors frigo, retiré de la liste',
+			'shopping.storeNote' => 'Les ingrédients rejoignent le frigo et quittent la liste. Ceux des repas prévus restent réservés.',
+			'shopping.storeZero' => 'Retirer de la liste',
+			'shopping.storeSingle' => 'Ranger 1 article',
+			'shopping.storeSeveral' => ({required Object count}) => 'Ranger ${count} articles',
+			'shopping.later' => 'Plus tard',
+			'shopping.keepInFridge' => ({required Object name}) => 'Ranger ${name} dans le frigo',
+			'shopping.skipFridge' => ({required Object name}) => 'Ne pas ranger ${name}',
+			'shopping.unavailable' => 'La liste de courses n’est pas disponible pour le moment.',
+			'shopping.networkFailure' => 'La connexion a échoué. Réessaie dans un instant.',
+			'shopping.accessDenied' => 'Tu n’as pas accès à la liste de ce foyer.',
 			'welcome.appName' => 'Mijoo',
 			'welcome.titleLead' => 'Cuisine malin\navec ',
 			'welcome.titleHighlight' => 'ton frigo',

@@ -29,7 +29,7 @@ class MjStepProgress extends StatelessWidget {
           ),
         ],
         const SizedBox(width: MjSpacing.fieldGap),
-        Text('$current/$total', style: MjTextStyles.detail.copyWith(fontWeight: FontWeight.w700)),
+        Text('$current/$total', style: MjTextStyles.detail.copyWith(fontWeight: FontWeight.w500)),
       ],
     ),
   );

@@ -12,7 +12,7 @@ class MjRoundIconButton extends StatelessWidget {
 
   final IconData icon;
   final String tooltip;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool highlighted;
 
   @override

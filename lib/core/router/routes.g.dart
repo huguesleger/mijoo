@@ -12,9 +12,12 @@ List<RouteBase> get $appRoutes => [
   $signInPageRoute,
   $registerPageRoute,
   $forgotPasswordPageRoute,
+  $mealDetailPageRoute,
   $barcodePageRoute,
   $scanPageRoute,
   $launchPageRoute,
+  $householdEditPageRoute,
+  $joinPageRoute,
   $setupPageRoute,
   $welcomePageRoute,
 ];
@@ -249,6 +252,34 @@ mixin $ForgotPasswordPageRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+RouteBase get $mealDetailPageRoute => GoRouteData.$route(
+  path: '/meal/:id',
+  name: 'mealDetail',
+  hasOverriddenOnExit: false,
+  factory: $MealDetailPageRoute._fromState,
+);
+
+mixin $MealDetailPageRoute on GoRouteData {
+  static MealDetailPageRoute _fromState(GoRouterState state) => MealDetailPageRoute(id: state.pathParameters['id']!);
+
+  MealDetailPageRoute get _self => this as MealDetailPageRoute;
+
+  @override
+  String get location => GoRouteData.$location('/meal/${Uri.encodeComponent(_self.id)}');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) => context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
 RouteBase get $barcodePageRoute => GoRouteData.$route(
   path: '/barcode',
   name: 'barcode',
@@ -331,6 +362,58 @@ mixin $LaunchPageRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/launch');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) => context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $householdEditPageRoute => GoRouteData.$route(
+  path: '/household',
+  name: 'householdEdit',
+  hasOverriddenOnExit: false,
+  factory: $HouseholdEditPageRoute._fromState,
+);
+
+mixin $HouseholdEditPageRoute on GoRouteData {
+  static HouseholdEditPageRoute _fromState(GoRouterState state) => const HouseholdEditPageRoute();
+
+  @override
+  String get location => GoRouteData.$location('/household');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) => context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $joinPageRoute => GoRouteData.$route(
+  path: '/join',
+  name: 'join',
+  hasOverriddenOnExit: false,
+  factory: $JoinPageRoute._fromState,
+);
+
+mixin $JoinPageRoute on GoRouteData {
+  static JoinPageRoute _fromState(GoRouterState state) => const JoinPageRoute();
+
+  @override
+  String get location => GoRouteData.$location('/join');
 
   @override
   void go(BuildContext context) => context.go(location);

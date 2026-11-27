@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import 'package:mijoo/core/i18n/translations.g.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
-import 'package:mijoo/features/setup/presentation/bloc/setup_cubit.dart';
+import 'package:mijoo/features/setup/presentation/bloc/setup_draft.dart';
 import 'package:mijoo/features/setup/presentation/widgets/setup_portions_summary.dart';
 import 'package:mijoo/features/setup/presentation/widgets/setup_prep_time_tile.dart';
 
 const List<int> _prepTimes = <int>[15, 30, 45, 60, 90];
 
 class SetupHouseholdStep extends StatelessWidget {
-  const SetupHouseholdStep({required this.draft, super.key});
+  const SetupHouseholdStep({required this.draft, required this.onChanged, super.key});
 
   final SetupDraft draft;
+  final ValueChanged<SetupDraft> onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final SetupCubit cubit = context.read<SetupCubit>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -32,7 +31,7 @@ class SetupHouseholdStep extends StatelessWidget {
           maximum: 12,
           decreaseLabel: t.setup.decrease,
           increaseLabel: t.setup.increase,
-          onChanged: (int adults) => cubit.update(adults: some(adults)),
+          onChanged: (int adults) => onChanged(draft.copyWith(adults: some(adults))),
         ),
         const SizedBox(height: 10),
         MjCounter(
@@ -45,7 +44,7 @@ class SetupHouseholdStep extends StatelessWidget {
           maximum: 12,
           decreaseLabel: t.setup.decrease,
           increaseLabel: t.setup.increase,
-          onChanged: (int children) => cubit.update(children: some(children)),
+          onChanged: (int children) => onChanged(draft.copyWith(children: some(children))),
         ),
         const SizedBox(height: MjSpacing.large),
         Text(t.setup.prepTime, style: MjTextStyles.fieldLabel),
@@ -58,7 +57,7 @@ class SetupHouseholdStep extends StatelessWidget {
                 child: SetupPrepTimeTile(
                   minutes: minutes,
                   selected: draft.maxPrepMinutes == minutes,
-                  onTap: () => cubit.update(maxPrepMinutes: some(minutes)),
+                  onTap: () => onChanged(draft.copyWith(maxPrepMinutes: some(minutes))),
                 ),
               ),
           ],

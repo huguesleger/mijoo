@@ -40,9 +40,9 @@ class SetupEditingContent extends StatelessWidget {
         ),
         const SizedBox(height: MjSpacing.large),
         switch (step) {
-          SetupStep.household => SetupHouseholdStep(draft: draft),
-          SetupStep.preferences => SetupPreferencesStep(draft: draft),
-          SetupStep.budget => SetupBudgetStep(draft: draft),
+          SetupStep.household => SetupHouseholdStep(draft: draft, onChanged: cubit.change),
+          SetupStep.preferences => SetupPreferencesStep(draft: draft, onChanged: cubit.change),
+          SetupStep.budget => SetupBudgetStep(draft: draft, onChanged: cubit.change),
         },
         ...failure.match(
           () => const <Widget>[],

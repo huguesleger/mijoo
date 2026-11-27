@@ -39,17 +39,3 @@ class MealsBranch extends StatefulShellBranchData {
 class ShoppingBranch extends StatefulShellBranchData {
   const ShoppingBranch();
 }
-
-class MealsPageRoute extends GoRouteData with $MealsPageRoute {
-  const MealsPageRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) => TabPlaceholder(title: t.shell.meals);
-}
-
-class ShoppingPageRoute extends GoRouteData with $ShoppingPageRoute {
-  const ShoppingPageRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) => TabPlaceholder(title: t.shell.shopping);
-}

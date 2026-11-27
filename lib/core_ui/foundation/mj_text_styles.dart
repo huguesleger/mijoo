@@ -46,17 +46,17 @@ abstract final class MjTextStyles {
   static const counter = TextStyle(
     color: MjColors.ink,
     fontSize: 20,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w500,
   );
   static const choice = TextStyle(
     color: MjColors.ink,
     fontSize: 14,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
   );
   static const sectionTitle = TextStyle(
     color: MjColors.ink,
     fontSize: 16,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w500,
   );
   static const chip = TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500);
   static const caption = TextStyle(
@@ -80,7 +80,7 @@ abstract final class MjTextStyles {
   static const itemTitle = TextStyle(
     color: MjColors.ink,
     fontSize: 15,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
   );
   static const detail = TextStyle(
     color: MjColors.secondaryText,
@@ -88,7 +88,7 @@ abstract final class MjTextStyles {
     fontWeight: FontWeight.w500,
     height: 18 / 13,
   );
-  static const tag = TextStyle(fontSize: 12, fontWeight: FontWeight.w700);
+  static const tag = TextStyle(fontSize: 12, fontWeight: FontWeight.w500);
   static const button = TextStyle(
     fontFamily: FontFamily.comfortaa,
     fontSize: 17,

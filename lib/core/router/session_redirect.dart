@@ -15,10 +15,11 @@ Option<String> sessionRedirect(SessionState session, String location) => switch 
   SignedOut() => _publicPaths.contains(location) ? none() : some(welcomePath),
   SignedIn(:final household) => switch (household) {
     HouseholdLoading() => _stayOn(launchPath, location),
-    HouseholdMissing() => _stayOn(setupPath, location),
+    HouseholdMissing() => location == joinPath ? none() : _stayOn(setupPath, location),
     HouseholdFound(:final household) => household.profile.match(
       () => _stayOn(setupPath, location),
-      (_) => _publicPaths.contains(location) || location == launchPath ? some(homePath) : none(),
+      (_) =>
+          _publicPaths.contains(location) || location == launchPath || location == joinPath ? some(homePath) : none(),
     ),
   },
 };

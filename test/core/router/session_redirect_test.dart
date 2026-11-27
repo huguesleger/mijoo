@@ -75,4 +75,14 @@ void main() {
     expect(sessionRedirect(ready, '/account'), none<String>());
     expect(sessionRedirect(ready, setupPath), none<String>());
   });
+
+  test('lets a parent without household enter an invitation code', () {
+    expect(sessionRedirect(signedIn(const HouseholdMissing()), joinPath), none<String>());
+    expect(sessionRedirect(signedIn(const HouseholdMissing()), homePath), some(setupPath));
+  });
+
+  test('brings a parent who just joined to the home screen', () {
+    expect(sessionRedirect(signedIn(found(some(profile))), joinPath), some(homePath));
+    expect(sessionRedirect(signedIn(found(none())), joinPath), some(setupPath));
+  });
 }

@@ -11,3 +11,15 @@ final class HouseholdAccessDenied extends AppFailure {
 final class HouseholdNetworkFailure extends AppFailure {
   const HouseholdNetworkFailure();
 }
+
+final class InviteNotFound extends AppFailure {
+  const InviteNotFound();
+}
+
+final class InviteExpired extends AppFailure {
+  const InviteExpired();
+}
+
+final class InviteAlreadyUsed extends AppFailure {
+  const InviteAlreadyUsed();
+}

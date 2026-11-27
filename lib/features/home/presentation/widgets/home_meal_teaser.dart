@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:mijoo/core/router/routes.dart';
 import 'package:mijoo/core/i18n/translations.g.dart';
 import 'package:mijoo/core_ui/core_ui.dart';
 
@@ -6,13 +8,8 @@ class HomeMealTeaser extends StatelessWidget {
   const HomeMealTeaser({super.key});
 
   @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(MjSpacing.fieldGap),
-    decoration: BoxDecoration(
-      color: MjColors.onInk,
-      borderRadius: MjRadius.card,
-      border: Border.all(color: MjColors.cardBorder),
-    ),
+  Widget build(BuildContext context) => MjListCard(
+    onTap: () => const MealsPageRoute().go(context),
     child: Row(
       children: <Widget>[
         Assets.images.bolBleu.image(width: 92, height: 92, fit: BoxFit.contain, excludeFromSemantics: true),
@@ -27,6 +24,7 @@ class HomeMealTeaser extends StatelessWidget {
             ],
           ),
         ),
+        const Icon(LucideIcons.chevronRight, color: MjColors.placeholder),
       ],
     ),
   );

@@ -48,7 +48,7 @@ class MjNavigationItem extends StatelessWidget {
                 style: MjTextStyles.navigation.copyWith(
                   color: MjColors.onInk,
                   fontSize: 13,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
